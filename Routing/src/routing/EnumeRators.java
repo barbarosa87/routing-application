@@ -9,5 +9,5 @@ package routing;
  * @author barbarosa
  */
 public enum EnumeRators {
-    Node,Area,NodesNeighbours,AreasNeighbours
+    Node,Area,NodesNeighbours,AreasNeighbours,GeolocationDb
 }

@@ -32,18 +32,34 @@ public class frmNewRow extends javax.swing.JFrame {
     public frmNewRow(String Tab) {
         initComponents();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        //btnPlusAreas.setIcon(new ImageIcon("./Resources/plus-icon.png"));
-        //btnPlusNodes.setIcon(new ImageIcon("./Resources/plus-icon.png"));
-        
         if (Tab.equals("Areas")){
             SelectionTabPanel.setSelectedIndex(SelectionTabPanel.indexOfTab("Areas"));
             SelectionTabPanel.setEnabledAt(SelectionTabPanel.indexOfTab("Nodes"), false);
         }else if(Tab.equals("Nodes")){
             SelectionTabPanel.setSelectedIndex(SelectionTabPanel.indexOfTab("Nodes"));
             SelectionTabPanel.setEnabledAt(SelectionTabPanel.indexOfTab("Areas"), false);
-            bxArea.doClick();
+            FillFrmCmbs();
+         //   bxArea.doClick();
         }
-        //TODO Remove At End:
+    }
+    
+    
+    public final void FillFrmCmbs(){
+         DbConnection db=new DbConnection();
+            Connection conn=db.Connect();
+   try{
+         ResultSet rs=db.SelectFromDb(EnumeRators.Area, "Select * From ", conn);
+   if (rs!=null){
+      while(rs.next()){
+         SlArea.addItem(rs.getString("ID"));
+     }
+      conn.close();
+      rs.close();
+   }
+    }catch(SQLException e){
+    e.printStackTrace();
+}
+   FillNeighComboBoxes();
     }
 
     /** This method is called from within the constructor to
@@ -58,20 +74,17 @@ public class frmNewRow extends javax.swing.JFrame {
         SelectionTabPanel = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         bxArea = new javax.swing.JCheckBox();
-        bxCoordinator = new javax.swing.JCheckBox();
         SlArea = new javax.swing.JComboBox();
         NeighbourPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        ComboPlusAreas = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
-        btnPlusAreas = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         ComboPlusNodes = new javax.swing.JComboBox();
         btnPlusNodes = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         AddedComboNeigh = new javax.swing.JComboBox();
-        SlCoordinatorArea = new javax.swing.JComboBox();
+        Txt_Freq = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -83,44 +96,29 @@ public class frmNewRow extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         bxArea.setText("Area Flag");
         bxArea.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 bxAreaItemStateChanged(evt);
             }
         });
-
-        bxCoordinator.setText("Coordinator Flag");
-        bxCoordinator.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                bxCoordinatorItemStateChanged(evt);
-            }
-        });
+        jPanel1.add(bxArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 97, -1));
+        jPanel1.add(SlArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 70, -1));
 
         NeighbourPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setForeground(new java.awt.Color(255, 0, 51));
         jLabel3.setText("Pick Neighbours");
-        NeighbourPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 145, -1));
-        NeighbourPanel.add(ComboPlusAreas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 50, -1));
+        NeighbourPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 145, -1));
 
         jLabel4.setText("Available Neighbours");
         NeighbourPanel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 33, -1, -1));
 
-        btnPlusAreas.setText("+");
-        btnPlusAreas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPlusAreasActionPerformed(evt);
-            }
-        });
-        NeighbourPanel.add(btnPlusAreas, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, -1, 20));
-
         jLabel5.setText("Added Neighbours");
         NeighbourPanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 108, -1, -1));
-
-        jLabel6.setText("Areas");
-        NeighbourPanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, -1, -1));
-        NeighbourPanel.add(ComboPlusNodes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 50, -1));
+        NeighbourPanel.add(ComboPlusNodes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 50, -1));
 
         btnPlusNodes.setText("+");
         btnPlusNodes.addActionListener(new java.awt.event.ActionListener() {
@@ -128,46 +126,23 @@ public class frmNewRow extends javax.swing.JFrame {
                 btnPlusNodesActionPerformed(evt);
             }
         });
-        NeighbourPanel.add(btnPlusNodes, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, -1, 20));
+        NeighbourPanel.add(btnPlusNodes, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, -1, 20));
 
         jLabel7.setText("Nodes");
-        NeighbourPanel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, -1, -1));
+        NeighbourPanel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, -1, -1));
         NeighbourPanel.add(AddedComboNeigh, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 140, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(170, 170, 170)
-                        .addComponent(NeighbourPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(bxArea, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SlArea, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(33, 33, 33)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(SlCoordinatorArea, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bxCoordinator))))
-                .addGap(10, 10, 10))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bxArea)
-                    .addComponent(bxCoordinator))
-                .addGap(7, 7, 7)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(SlArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SlCoordinatorArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
-                .addComponent(NeighbourPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        jPanel1.add(NeighbourPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 157, 220));
+
+        Txt_Freq.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                Txt_FreqKeyTyped(evt);
+            }
+        });
+        jPanel1.add(Txt_Freq, new org.netbeans.lib.awtextra.AbsoluteConstraints(141, 72, 100, -1));
+
+        jLabel8.setText("Frequency");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(56, 75, -1, -1));
 
         SelectionTabPanel.addTab("Nodes", jPanel1);
 
@@ -176,7 +151,7 @@ public class frmNewRow extends javax.swing.JFrame {
         jLabel1.setText("Start Frequency");
         jPanel3.add(jLabel1);
 
-        TextStartFreq.setFont(new java.awt.Font("Arial", 0, 8)); // NOI18N
+        TextStartFreq.setFont(new java.awt.Font("Arial", 0, 8));
         TextStartFreq.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TextStartFreqKeyTyped(evt);
@@ -187,7 +162,7 @@ public class frmNewRow extends javax.swing.JFrame {
         jLabel2.setText("Stop Frequency");
         jPanel3.add(jLabel2);
 
-        TextStopFreq.setFont(new java.awt.Font("Arial", 0, 8)); // NOI18N
+        TextStopFreq.setFont(new java.awt.Font("Arial", 0, 8));
         TextStopFreq.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TextStopFreqKeyTyped(evt);
@@ -250,52 +225,44 @@ public class frmNewRow extends javax.swing.JFrame {
 
     private void bxAreaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_bxAreaItemStateChanged
         // TODO add your handling code here:
-        if(evt.getStateChange()==1){
-            ComboPlusAreas.removeAllItems();
-            ComboPlusNodes.removeAllItems();
-            AddedComboNeigh.removeAllItems();
-            SlCoordinatorArea.removeAllItems();
-            bxCoordinator.setSelected(false);
-            SlCoordinatorArea.setEnabled(false);
-            SlArea.setEnabled(true);
-            NeighbourPanel.setVisible(false);
+//        if(evt.getStateChange()==1){
+//            
+//            ComboPlusNodes.removeAllItems();
+//            AddedComboNeigh.removeAllItems();
+//            SlArea.setEnabled(true);
+//            NeighbourPanel.setVisible(false);
             //Populatin SelectAreaComboBox
-            DbConnection db=new DbConnection();
-            Connection conn=db.Connect();
-   try{
-         ResultSet rs=db.SelectFromDb(EnumeRators.Area, "Select * From ", conn);
-   if (rs!=null){
-      while(rs.next()){
-         SlArea.addItem(rs.getString("ID"));
-     }
-      conn.close();
-      rs.close();
-   }
-    }catch(SQLException e){
-    e.printStackTrace();
-}
-        }else if(evt.getStateChange()==2){
-            SlArea.setEnabled(false);
-            SlArea.removeAllItems();
-            NeighbourPanel.setVisible(true);
-            FillNeighComboBoxes();
-        }
-        
+//            DbConnection db=new DbConnection();
+//            Connection conn=db.Connect();
+//   try{
+//         ResultSet rs=db.SelectFromDb(EnumeRators.Area, "Select * From ", conn);
+//   if (rs!=null){
+//      while(rs.next()){
+//         SlArea.addItem(rs.getString("ID"));
+//     }
+//      conn.close();
+//      rs.close();
+//   }
+//    }catch(SQLException e){
+//    e.printStackTrace();
+//}
+////        }else if(evt.getStateChange()==2){
+////            SlArea.setEnabled(false);
+////            SlArea.removeAllItems();
+//            //NeighbourPanel.setVisible(true);
+//            FillNeighComboBoxes();
+////        }
+//        
     }//GEN-LAST:event_bxAreaItemStateChanged
     //Set Plus Combo Boxes
     public void FillNeighComboBoxes(){
         DbConnection db=new DbConnection();
         Connection conn=db.Connect();
         try{
-        ResultSet rs=db.SelectFromDb(EnumeRators.Area,"Select * From ", conn);
+        
+        ResultSet  rs=db.SelectFromDb(EnumeRators.Node,"Select * From ", conn);
                 while(rs.next()){
-                    ComboPlusAreas.addItem(rs.getString("ID"));
-                }
-                rs=db.SelectFromDb(EnumeRators.Node,"Select * From ", conn);
-                while(rs.next()){
-                    if(rs.getInt("Area_ID")==-1){
-                        ComboPlusNodes.addItem(rs.getString("ID"));
-                    }                    
+                        ComboPlusNodes.addItem(rs.getString("ID"));                  
                 }
             rs.close();
             conn.close();
@@ -313,46 +280,19 @@ if(SelectionTabPanel.getSelectedIndex()==SelectionTabPanel.indexOfTab("Nodes")){
    DbConnection db=new DbConnection();
    Connection conn=db.Connect(); 
    try{
-   
    int KeyNodesCount=db.ReturnUniqueKey(EnumeRators.Node, conn);
-   //int KeyAreasCount=db.ReturnUniqueKey(EnumeRators.Area, conn);
-   
     if (bxArea.isSelected()){
        if(SlArea.getItemCount()>0){
-       db.AddToDb( "INSERT INTO Nodes (ID,Area_flag,Coordinator_flag,Area_ID) VALUES (" + (KeyNodesCount+1)+","+ "1,0," + SlArea.getSelectedItem()+")", conn);
+       db.AddToDb( "INSERT INTO Nodes (ID,Area_flag,Area_ID,Frequency) VALUES (" + (KeyNodesCount+1)+"," + "1," + SlArea.getSelectedItem()+ "," + Integer.parseInt(Txt_Freq.getText()) +")", conn);
        FrmNodes.NodesTm.fireTableDataChanged();
        }else{
            JOptionPane.showMessageDialog(this, "You should pick an area to include the node", "Warning", JOptionPane.ERROR_MESSAGE);
+           conn.close();
        }
    }
     else{
-        if(bxCoordinator.isSelected()){
-           
-            if(AreasID.size()==1){
-                 db.AddToDb( "INSERT INTO Nodes (ID,Area_flag,Coordinator_flag,Area_ID) VALUES (" +(KeyNodesCount+1)+",0,1,"+ SlCoordinatorArea.getSelectedItem()+")", conn);
-            //Add Neighbours
-            for (int i:AreasID){
-                db.AddToDb("INSERT INTO AreasNeighbours(ID,NodeID,NeighbourAreaID) VALUES ("+(db.ReturnUniqueKey(EnumeRators.AreasNeighbours, conn)+1)+"," +(KeyNodesCount+1)+","+i+")", conn);
-            }    
-            }else if(AreasID.size()>1){
-              JOptionPane.showMessageDialog(this, "The coordinator node can only have one area as a Neighbour", "Warning", JOptionPane.ERROR_MESSAGE);
-            }
-            for (int i:NodesID){
-                db.AddToDb("INSERT INTO NodesNeighbours(ID,NodeID,NeighbourNodeID) VALUES ("+(db.ReturnUniqueKey(EnumeRators.NodesNeighbours, conn)+1)+"," +(KeyNodesCount+1)+","+i+")", conn);
-            }
-            FrmNodes.NodesTm.fireTableDataChanged();
-        }
-        else{
-            db.AddToDb( "INSERT INTO Nodes (ID,Area_flag,Coordinator_flag,Area_ID) VALUES (" + (KeyNodesCount+1)+",0,0,-1)", conn);
-            //Add Neighbours
-            for (int i:AreasID){
-                db.AddToDb("INSERT INTO AreasNeighbours(ID,NodeID,NeighbourAreaID) VALUES ("+(db.ReturnUniqueKey(EnumeRators.AreasNeighbours, conn)+1)+"," +(KeyNodesCount+1)+","+i+")", conn);
-            }
-            for (int i:NodesID){
-                db.AddToDb("INSERT INTO AreasNeighbours(ID,NodeID,NeighbourAreaID) VALUES ("+(db.ReturnUniqueKey(EnumeRators.AreasNeighbours, conn)+1)+"," +(KeyNodesCount+1)+","+i+")", conn);
-            }
-            FrmNodes.NodesTm.fireTableDataChanged();
-        }
+       db.AddToDb( "INSERT INTO Nodes (ID,Area_flag,Area_ID,Frequency) VALUES (" + (KeyNodesCount+1)+"," + "0,-1," + Integer.parseInt(Txt_Freq.getText()) +")", conn);
+       FrmNodes.NodesTm.fireTableDataChanged();
     }
     NodesID.clear();
     AreasID.clear();
@@ -378,37 +318,6 @@ if(SelectionTabPanel.getSelectedIndex()==SelectionTabPanel.indexOfTab("Nodes")){
 
 
 }//GEN-LAST:event_btnAddNodeActionPerformed
-
-private void btnPlusAreasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlusAreasActionPerformed
-    if(ComboPlusAreas.getSelectedItem()!=null){
-     AddedComboNeigh.addItem(" Area with ID: "+ComboPlusAreas.getSelectedItem());
-     AreasID.add(Integer.parseInt(ComboPlusAreas.getSelectedItem().toString()));
-    }
-}//GEN-LAST:event_btnPlusAreasActionPerformed
-
-private void bxCoordinatorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_bxCoordinatorItemStateChanged
-if(evt.getStateChange()==1){
-    bxArea.setSelected(false);
-    SlCoordinatorArea.setEnabled(true);
-    DbConnection db=new DbConnection();
-    Connection conn=db.Connect();
-      try{
-         ResultSet rs=db.SelectFromDb(EnumeRators.Area, "Select * From ", conn);
-   if (rs!=null){
-      while(rs.next()){
-         SlCoordinatorArea.addItem(rs.getString("ID"));
-     }
-      conn.close();
-      rs.close();
-   }
-    }catch(SQLException e){
-    e.printStackTrace();
-}
-}else if(evt.getStateChange()==2){
-SlCoordinatorArea.removeAllItems();
-SlCoordinatorArea.setEnabled(false);
-}
-}//GEN-LAST:event_bxCoordinatorItemStateChanged
 
 private void btnPlusNodesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlusNodesActionPerformed
  if(ComboPlusNodes.getSelectedItem()!=null){
@@ -436,32 +345,49 @@ if ((Character.isDigit(c)) || (c==KeyEvent.VK_BACK_SPACE) || (c==KeyEvent.VK_DEL
 }
 }//GEN-LAST:event_TextStopFreqKeyTyped
 
+private void Txt_FreqKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Txt_FreqKeyTyped
+char c=evt.getKeyChar();
+if ((Character.isDigit(c)) || (c==KeyEvent.VK_BACK_SPACE) || (c==KeyEvent.VK_DELETE)){
+    
+}else{
+    evt.consume();
+}
+}//GEN-LAST:event_Txt_FreqKeyTyped
+private boolean ValidateInput(){
+    return true;
+}
+
+
+//private void CreateGeolocationDb(){
+//   DbConnection db=new DbConnection();
+//   Connection conn=db.Connect(); 
+//   
+//   }
+    
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox AddedComboNeigh;
-    private javax.swing.JComboBox ComboPlusAreas;
     private javax.swing.JComboBox ComboPlusNodes;
     private javax.swing.JPanel NeighbourPanel;
     private javax.swing.JTabbedPane SelectionTabPanel;
     private javax.swing.JComboBox SlArea;
-    private javax.swing.JComboBox SlCoordinatorArea;
     private javax.swing.JTextField TextStartFreq;
     private javax.swing.JTextField TextStopFreq;
+    private javax.swing.JTextField Txt_Freq;
     private javax.swing.JButton btnAddNode;
-    private javax.swing.JButton btnPlusAreas;
     private javax.swing.JButton btnPlusNodes;
     private javax.swing.JCheckBox bxArea;
-    private javax.swing.JCheckBox bxCoordinator;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

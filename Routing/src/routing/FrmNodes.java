@@ -182,6 +182,8 @@ private void btnDeleteRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
      * @param args the command line arguments
      */
    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel NodesTableButtons;
     private javax.swing.JPanel NodesTablePanel;

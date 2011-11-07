@@ -115,18 +115,19 @@ public int ReturnUniqueKey(EnumeRators TableType,Connection conn){
         case Node:Type="Nodes";break;
         case NodesNeighbours:Type="NodesNeighbours";break;
         case AreasNeighbours:Type="AreasNeighbours";break;
+        case GeolocationDb:Type="GeolocationDb";break;
     }
      return Type;
  }
  
- public void Close() {
-     try{
-     conn.close();
-     }catch(SQLException e){
-         e.printStackTrace();
-         
-     }
- }
+// public void Close() {
+//     try{
+//     conn.close();
+//     }catch(SQLException e){
+//         e.printStackTrace();
+//         
+//     }
+// }
  
  public void TruncateTables(EnumeRators TableType,Connection conn,boolean all){
     if(all){
