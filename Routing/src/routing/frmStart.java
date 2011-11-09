@@ -167,7 +167,7 @@ private List DestinationList=new ArrayList<Integer>();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnExecuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecuteActionPerformed
-    Calculate calc=new Calculate(SourceList,DestinationList);
+    StartCommunication calc=new StartCommunication(SourceList,DestinationList);
 
     }//GEN-LAST:event_btnExecuteActionPerformed
 
