@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComboBox;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -64,7 +65,7 @@ private List DestinationList=new ArrayList<Integer>();
         DestCombo = new javax.swing.JComboBox();
         btnAdd = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        CommunicationTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("Start"); // NOI18N
@@ -89,12 +90,9 @@ private List DestinationList=new ArrayList<Integer>();
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        CommunicationTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "SourceID", "DestinationID"
@@ -108,7 +106,7 @@ private List DestinationList=new ArrayList<Integer>();
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(CommunicationTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -118,15 +116,12 @@ private List DestinationList=new ArrayList<Integer>();
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(87, 87, 87)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(SourceCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                            .addComponent(SourceCombo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(DestCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -163,6 +158,10 @@ private List DestinationList=new ArrayList<Integer>();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+              DefaultTableModel model = new DefaultTableModel();
+               model=(DefaultTableModel) CommunicationTable.getModel();
+               model.insertRow(model.getRowCount(),new Object[]{SourceCombo.getSelectedItem(),DestCombo.getSelectedItem()});
+        
               SourceList.add(SourceCombo.getSelectedItem());
               DestinationList.add(DestCombo.getSelectedItem());         
     }//GEN-LAST:event_btnAddActionPerformed
@@ -180,6 +179,7 @@ private List DestinationList=new ArrayList<Integer>();
      
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable CommunicationTable;
     private javax.swing.JComboBox DestCombo;
     private javax.swing.JComboBox SourceCombo;
     private javax.swing.JButton btnAdd;
@@ -187,6 +187,5 @@ private List DestinationList=new ArrayList<Integer>();
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

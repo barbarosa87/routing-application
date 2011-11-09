@@ -167,7 +167,6 @@ private void btnDeleteRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     } catch (SQLException e) {
         e.printStackTrace();
     }
-    
 }//GEN-LAST:event_btnDeleteRowActionPerformed
 
     /**

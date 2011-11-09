@@ -48,7 +48,7 @@ public class frmNewRow extends javax.swing.JFrame {
          DbConnection db=new DbConnection();
             Connection conn=db.Connect();
    try{
-         ResultSet rs=db.SelectFromDb(EnumeRators.Area, "Select * From ", conn);
+         ResultSet rs=db.SelectFromDb(EnumeRators.Area, conn);
    if (rs!=null){
       while(rs.next()){
          SlArea.addItem(rs.getString("ID"));
@@ -260,7 +260,7 @@ public class frmNewRow extends javax.swing.JFrame {
         Connection conn=db.Connect();
         try{
         
-        ResultSet  rs=db.SelectFromDb(EnumeRators.Node,"Select * From ", conn);
+        ResultSet  rs=db.SelectFromDb(EnumeRators.Node, conn);
                 while(rs.next()){
                         ComboPlusNodes.addItem(rs.getString("ID"));                  
                 }
@@ -292,8 +292,9 @@ if(SelectionTabPanel.getSelectedIndex()==SelectionTabPanel.indexOfTab("Nodes")){
        FrmNodes.NodesTm.fireTableDataChanged();
     }
     //CreaTingGeolocationDB
-    for (int i=0;i<NodesID.size()-1;i++){
-        db.AddToDb( "INSERT INTO GeolocationDB (NodeID,NeighbourID) VALUES ("+ (KeyNodesCount+1)+","+NodesID.get(i) +"," + Integer.parseInt(Txt_Freq.getText()) +")", conn);
+    for (int i=0;i<NodesID.size();i++){
+        int GeoDBCount=db.ReturnUniqueKey(EnumeRators.GeolocationDb, conn);
+        db.AddToDb( "INSERT INTO GeolocationDB (ID,NodeID,NeighbourID) VALUES ("+(GeoDBCount+1)+","+ (KeyNodesCount+1)+","+NodesID.get(i)+")", conn);
     }
     NodesID.clear();
    if(!conn.isClosed()){

@@ -45,11 +45,11 @@ return null;
     }
     return null;
 }
-public ResultSet SelectFromDb(EnumeRators TableType,String statement,Connection conn){
+public ResultSet SelectFromDb(EnumeRators TableType,Connection conn){
     String Type=CheckEnumeration(TableType);
     try{
     Statement stat=conn.createStatement();
-    ResultSet rs=stat.executeQuery(statement+Type);
+    ResultSet rs=stat.executeQuery("SELECT * FROM "+Type);
     return rs;
     }catch(SQLException e){
         e.printStackTrace();;
@@ -130,6 +130,8 @@ public int ReturnUniqueKey(EnumeRators TableType,Connection conn){
 //         
 //     }
 // }
+ 
+
  
  public void TruncateTables(EnumeRators TableType,Connection conn,boolean all){
     if(all){

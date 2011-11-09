@@ -14,7 +14,10 @@ import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.Toolkit;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -178,6 +181,27 @@ private void btnDeleteRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         Start.setVisible(true);
     }//GEN-LAST:event_btnStartActionPerformed
 
+//    private void CreateGeolocationDB(){
+//        DbConnection db=new DbConnection();
+//        Connection conn=db.Connect();
+//        ResultSet GeoDb=db.SelectFromDb(EnumeRators.GeolocationDb, conn);
+//        List NodesID=new ArrayList<Integer>();
+//        List NeighbourID=new ArrayList<Integer>();
+//        try{
+//        while(GeoDb.next()){
+//            NodesID.add(GeoDb.getString("NodeID"));
+//            NeighbourID.add(GeoDb.getString("NeighbourID"));
+//        }
+//        db.TruncateTables(EnumeRators.GeolocationDb, conn,false);
+//        for (int i=0;i<NodesID.size()-1;i++){
+//            
+//        }
+//        }catch(SQLException ex){
+//            ex.printStackTrace();
+//        }
+//    }
+    
+    
     /**
      * @param args the command line arguments
      */
