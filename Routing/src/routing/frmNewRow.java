@@ -26,7 +26,7 @@ public class frmNewRow extends javax.swing.JFrame {
 
     /** Creates new form frmNewRow */
    //Custom event Test
-    List<Integer> AreasID=new ArrayList<Integer>();
+    
     List<Integer> NodesID=new ArrayList<Integer>();
    
     public frmNewRow(String Tab) {
@@ -273,9 +273,6 @@ public class frmNewRow extends javax.swing.JFrame {
     
 private void btnAddNodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNodeActionPerformed
 
-      
-   
-   //Insert to db From NodesTab
 if(SelectionTabPanel.getSelectedIndex()==SelectionTabPanel.indexOfTab("Nodes")){
    DbConnection db=new DbConnection();
    Connection conn=db.Connect(); 
@@ -294,8 +291,11 @@ if(SelectionTabPanel.getSelectedIndex()==SelectionTabPanel.indexOfTab("Nodes")){
        db.AddToDb( "INSERT INTO Nodes (ID,Area_flag,Area_ID,Frequency) VALUES (" + (KeyNodesCount+1)+"," + "0,-1," + Integer.parseInt(Txt_Freq.getText()) +")", conn);
        FrmNodes.NodesTm.fireTableDataChanged();
     }
+    //CreaTingGeolocationDB
+    for (int i=0;i<NodesID.size()-1;i++){
+        db.AddToDb( "INSERT INTO GeolocationDB (NodeID,NeighbourID) VALUES ("+ (KeyNodesCount+1)+","+NodesID.get(i) +"," + Integer.parseInt(Txt_Freq.getText()) +")", conn);
+    }
     NodesID.clear();
-    AreasID.clear();
    if(!conn.isClosed()){
        conn.close();
    }

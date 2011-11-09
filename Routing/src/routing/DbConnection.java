@@ -108,17 +108,19 @@ public int ReturnUniqueKey(EnumeRators TableType,Connection conn){
      }
  }
  
+ //<editor-fold defaultstate="collapsed" desc="GettingTableType">
  public String CheckEnumeration(EnumeRators TableType){
      String Type="";
      switch (TableType){
-        case Area:Type="Areas";break;
-        case Node:Type="Nodes";break;
-        case NodesNeighbours:Type="NodesNeighbours";break;
-        case AreasNeighbours:Type="AreasNeighbours";break;
-        case GeolocationDb:Type="GeolocationDb";break;
-    }
+         case Area:Type="Areas";break;
+         case Node:Type="Nodes";break;
+         case NodesNeighbours:Type="NodesNeighbours";break;
+         case AreasNeighbours:Type="AreasNeighbours";break;
+         case GeolocationDb:Type="GeolocationDb";break;
+     }
      return Type;
  }
+ //</editor-fold>
  
 // public void Close() {
 //     try{
