@@ -354,9 +354,7 @@ if ((Character.isDigit(c)) || (c==KeyEvent.VK_BACK_SPACE) || (c==KeyEvent.VK_DEL
     evt.consume();
 }
 }//GEN-LAST:event_Txt_FreqKeyTyped
-private boolean ValidateInput(){
-    return true;
-}
+
 
 
 private boolean ValidateInput(String Tab){
