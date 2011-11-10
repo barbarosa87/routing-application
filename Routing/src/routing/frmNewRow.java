@@ -24,8 +24,6 @@ import javax.swing.JOptionPane;
  */
 public class frmNewRow extends javax.swing.JFrame {
 
-    /** Creates new form frmNewRow */
-   //Custom event Test
     
     List<Integer> NodesID=new ArrayList<Integer>();
    
