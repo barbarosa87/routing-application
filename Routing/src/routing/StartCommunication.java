@@ -4,9 +4,10 @@
  */
 package routing;
 
+
 import java.util.ArrayList;
 import java.util.List;
-
+import routing.Msg.RREQ;
 /**
  *
  * @author barbarosa
@@ -31,8 +32,7 @@ public class StartCommunication {
     
     
     public void BroadCastMessage(int NodeID){
-        
-        
+        RREQ broadcast=new RREQ(true,NodeID,255);
     }
 
 

@@ -134,6 +134,8 @@ public  class DbConnection {
          case NodesNeighbours:Type="NodesNeighbours";break;
          case AreasNeighbours:Type="AreasNeighbours";break;
          case GeolocationDb:Type="GeolocationDb";break;
+         case MessageExchange:Type="MessageExchange";break;
+         default:Type="Error";break;
      }
      return Type;
  }

@@ -6,6 +6,7 @@ package routing.Msg;
 
 import java.sql.Connection;
 import routing.DbConnection;
+import routing.EnumeRators;
 
 
 /**
@@ -15,20 +16,21 @@ import routing.DbConnection;
 public class RREQ {
     private boolean  BroadCast;
             
+    //For BroadCast DestID=255
     
-    
-    public RREQ(boolean BroadCast){
+    public RREQ(boolean BroadCast,int SourceID,int DestID){
                 this.BroadCast=BroadCast;
-                AddToDb();
+                Transmit(SourceID, DestID);
             }
     
-    public final void AddToDb(){
+    public final void Transmit(int SourceID,int DestID){
         DbConnection db=new DbConnection();
         Connection conn=db.Connect();
+        int Key=db.ReturnUniqueKey(EnumeRators.MessageExchange, conn);
         if (BroadCast){
-            
+            db.AddToDb("INSERT INTO MessageExchange(ID,SourceNode,DestinationNode,MessageName) VALUES("+Key+","+SourceID+","+DestID+",'RREQ')", conn);
         }else{
-            
+            db.AddToDb("INSERT INTO MessageExchange(ID,SourceNode,DestinationNode,MessageName) VALUES("+Key+","+SourceID+","+DestID+",'RREQ')", conn);
         }
             
     }
