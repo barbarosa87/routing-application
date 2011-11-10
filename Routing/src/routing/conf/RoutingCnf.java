@@ -9,5 +9,10 @@ package routing.conf;
  * @author spyros
  */
 public final class RoutingCnf {
-    private String rout;
+    
+//DECLARATION
+//<editor-fold defaultstate="collapsed" desc="NodesFrequencyRange">
+    private int StartFrequncy;
+    private int StopFrequncy;
+//</editor-fold>
 }
