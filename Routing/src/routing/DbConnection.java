@@ -14,9 +14,11 @@ import java.sql.SQLException;
 public  class DbConnection {
     Connection conn;
     
+//<editor-fold defaultstate="collapsed" desc="Constructor">
     public DbConnection(){
-    //Class Constructor
+        //Class Constructor
     }
+    //</editor-fold>
     
 //<editor-fold defaultstate="collapsed" desc="ReturnConnection">
     public Connection Connect()  {
