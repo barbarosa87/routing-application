@@ -284,7 +284,6 @@ public class RREQ extends AODVMessage {
 
 		javaUDPDgram = new DatagramPacket(msg, msg.length, toIPAddr, AODV_PORT);
 	}
-
 	/**
 	* Method to build the DatagramPacket using the information
 	* in the IPv6 RREQ
