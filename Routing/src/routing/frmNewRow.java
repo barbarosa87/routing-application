@@ -99,11 +99,6 @@ public class frmNewRow extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         bxArea.setText("Area Flag");
-        bxArea.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                bxAreaItemStateChanged(evt);
-            }
-        });
         jPanel1.add(bxArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 97, -1));
         jPanel1.add(SlArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 70, -1));
 
@@ -222,38 +217,6 @@ public class frmNewRow extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void bxAreaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_bxAreaItemStateChanged
-        // TODO add your handling code here:
-//        if(evt.getStateChange()==1){
-//            
-//            ComboPlusNodes.removeAllItems();
-//            AddedComboNeigh.removeAllItems();
-//            SlArea.setEnabled(true);
-//            NeighbourPanel.setVisible(false);
-            //Populatin SelectAreaComboBox
-//            DbConnection db=new DbConnection();
-//            Connection conn=db.Connect();
-//   try{
-//         ResultSet rs=db.SelectFromDb(EnumeRators.Area, "Select * From ", conn);
-//   if (rs!=null){
-//      while(rs.next()){
-//         SlArea.addItem(rs.getString("ID"));
-//     }
-//      conn.close();
-//      rs.close();
-//   }
-//    }catch(SQLException e){
-//    e.printStackTrace();
-//}
-////        }else if(evt.getStateChange()==2){
-////            SlArea.setEnabled(false);
-////            SlArea.removeAllItems();
-//            //NeighbourPanel.setVisible(true);
-//            FillNeighComboBoxes();
-////        }
-//        
-    }//GEN-LAST:event_bxAreaItemStateChanged
     //Set Plus Combo Boxes
     public void FillNeighComboBoxes(){
         DbConnection db=new DbConnection();
