@@ -6,7 +6,7 @@ package routing.conf;
 
 /**
  *
- * @author spyros
+ * @author barbarosa
  */
 public final class RoutingCnf {
     
