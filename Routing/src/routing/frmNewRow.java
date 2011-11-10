@@ -323,16 +323,9 @@ private boolean ValidateInput(String Tab){
     return true;
 }
 
-//private void CreateGeolocationDb(){
-//   DbConnection db=new DbConnection();
-//   Connection conn=db.Connect(); 
-//   
-//   }
-    
 
-    /**
-     * @param args the command line arguments
-     */
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox AddedComboNeigh;
