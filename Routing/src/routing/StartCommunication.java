@@ -22,10 +22,17 @@ public class StartCommunication {
                  
     }
     
+    public void Start(){
+    for (int i=0;i<SourcesList.size();i++){
+        BroadCastMessage((Integer)SourcesList.get(i));
+       }
+    }
     
-    public int BroadCastMessage(int NodeID){
+    
+    
+    public void BroadCastMessage(int NodeID){
         
-        return 1;
+        
     }
 
 

@@ -167,8 +167,8 @@ private List DestinationList=new ArrayList<Integer>();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnExecuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecuteActionPerformed
-    StartCommunication calc=new StartCommunication(SourceList,DestinationList);
-
+    StartCommunication Commun=new StartCommunication(SourceList,DestinationList);
+    Commun.Start();
     }//GEN-LAST:event_btnExecuteActionPerformed
 
     /**
