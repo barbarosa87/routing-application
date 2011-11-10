@@ -9,7 +9,7 @@ package routing.conf;
  * @author barbarosa
  */
 public final class RoutingCnf {
-    
+
 //DECLARATION
 //<editor-fold defaultstate="collapsed" desc="NodesFrequencyRange">
     private int StartFrequncy;
