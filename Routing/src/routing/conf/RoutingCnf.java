@@ -15,4 +15,7 @@ public final class RoutingCnf {
     private int StartFrequncy;
     private int StopFrequncy;
 //</editor-fold>
+
+
+
 }
