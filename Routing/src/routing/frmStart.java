@@ -161,20 +161,21 @@ private List DestinationList=new ArrayList<Integer>();
               DefaultTableModel model = new DefaultTableModel();
                model=(DefaultTableModel) CommunicationTable.getModel();
                model.insertRow(model.getRowCount(),new Object[]{SourceCombo.getSelectedItem(),DestCombo.getSelectedItem()});
-        
-              SourceList.add(SourceCombo.getSelectedItem());
-              DestinationList.add(DestCombo.getSelectedItem());         
+               SourceList.add(SourceCombo.getSelectedItem());
+               DestinationList.add(DestCombo.getSelectedItem());         
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnExecuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecuteActionPerformed
-    StartCommunication Commun=new StartCommunication(SourceList,DestinationList);
-    Commun.Start();
+    StartCommunication Communication=new StartCommunication(SourceList,DestinationList);
+    Communication.Start();
     }//GEN-LAST:event_btnExecuteActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    
+    private void RemoveDuplicates(){
+        
+    }
  
      
     
