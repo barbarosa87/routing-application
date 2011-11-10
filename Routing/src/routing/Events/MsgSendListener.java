@@ -11,6 +11,6 @@ import java.util.EventListener;
  * @author barbarosa
  */
 
-public interface TableRowChangedListener extends EventListener {
-   public void FireTableRowChanged(TableRowChangedEvent e);
+public interface MsgSendListener extends EventListener {
+   public void FireTableRowChanged(MsgSendEvent e);
 }

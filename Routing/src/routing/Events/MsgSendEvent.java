@@ -7,8 +7,8 @@ package routing;
 import java.util.EventObject;
 
 
-public class TableRowChangedEvent extends EventObject {
-    public TableRowChangedEvent(Object e){
+public class MsgSendEvent extends EventObject {
+    public MsgSendEvent(Object e){
         super(e);
     }
 }
