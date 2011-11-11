@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 
 public  class DbConnection {
-    Connection conn;
+Connection conn;
     
 //<editor-fold defaultstate="collapsed" desc="Constructor">
     public DbConnection(){
