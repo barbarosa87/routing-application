@@ -15,11 +15,13 @@ import routing.EnumeRators;
  */
 public class RREQ {
     private boolean  BroadCast;
-            
+    public int SourceID,DestID;
     //For BroadCast DestID=255
     
     public RREQ(boolean BroadCast,int SourceID,int DestID){
                 this.BroadCast=BroadCast;
+                this.SourceID=SourceID;
+                this.DestID=DestID;
                 Transmit(SourceID, DestID);
             }
     
