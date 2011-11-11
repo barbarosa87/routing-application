@@ -11,7 +11,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 
 
 
-public class Start {
+public class Main {
 
   public static void main(String args[]) {
           try {
@@ -26,7 +26,7 @@ public class Start {
 }
    DbConnection db=new DbConnection();
    Connection conn=db.Connect();
-   //db.TruncateTables(null, conn, true);
+   db.TruncateTables(null, conn, true);
    FrmNodes frmnodes = new FrmNodes();
    frmnodes.setIconImage(Toolkit.getDefaultToolkit().getImage("./Resources/globe.png"));
    frmnodes.setTitle("Nodes Table");

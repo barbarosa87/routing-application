@@ -147,10 +147,11 @@ public  class DbConnection {
      if(all){
          try{
              Statement stat=conn.createStatement();
-             stat.executeUpdate("DELETE FROM "+CheckEnumeration(EnumeRators.Area));
-             stat.executeUpdate("DELETE FROM "+CheckEnumeration(EnumeRators.Node));
+             //stat.executeUpdate("DELETE FROM "+CheckEnumeration(EnumeRators.Area));
+             //stat.executeUpdate("DELETE FROM "+CheckEnumeration(EnumeRators.Node));
              stat.executeUpdate("DELETE FROM "+CheckEnumeration(EnumeRators.AreasNeighbours));
              stat.executeUpdate("DELETE FROM "+CheckEnumeration(EnumeRators.NodesNeighbours));
+             stat.executeUpdate("DELETE FROM "+CheckEnumeration(EnumeRators.MessageExchange));
          }catch(SQLException e){
              e.printStackTrace();
          }
