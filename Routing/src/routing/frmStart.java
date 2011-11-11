@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
 import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
 
@@ -166,6 +167,8 @@ private List DestinationList=new ArrayList<Integer>();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnExecuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecuteActionPerformed
+    Timer timer = new Timer (  ) ;
+    timer.schedule ( new ChangeNodesFrequenciesThread() , 5*1000 ) ;
     StartCommunication Communication=new StartCommunication(SourceList,DestinationList);
     Communication.Start();
     }//GEN-LAST:event_btnExecuteActionPerformed

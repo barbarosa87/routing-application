@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import routing.Msg.RREQ;
 /**
  *
@@ -43,7 +45,15 @@ public class StartCommunication {
         Connection conn=db.Connect(); 
         RREQ broadcast=new RREQ(true,conn,NodeID,255);
         int Destination=GetReplyFromBroadCast(broadcast,db,conn);
-        
+        if (Destination>0){
+          System.out.println("GOAL");
+        }else{
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
 
@@ -61,8 +71,7 @@ public class StartCommunication {
                 conn.close();
                 return IntermediateRs.getInt("ID");
             }else {
-                // TODO Change Neighbours Frequencies
-                return 0;
+                //return -1;
             }
           }
         }catch(SQLException ex){
