@@ -173,14 +173,16 @@ public  class DbConnection {
  }
  //</editor-fold>
 
-public void UpdateTableColumnValue(EnumeRators TableType,String ColumnName,int ColumnValue,int ID,Connection conn){
-      try{
-          String Type=CheckEnumeration(TableType);
-          Statement stat=conn.createStatement();
-          stat.executeUpdate("UPDATE "+Type+" Frequency=" +ColumnValue+" WHERE ID="+ID);
-      }catch(SQLException e){
-          e.printStackTrace();
-      }
-}
+//<editor-fold defaultstate="collapsed" desc="UpdateTableColumnValue">
+ public void UpdateTableColumnValue(EnumeRators TableType,String ColumnName,int ColumnValue,String Clause,Connection conn){
+     try{
+         String Type=CheckEnumeration(TableType);
+         Statement stat=conn.createStatement();
+         stat.executeUpdate("UPDATE "+Type+" Frequency=" +ColumnValue+" "+Clause);
+     }catch(SQLException e){
+         e.printStackTrace();
+     }
+ }
+ //</editor-fold>
 
 } 
