@@ -173,12 +173,7 @@ private List DestinationList=new ArrayList<Integer>();
     Communication.Start();
     }//GEN-LAST:event_btnExecuteActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    private void RemoveDuplicates(){
-        
-    }
+  
  
      
     
