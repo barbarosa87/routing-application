@@ -43,6 +43,7 @@ public class StartCommunication {
         Connection conn=db.Connect(); 
         RREQ broadcast=new RREQ(true,conn,NodeID,255);
         int Destination=GetReplyFromBroadCast(broadcast,db,conn);
+        
     }
 
 
@@ -57,12 +58,13 @@ public class StartCommunication {
            SourceRs.next();
             if (IntermediateRs.getInt("Frequency")==SourceRs.getInt("Frequency")){
                 //Make Node Connected And Put To Flow
+                conn.close();
                 return IntermediateRs.getInt("ID");
             }else {
                 // TODO Change Neighbours Frequencies
                 return 0;
             }
-           }
+          }
         }catch(SQLException ex){
             ex.printStackTrace();
         }

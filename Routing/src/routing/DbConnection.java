@@ -135,6 +135,7 @@ public  class DbConnection {
          case AreasNeighbours:Type="AreasNeighbours";break;
          case GeolocationDb:Type="GeolocationDb";break;
          case MessageExchange:Type="MessageExchange";break;
+         case NodesWeight:Type="NodesWeight";break;
          default:Type="Error";break;
      }
      return Type;
@@ -172,6 +173,14 @@ public  class DbConnection {
  }
  //</editor-fold>
 
-
+public void UpdateTableColumnValue(EnumeRators TableType,String ColumnName,int ColumnValue,int ID,Connection conn){
+      try{
+          String Type=CheckEnumeration(TableType);
+          Statement stat=conn.createStatement();
+          stat.executeUpdate("UPDATE "+Type+" Frequency=" +ColumnValue+" WHERE ID="+ID);
+      }catch(SQLException e){
+          e.printStackTrace();
+      }
+}
 
 } 
