@@ -53,19 +53,15 @@ public class StartCommunication {
         while (NeighBoursRs.next()){
             ResultSet IntermediateRs=db.SelectFromDbWithClause(EnumeRators.Node, "WHERE ID=" + NeighBoursRs.getInt("NodeID"), conn);
             ResultSet SourceRs=db.SelectFromDbWithClause(EnumeRators.Node, "WHERE ID=" + NeighBoursRs.getInt("NeighbourID"), conn);
-           // if (IntermediateRs.next() && SourceRs.next()){
-               
            IntermediateRs.next();
            SourceRs.next();
             if (IntermediateRs.getInt("Frequency")==SourceRs.getInt("Frequency")){
                 //Make Node Connected And Put To Flow
                 return IntermediateRs.getInt("ID");
             }else {
-                //Change Neighbours Frequencies
+                // TODO Change Neighbours Frequencies
                 return 0;
             }
-            
-        //}
            }
         }catch(SQLException ex){
             ex.printStackTrace();
