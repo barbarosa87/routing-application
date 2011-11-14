@@ -5,6 +5,9 @@
 package routing.Msg;
 
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import routing.DbConnection;
 import routing.EnumeRators;
 
@@ -29,14 +32,16 @@ public class RREQ {
             }
     
     public final void Transmit(int SourceID,int DestID){
-        DbConnection db=new DbConnection();
-        int Key=db.ReturnUniqueKey(EnumeRators.MessageExchange, conn);
-        this.ID=Key+1;
-        if (BroadCast){
-            db.AddToDb("INSERT INTO MessageExchange(ID,SourceNode,DestinationNode,MessageName) VALUES("+(Key+1)+","+SourceID+","+DestID+",'RREQ')", conn);
-        }else{
-            db.AddToDb("INSERT INTO MessageExchange(ID,SourceNode,DestinationNode,MessageName) VALUES("+(Key+1)+","+SourceID+","+DestID+",'RREQ')", conn);
-        }
+       
+            DbConnection db=new DbConnection();
+            int Key=db.ReturnUniqueKey(EnumeRators.MessageExchange, conn);
+            this.ID=Key+1;
+            if (BroadCast){
+                db.AddToDb("INSERT INTO MessageExchange(ID,SourceNode,DestinationNode,MessageName) VALUES("+(Key+1)+","+SourceID+","+DestID+",'RREQ')", conn);
+            }else{
+                db.AddToDb("INSERT INTO MessageExchange(ID,SourceNode,DestinationNode,MessageName) VALUES("+(Key+1)+","+SourceID+","+DestID+",'RREQ')", conn);
+            }
+       
             
     }
     
