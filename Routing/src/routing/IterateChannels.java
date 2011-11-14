@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author spyros
+ * @author barbarosa
  */
 public class IterateChannels {
          
