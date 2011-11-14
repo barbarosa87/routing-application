@@ -45,18 +45,16 @@ public class StartCommunication {
         Connection conn=db.Connect(); 
         RREQ broadcast=new RREQ(true,conn,NodeID,255);
         int Destination=GetReplyFromBroadCast(broadcast,db,conn);
-      
-       
         if (Destination>0){
           System.out.println("GOAL");
         }else{
+             try{
+                conn.close();
                 IterateChannels.ChangeFrequencies();
                 BroadCastMessage(NodeID,i+1);
-                try{
-                conn.close();
-                }catch(SQLException ex){
+              }catch(SQLException ex){
                     ex.printStackTrace();
-                }
+             }
         }
     }
 
