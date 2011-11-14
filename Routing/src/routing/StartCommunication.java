@@ -48,8 +48,12 @@ public class StartCommunication {
         }else if(Destination==-1){
              try{
                 conn.close();
-                IterateChannels.ChangeFrequencies();
-                BroadCastMessage(NodeID,i+1);
+                if(i<10){
+                    IterateChannels.ChangeFrequencies();
+                    BroadCastMessage(NodeID,i+1);
+                }else {
+                    System.out.println(String.valueOf(NodeID) +"Cannot Find Node");
+                }
               }catch(SQLException ex){
                     ex.printStackTrace();
              }
@@ -72,7 +76,7 @@ public class StartCommunication {
                 return -1;
             }
         }
-        
+
         }catch(SQLException ex){
             ex.printStackTrace();
         }
