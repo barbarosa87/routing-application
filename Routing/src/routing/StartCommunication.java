@@ -34,13 +34,13 @@ public class StartCommunication {
     
     public final void Start(){
     for (int i=0;i<SourcesList.size();i++){
-        BroadCastMessage((Integer)SourcesList.get(i));
+        BroadCastMessage((Integer)SourcesList.get(i),0);
        }
     }
     
     
     
-    public void BroadCastMessage(int NodeID){
+    public void BroadCastMessage(int NodeID,int i){
         DbConnection db=new DbConnection();
         Connection conn=db.Connect(); 
         RREQ broadcast=new RREQ(true,conn,NodeID,255);
@@ -54,27 +54,28 @@ public class StartCommunication {
         if (Destination>0){
           System.out.println("GOAL");
         }else{
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
+                //Thread.sleep(2000);
+                BroadCastMessage(NodeID,i+1);
+                try{
+                conn.close();
+                }catch(SQLException ex){
+                    ex.printStackTrace();
+                }
         }
     }
 
 
-   public int GetReplyFromBroadCast(RREQ broadcast,DbConnection db,Connection conn){
-        
-        ResultSet NeighBoursRs=db.SelectFromDbWithClause(EnumeRators.GeolocationDb, "WHERE NeighbourID=" + broadcast.SourceID, conn);
+   public int GetReplyFromBroadCast(RREQ Broadcast,DbConnection db,Connection conn){
         try{
+        ResultSet NeighBoursRs=db.SelectFromDbWithClause(EnumeRators.GeolocationDb, "WHERE NeighbourID=" + Broadcast.SourceID, conn);
         while (NeighBoursRs.next()){
             ResultSet IntermediateRs=db.SelectFromDbWithClause(EnumeRators.Node, "WHERE ID=" + NeighBoursRs.getInt("NodeID"), conn);
             ResultSet SourceRs=db.SelectFromDbWithClause(EnumeRators.Node, "WHERE ID=" + NeighBoursRs.getInt("NeighbourID"), conn);
-           IntermediateRs.next();
-           SourceRs.next();
+            IntermediateRs.next();
+            SourceRs.next();
             if (IntermediateRs.getInt("Frequency")==SourceRs.getInt("Frequency")){
                 //Make Node Connected And Put To Flow
-                conn.close();
+                
                 return IntermediateRs.getInt("ID");
             }else {
                 //return -1;

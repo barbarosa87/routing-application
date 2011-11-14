@@ -21,13 +21,14 @@ public Connection ReturnConnectionObject(){
 //</editor-fold>
     
 //<editor-fold defaultstate="collapsed" desc="ReturnConnection">
-    public Connection Connect() throws SQLException {
+    public Connection Connect() {
         try{
             Class.forName("org.sqlite.JDBC");
             conn =DriverManager.getConnection("jdbc:sqlite:db.sqlite");
             //Statement stat = conn.createStatement();
             return conn;
-      
+        }catch(SQLException ex){
+            ex.printStackTrace();
         }catch(ClassNotFoundException e){
             //Handle Exception
             e.printStackTrace();
@@ -61,26 +62,30 @@ public Connection ReturnConnectionObject(){
   //</editor-fold>
 
 //<editor-fold defaultstate="collapsed" desc="ReturnUniqueKey">  
-  public int ReturnUniqueKey(EnumeRators TableType,Connection conn) throws SQLException{
-      String Type=CheckEnumeration(TableType);
+  public int ReturnUniqueKey(EnumeRators TableType,Connection conn){
+          String Type=CheckEnumeration(TableType);
           int i=0;
+          try{
           Statement stat=conn.createStatement();
           ResultSet rs=stat.executeQuery("Select * From "+Type);
           while(rs.next()){
               i=rs.getInt("ID");
           }
+          }catch(SQLException ex){
+              ex.printStackTrace();
+          }
           return i;
-     
-    
   }
   //</editor-fold>
   
 //<editor-fold defaultstate="collapsed" desc="AddToDb">
-  public void AddToDb(String statement,Connection conn) throws SQLException{
-      
+  public void AddToDb(String statement,Connection conn){
+      try{
           Statement stat=conn.createStatement();
           stat.executeUpdate(statement);
-      
+      }catch(SQLException ex){
+          ex.printStackTrace();
+      }
   }
   //</editor-fold>
  
@@ -123,9 +128,9 @@ public Connection ReturnConnectionObject(){
  }
  //</editor-fold>
  
- 
 //<editor-fold defaultstate="collapsed" desc="TruncateTables">
- public void TruncateTables(EnumeRators TableType,Connection conn,boolean all) throws SQLException{
+ public void TruncateTables(EnumeRators TableType,Connection conn,boolean all){
+     try{
      if(all){
          
              Statement stat=conn.createStatement();
@@ -146,7 +151,9 @@ public Connection ReturnConnectionObject(){
          
      }
      
-     
+     }catch(SQLException ex){
+         ex.printStackTrace();
+     }
  }
  //</editor-fold>
 
@@ -155,7 +162,7 @@ public Connection ReturnConnectionObject(){
     
          String Type=CheckEnumeration(TableType);
          Statement stat=conn.createStatement();
-         stat.executeUpdate("UPDATE "+Type+" Frequency=" +ColumnValue+" "+Clause);
+         stat.executeUpdate("UPDATE "+Type+" SET Frequency=" +ColumnValue+" "+Clause);
     
  }
  //</editor-fold>
