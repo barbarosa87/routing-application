@@ -69,11 +69,9 @@ public class StartCommunication {
             SourceRs.next();
             if (IntermediateRs.getInt("Frequency")==SourceRs.getInt("Frequency")){
                 //Make Node Connected And Put To Flow
-                
                 return IntermediateRs.getInt("ID");
             }else {
                 return -1;
-                //return -1;
             }
         }
         
