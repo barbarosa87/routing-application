@@ -15,7 +15,7 @@ import java.sql.SQLException;
 public class IterateChannels {
          
     
-    public void ChangeFrequencies(){
+    public static void ChangeFrequencies(){
        DbConnection db=new DbConnection();
        Connection conn=db.ReturnConnectionObject();
        try{
