@@ -136,10 +136,10 @@ public Connection ReturnConnectionObject(){
              Statement stat=conn.createStatement();
              //stat.executeUpdate("DELETE FROM "+CheckEnumeration(EnumeRators.Area));
              //stat.executeUpdate("DELETE FROM "+CheckEnumeration(EnumeRators.Node));
-             stat.executeUpdate("DELETE FROM "+CheckEnumeration(EnumeRators.AreasNeighbours));
-             stat.executeUpdate("DELETE FROM "+CheckEnumeration(EnumeRators.NodesNeighbours));
+             //stat.executeUpdate("DELETE FROM "+CheckEnumeration(EnumeRators.AreasNeighbours));
+             //stat.executeUpdate("DELETE FROM "+CheckEnumeration(EnumeRators.NodesNeighbours));
              stat.executeUpdate("DELETE FROM "+CheckEnumeration(EnumeRators.MessageExchange));
-        
+             stat.executeUpdate("DELETE FROM "+CheckEnumeration(EnumeRators.NodesWeight));
          
      }else{
          String Type=CheckEnumeration(TableType);

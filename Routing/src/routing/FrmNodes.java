@@ -18,6 +18,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -181,6 +183,20 @@ private void btnDeleteRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         Start.setVisible(true);
     }//GEN-LAST:event_btnStartActionPerformed
 
+    
+    public void CreateNodesWeight(){
+        DbConnection db=new DbConnection();
+        Connection conn=db.Connect();
+        try {
+            ResultSet rs=db.SelectFromDbWithClause(EnumeRators.Node, "Where Area_flag=0", conn);
+            while (rs.next()){
+                int key=db.ReturnUniqueKey(EnumeRators.NodesWeight, conn);
+                db.AddToDb("INSERT INTO NodesWeight(ID,NodeID,Connected) Values(" +(key+1)+","+rs.getInt("ID")+",0", conn);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmNodes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 //    private void CreateGeolocationDB(){
 //        DbConnection db=new DbConnection();
 //        Connection conn=db.Connect();
