@@ -54,7 +54,6 @@ public class StartCommunication {
         if (Destination>0){
           System.out.println("GOAL");
         }else{
-                //Thread.sleep(2000);
                 BroadCastMessage(NodeID,i+1);
                 try{
                 conn.close();
