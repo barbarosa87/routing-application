@@ -47,7 +47,7 @@ public class StartCommunication {
         int Destination=GetReplyFromBroadCast(broadcast,db,conn);
         if (Destination>0){
           System.out.println("GOAL");
-        }else{
+        }else if(Destination==-1){
              try{
                 conn.close();
                 IterateChannels.ChangeFrequencies();
@@ -72,6 +72,7 @@ public class StartCommunication {
                 
                 return IntermediateRs.getInt("ID");
             }else {
+                return -1;
                 //return -1;
             }
         }
