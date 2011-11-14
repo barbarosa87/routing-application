@@ -12,11 +12,11 @@ import java.sql.SQLException;
 
 
 public  class DbConnection {
-Connection conn;
+private Connection conn;
     
-//<editor-fold defaultstate="collapsed" desc="ReturnConnection">
+//<editor-fold defaultstate="collapsed" desc="ReturnConnectionObject">
 public Connection ReturnConnectionObject(){
-    return conn;
+    return this.conn;
 }
 //</editor-fold>
     
@@ -39,8 +39,7 @@ public Connection ReturnConnectionObject(){
 
 //<editor-fold defaultstate="collapsed" desc="SelectFromDbWithClause">
   public ResultSet SelectFromDbWithClause(EnumeRators TableType,String Clause,Connection conn)throws SQLException{
-      String Type=CheckEnumeration(TableType);
-      
+          String Type=CheckEnumeration(TableType);
           Statement stat=conn.createStatement();
           ResultSet rs=stat.executeQuery("SELECT * FROM "+Type +" "+Clause);
           return rs;
@@ -139,7 +138,7 @@ public Connection ReturnConnectionObject(){
              //stat.executeUpdate("DELETE FROM "+CheckEnumeration(EnumeRators.AreasNeighbours));
              //stat.executeUpdate("DELETE FROM "+CheckEnumeration(EnumeRators.NodesNeighbours));
              stat.executeUpdate("DELETE FROM "+CheckEnumeration(EnumeRators.MessageExchange));
-             stat.executeUpdate("DELETE FROM "+CheckEnumeration(EnumeRators.NodesWeight));
+             //stat.executeUpdate("DELETE FROM "+CheckEnumeration(EnumeRators.NodesWeight));
          
      }else{
          String Type=CheckEnumeration(TableType);
