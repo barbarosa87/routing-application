@@ -20,17 +20,18 @@ import routing.Msg.RREQ;
 //TODO CREATE METRICS !!!!!!!!!!!
 public class StartCommunication {
     
-    List SourcesList=new ArrayList<Integer>();
-    List DestinationList=new ArrayList<Integer>();
-    List Flows=new ArrayList<Structs.Flow>();
-    public StartCommunication(List SourcesList,List DestinationList){
+   List SourcesList=new ArrayList<Integer>();
+   List DestinationList=new ArrayList<Integer>();
+   List Flows=new ArrayList<Structs.Flow>();
+   
+   public StartCommunication(List SourcesList,List DestinationList){
         this.SourcesList=SourcesList;
         this.DestinationList=DestinationList;
         Start();
     }
     
     
-    public final void Start(){
+   public final void Start(){
     for (int i=0;i<SourcesList.size();i++){
         BroadCastMessage((Integer)SourcesList.get(i),0);
        }
@@ -38,7 +39,7 @@ public class StartCommunication {
     
     
     
-    public void BroadCastMessage(int NodeID,int i){
+   public void BroadCastMessage(int NodeID,int i){
         DbConnection db=new DbConnection();
         Connection conn=db.Connect(); 
         RREQ broadcast=new RREQ(true,conn,NodeID,255);
