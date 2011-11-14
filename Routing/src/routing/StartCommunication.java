@@ -79,7 +79,8 @@ public class StartCommunication {
             }else {
                 //return -1;
             }
-          }
+        }
+        
         }catch(SQLException ex){
             ex.printStackTrace();
         }
