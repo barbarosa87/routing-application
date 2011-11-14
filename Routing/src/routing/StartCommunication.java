@@ -49,6 +49,9 @@ public class StartCommunication {
         }else if(Destination==-1){
              try{
                 conn.close();
+                
+                //Change retrospective
+                
                 if(i<10){
                     IterateChannels.ChangeFrequencies();
                     BroadCastMessage(NodeID,i+1);
