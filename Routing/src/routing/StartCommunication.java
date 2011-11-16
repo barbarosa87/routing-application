@@ -111,8 +111,8 @@ public class StartCommunication {
        
    }
    
-   public void SendRREP(int SourceNodeID,int DestNodeID){
-       RREP Reply=new RREP(SourceNodeID,DestNodeID);
+   public void SendRREP(int SourceNodeID,int DestNodeID,boolean Redirect,Connection conn){
+       RREP Reply=new RREP(SourceNodeID,DestNodeID,Redirect,conn);
    }
    
    
