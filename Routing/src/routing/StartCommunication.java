@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import routing.Msg.RREQ;
+import routing.Msg.RREP;
 /**
  *
  * @author barbarosa
@@ -36,10 +37,14 @@ public class StartCommunication {
     int ReplayNodeID=0;
        for (int i=0;i<SourcesList.size();i++){
            for (int j=0;j<10;j++){
-               ReplayNodeID=BroadCastMessage((Integer)SourcesList.get(i),0);
+               ReplayNodeID=BroadCastMessage((Integer)SourcesList.get(i));
                if (ReplayNodeID>0){
-                   //Send RREP
-                   //AND Make Connected
+                   //SendRREP
+                   SendRREP(ReplayNodeID,(Integer)SourcesList.get(i));
+                   //MakeNodeConnected
+                   MakeNodeConnected(ReplayNodeID);
+                   //InitializeFlow
+                   InitializeFlow(ReplayNodeID);
                    break;
                }else{
                    IterateChannels.ChangeFrequencies(); 
@@ -51,7 +56,7 @@ public class StartCommunication {
     
     
     
-   public int BroadCastMessage(int NodeID,int i){
+   public int BroadCastMessage(int NodeID){
         DbConnection db=new DbConnection();
         Connection conn=db.Connect(); 
         RREQ broadcast=new RREQ(true,conn,NodeID,255);
@@ -70,7 +75,9 @@ public class StartCommunication {
             IntermediateRs.next();
             SourceRs.next();
             if (IntermediateRs.getInt("Frequency")==SourceRs.getInt("Frequency")){
-                //Make Node Connected And Put To Flow
+               if (CheckIfConnected(IntermediateRs.getInt("ID"))){
+                 //REDIRECT   
+                }    
                 return IntermediateRs.getInt("ID");
             }else {
                 return -1;
@@ -88,10 +95,34 @@ public class StartCommunication {
    }
    
    
-   
+   public boolean CheckIfConnected(int NodeID){
+       try {
+           DbConnection db=new DbConnection();
+           Connection conn=db.Connect();
+           ResultSet rs=db.SelectFromDbWithClause(EnumeRators.NodesWeight, "WHERE NodeID=" + NodeID +" AND Connected=1", conn);
+           while(rs.next()){
+               return true;
+           }
+           
+       }catch(SQLException ex){
+           ex.printStackTrace();
+       }
+          return false;
+       
+   }
    
    public void SendRREP(int SourceNodeID,int DestNodeID){
-       
+       RREP Reply=new RREP(SourceNodeID,DestNodeID);
+   }
+   
+   
+   
+   public void InitializeFlow(int SourceID){
+       Flows.add(new Structs.Flow("Flow"+SourceID));
+   }
+   
+   
+   public void Redirect(int NodeID,int ToNodeID){
        
    }
    

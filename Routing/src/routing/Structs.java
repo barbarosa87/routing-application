@@ -17,6 +17,7 @@ public class Structs {
     
 public static class Flow{
    private String Name;
+   private int NodeID;
    private List AddedNodes=new ArrayList<Integer>();
    
    

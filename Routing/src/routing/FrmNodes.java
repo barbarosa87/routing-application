@@ -200,8 +200,6 @@ private void btnDeleteRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     }
     
     
-    
-    
     /**
      * @param args the command line arguments
      */
