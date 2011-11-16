@@ -10,4 +10,17 @@ package routing.Msg;
  */
 public class RREP {
     
+    private boolean Redirect=false;
+    
+    
+    public RREP(int SourceID,int DestinationID){
+    
+    }
+    
+    
+    
+    public void SendRREP(){
+        
+    }
+    
 }

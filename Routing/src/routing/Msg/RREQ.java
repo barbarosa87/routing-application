@@ -5,9 +5,6 @@
 package routing.Msg;
 
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import routing.DbConnection;
 import routing.EnumeRators;
 
@@ -32,7 +29,6 @@ public class RREQ {
             }
     
     public final void Transmit(int SourceID,int DestID){
-       
             DbConnection db=new DbConnection();
             int Key=db.ReturnUniqueKey(EnumeRators.MessageExchange, conn);
             this.ID=Key+1;
