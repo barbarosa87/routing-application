@@ -24,6 +24,7 @@ public class StartCommunication {
    List DestinationList=new ArrayList<Integer>();
    List Flows=new ArrayList<Structs.Flow>();
    
+   
    public StartCommunication(List SourcesList,List DestinationList){
         this.SourcesList=SourcesList;
         this.DestinationList=DestinationList;
@@ -32,37 +33,32 @@ public class StartCommunication {
     
     
    public final void Start(){
-    for (int i=0;i<SourcesList.size();i++){
-        BroadCastMessage((Integer)SourcesList.get(i),0);
+    int ReplayNodeID=0;
+       for (int i=0;i<SourcesList.size();i++){
+           for (int j=0;j<10;j++){
+               ReplayNodeID=BroadCastMessage((Integer)SourcesList.get(i),0);
+               if (ReplayNodeID>0){
+                   //Send RREP
+                   //AND Make Connected
+                   break;
+               }else{
+                   IterateChannels.ChangeFrequencies(); 
+                   continue;
+               }
+           }
        }
     }
     
     
     
-   public void BroadCastMessage(int NodeID,int i){
+   public int BroadCastMessage(int NodeID,int i){
         DbConnection db=new DbConnection();
         Connection conn=db.Connect(); 
         RREQ broadcast=new RREQ(true,conn,NodeID,255);
         int Destination=GetReplyFromBroadCast(broadcast,db,conn);
-        if (Destination>0){
-          System.out.println("GOAL");
-        }else if(Destination==-1){
-             try{
-                conn.close();
-                
-                //Change retrospective
-                
-                if(i<10){
-                    IterateChannels.ChangeFrequencies();
-                    BroadCastMessage(NodeID,i+1);
-                }else {
-                    System.out.println(String.valueOf(NodeID) +"Cannot Find Node");
-                }
-              }catch(SQLException ex){
-                    ex.printStackTrace();
-             }
+        return Destination;              
         }
-    }
+    
 
 
    public int GetReplyFromBroadCast(RREQ Broadcast,DbConnection db,Connection conn){
@@ -86,4 +82,21 @@ public class StartCommunication {
         }
         return 0;
    }
+   
+   public void MakeNodeConnected(int NodeID){
+       
+   }
+   
+   
+   
+   
+   public void SendRREP(int SourceNodeID,int DestNodeID){
+       
+       
+   }
+   
+   
+   
+   
+   
 }
