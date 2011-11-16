@@ -138,7 +138,7 @@ public Connection ReturnConnectionObject(){
              //stat.executeUpdate("DELETE FROM "+CheckEnumeration(EnumeRators.AreasNeighbours));
              //stat.executeUpdate("DELETE FROM "+CheckEnumeration(EnumeRators.NodesNeighbours));
              stat.executeUpdate("DELETE FROM "+CheckEnumeration(EnumeRators.MessageExchange));
-             //stat.executeUpdate("DELETE FROM "+CheckEnumeration(EnumeRators.NodesWeight));
+             stat.executeUpdate("DELETE FROM "+CheckEnumeration(EnumeRators.NodesWeight));
          
      }else{
          String Type=CheckEnumeration(TableType);

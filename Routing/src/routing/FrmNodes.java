@@ -173,6 +173,7 @@ private void btnDeleteRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 }//GEN-LAST:event_btnDeleteRowActionPerformed
 
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
+        CreateNodesWeight();
         Frame[] activeframes=Frame.getFrames();
         for (Frame frame:activeframes){
         frame.dispose();
@@ -197,25 +198,8 @@ private void btnDeleteRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
             Logger.getLogger(FrmNodes.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-//    private void CreateGeolocationDB(){
-//        DbConnection db=new DbConnection();
-//        Connection conn=db.Connect();
-//        ResultSet GeoDb=db.SelectFromDb(EnumeRators.GeolocationDb, conn);
-//        List NodesID=new ArrayList<Integer>();
-//        List NeighbourID=new ArrayList<Integer>();
-//        try{
-//        while(GeoDb.next()){
-//            NodesID.add(GeoDb.getString("NodeID"));
-//            NeighbourID.add(GeoDb.getString("NeighbourID"));
-//        }
-//        db.TruncateTables(EnumeRators.GeolocationDb, conn,false);
-//        for (int i=0;i<NodesID.size()-1;i++){
-//            
-//        }
-//        }catch(SQLException ex){
-//            ex.printStackTrace();
-//        }
-//    }
+    
+    
     
     
     /**
