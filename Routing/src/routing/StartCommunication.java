@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import routing.Msg.RREQ;
 import routing.Msg.RREP;
 /**
@@ -39,8 +41,8 @@ public class StartCommunication {
            for (int j=0;j<10;j++){
                ReplayNodeID=BroadCastMessage((Integer)SourcesList.get(i));
                if (ReplayNodeID>0){
-                   //SendRREP
-                   SendRREP(ReplayNodeID,(Integer)SourcesList.get(i));
+                   //SendRREP TO CORRECT
+                  // SendRREP(ReplayNodeID,(Integer)SourcesList.get(i));
                    //MakeNodeConnected
                    MakeNodeConnected(ReplayNodeID);
                    //InitializeFlow
@@ -76,7 +78,10 @@ public class StartCommunication {
             SourceRs.next();
             if (IntermediateRs.getInt("Frequency")==SourceRs.getInt("Frequency")){
                if (CheckIfConnected(IntermediateRs.getInt("ID"))){
-                 //REDIRECT   
+                 //REDIRECT  
+                  if (GetNonConnectedNeighbourNodes(Broadcast.SourceID)>0){
+                      //SEND REPLY COMMAND FROM SPECIFIED NODE
+                  }
                 }    
                 return IntermediateRs.getInt("ID");
             }else {
@@ -94,6 +99,25 @@ public class StartCommunication {
        
    }
    
+   public int GetNonConnectedNeighbourNodes(int SourceID){
+       DbConnection db=new DbConnection();
+       Connection conn=db.Connect();
+        try {
+            ResultSet NeighBoursRs=db.SelectFromDbWithClause(EnumeRators.GeolocationDb, "WHERE NeighbourID=" + SourceID, conn);
+            while (NeighBoursRs.next()){
+                ResultSet WeightRS=db.SelectFromDbWithClause(EnumeRators.NodesWeight, "WHERE NodeID=" + NeighBoursRs.getInt("NodeID"), conn);
+                WeightRS.next();
+                if (WeightRS.getInt("Connected")==0){
+                    return WeightRS.getInt("NodeID");
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+       return 0;
+       
+       
+   }
    
    public boolean CheckIfConnected(int NodeID){
        try {
