@@ -40,7 +40,7 @@ public class StartCommunication {
                ReplayNodeID=BroadCastMessage((Integer)SourcesList.get(i));
                if (ReplayNodeID>0){
                    //SendRREP TO CORRECT
-                  // SendRREP(ReplayNodeID,(Integer)SourcesList.get(i));
+                   //SendRREP(ReplayNodeID,(Integer)SourcesList.get(i));
                    //MakeNodeConnected
                    MakeNodeConnected(ReplayNodeID);
                    //InitializeFlow
@@ -81,6 +81,7 @@ public class StartCommunication {
                       //SEND REPLY COMMAND FROM SPECIFIED NODE
                   }else{
                       //NO AVAILABLE NODE TO PASS FLOW
+                      System.out.println("No available node to pass flow from channel " + Broadcast.SourceID +" try again later/n");
                   }
                 }    
                 return IntermediateRs.getInt("ID");
