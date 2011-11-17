@@ -10,8 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import routing.Msg.RREQ;
 import routing.Msg.RREP;
 /**
@@ -81,6 +79,8 @@ public class StartCommunication {
                  //REDIRECT  
                   if (GetNonConnectedNeighbourNodes(Broadcast.SourceID)>0){
                       //SEND REPLY COMMAND FROM SPECIFIED NODE
+                  }else{
+                      //NO AVAILABLE NODE TO PASS FLOW
                   }
                 }    
                 return IntermediateRs.getInt("ID");
