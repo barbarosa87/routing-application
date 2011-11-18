@@ -79,6 +79,7 @@ public class StartCommunication {
                  //REDIRECT  
                   if (GetNonConnectedNeighbourNodes(Broadcast.SourceID)>0){
                       //SEND REPLY COMMAND FROM SPECIFIED NODE
+                      //SendRREP(Broadcast.DestID, Broadcast.SourceID, true, conn);
                   }else{
                       //NO AVAILABLE NODE TO PASS FLOW
                       System.out.println("No available node to pass flow from channel " + Broadcast.SourceID +" try again later/n");
