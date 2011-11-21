@@ -77,9 +77,11 @@ public class StartCommunication {
             if (IntermediateRs.getInt("Frequency")==SourceRs.getInt("Frequency")){
                if (CheckIfConnected(IntermediateRs.getInt("ID"))){
                  //REDIRECT  
-                  if (GetNonConnectedNeighbourNodes(Broadcast.SourceID)>0){
+                   int NonConnectedNode=GetNonConnectedNeighbourNodes(Broadcast.SourceID);
+                  if (NonConnectedNode>0){
                       //SEND REPLY COMMAND FROM SPECIFIED NODE
-                      //SendRREP(Broadcast.DestID, Broadcast.SourceID, true, conn);
+                      SendRREP(Broadcast.DestID, Broadcast.SourceID, true, conn);
+                      Redirect(Broadcast.SourceID, NonConnectedNode);
                   }else{
                       //NO AVAILABLE NODE TO PASS FLOW
                       System.out.println("No available node to pass flow from channel " + Broadcast.SourceID +" try again later/n");
@@ -129,7 +131,6 @@ public class StartCommunication {
            while(rs.next()){
                return true;
            }
-           
        }catch(SQLException ex){
            ex.printStackTrace();
        }
@@ -149,7 +150,7 @@ public class StartCommunication {
    
    
    public void Redirect(int NodeID,int ToNodeID){
-       
+       //TODO START REDIRECT
    }
    
    
