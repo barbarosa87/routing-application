@@ -9,9 +9,12 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import routing.Msg.RREQ;
 import routing.Msg.RREP;
+import routing.conf.*;
 /**
  *
  * @author barbarosa
@@ -21,23 +24,30 @@ import routing.Msg.RREP;
 //TODO CREATE METRICS !!!!!!!!!!!
 public class StartCommunication {
     
-   List SourcesList=new ArrayList<Integer>();
-   List DestinationList=new ArrayList<Integer>();
+//   List SourcesList=new ArrayList<Integer>();
+//   List DestinationList=new ArrayList<Integer>();
    List Flows=new ArrayList<Structs.Flow>();
+   private Map<Integer,Integer> SourceDestinationMap=new HashMap();
    
-   
-   public StartCommunication(List SourcesList,List DestinationList){
-        this.SourcesList=SourcesList;
-        this.DestinationList=DestinationList;
+   public StartCommunication(Map SourceDestinationMap){
+        //this.SourcesList=SourcesList;
+        //this.DestinationList=DestinationList;
+        this.SourceDestinationMap=SourceDestinationMap;
         Start();
     }
     
+   
+   
+   
+   
     
    public final void Start(){
-    int ReplayNodeID=0;
-       for (int i=0;i<SourcesList.size();i++){
-           for (int j=0;j<10;j++){
-               ReplayNodeID=BroadCastMessage((Integer)SourcesList.get(i));
+       int ReplayNodeID=0;
+       for (Map.Entry<Integer,Integer> entry:SourceDestinationMap.entrySet()){
+           for (int j=0;j<RoutingCnf.getNumberOfBroadCastTries();j++){
+               //HERE I AM
+               ReplayNodeID=BroadCastMessage(entry.getKey());
+               
                if (ReplayNodeID>0){
                    //SendRREP TO CORRECT
                    //SendRREP(ReplayNodeID,(Integer)SourcesList.get(i));
