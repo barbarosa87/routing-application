@@ -14,8 +14,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Timer;
+import java.util.Map;
 import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,8 +25,9 @@ import javax.swing.table.DefaultTableModel;
  * @author barbarosa
  */
 public class frmStart extends javax.swing.JFrame {
-private List SourceList=new ArrayList<Integer>();
-private List DestinationList=new ArrayList<Integer>();
+//private List SourceList=new ArrayList<Integer>();
+//private List DestinationList=new ArrayList<Integer>();
+private Map<Integer,Integer> SourceDestinationMap=new HashMap();
     /** Creates new form frmStart */
     public frmStart() {
         initComponents();
@@ -162,15 +164,17 @@ private List DestinationList=new ArrayList<Integer>();
               DefaultTableModel model = new DefaultTableModel();
                model=(DefaultTableModel) CommunicationTable.getModel();
                model.insertRow(model.getRowCount(),new Object[]{SourceCombo.getSelectedItem(),DestCombo.getSelectedItem()});
-               SourceList.add(SourceCombo.getSelectedItem());
-               DestinationList.add(DestCombo.getSelectedItem());         
+               
+               SourceDestinationMap.put((Integer)SourceCombo.getSelectedItem(),(Integer)DestCombo.getSelectedItem());
+//               SourceList.add(SourceCombo.getSelectedItem());
+//               DestinationList.add(DestCombo.getSelectedItem());         
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnExecuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecuteActionPerformed
     //Timer timer = new Timer (  );
     //timer.schedule ( new ChangeNodesFrequenciesThread() , 5*1000 );
         
-    StartCommunication Communication=new StartCommunication(SourceList,DestinationList);
+    StartCommunication Communication=new StartCommunication(SourceDestinationMap);
     Communication.Start();
     }//GEN-LAST:event_btnExecuteActionPerformed
 
