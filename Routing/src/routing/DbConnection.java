@@ -31,6 +31,7 @@ public Connection ReturnConnectionObject(){
             conn =DriverManager.getConnection("jdbc:sqlite:db.sqlite");
             //Statement stat = conn.createStatement();
             return conn;
+            
         }catch(SQLException ex){
             ex.printStackTrace();
         }catch(ClassNotFoundException e){
