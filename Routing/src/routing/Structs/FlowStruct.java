@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package routing;
+package routing.Structs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author spyros
  */
-public class Structs {
+public class FlowStruct {
     
 public static class Flow{
    private String Name;
