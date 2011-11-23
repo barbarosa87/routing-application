@@ -10,10 +10,14 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
+//<editor-fold defaultstate="collapsed" desc="Variable Declaration">
 public  class DbConnection {
-private Connection conn;
-    
+    private Connection conn;
+    //private String ConnectionString;
+    //private String ClassString;
+//</editor-fold>
+
+
 //<editor-fold defaultstate="collapsed" desc="ReturnConnectionObject">
 public Connection ReturnConnectionObject(){
     return this.conn;
