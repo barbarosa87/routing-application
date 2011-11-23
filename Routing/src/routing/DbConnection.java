@@ -126,6 +126,7 @@ public Connection ReturnConnectionObject(){
      return Type;
  }
  //</editor-fold>
+
  
 //<editor-fold defaultstate="collapsed" desc="TruncateTables">
  public void TruncateTables(EnumeRators TableType,Connection conn,boolean all){
