@@ -111,7 +111,7 @@ public Connection ReturnConnectionObject(){
   //</editor-fold>
   
 //<editor-fold defaultstate="collapsed" desc="GettingTableType">
- public String CheckEnumeration(EnumeRators TableType){
+ private String CheckEnumeration(EnumeRators TableType){
      String Type="";
      switch (TableType){
          case Area:Type="Areas";break;
