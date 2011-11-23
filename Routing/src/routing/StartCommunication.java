@@ -5,6 +5,7 @@
 package routing;
 
 
+import routing.Structs.FlowStruct;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,7 +27,7 @@ public class StartCommunication {
     
 //   List SourcesList=new ArrayList<Integer>();
 //   List DestinationList=new ArrayList<Integer>();
-   List Flows=new ArrayList<Structs.Flow>();
+   List Flows=new ArrayList<FlowStruct.Flow>();
    private Map<Integer,Integer> SourceDestinationMap=new HashMap();
    
    public StartCommunication(Map SourceDestinationMap){
@@ -155,7 +156,7 @@ public class StartCommunication {
    
    
    public void InitializeFlow(int SourceID){
-       Flows.add(new Structs.Flow("Flow"+SourceID));
+       Flows.add(new FlowStruct.Flow("Flow"+SourceID));
    }
    
    
