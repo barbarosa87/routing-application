@@ -14,11 +14,11 @@ import java.util.Map;
 public final class RoutingCnf {
 
 //DECLARATION
-//<editor-fold defaultstate="collapsed" desc="NodesFrequencyRange">
+//<editor-fold defaultstate="collapsed" desc="Declaration">
     private static int StartFrequncy=40;
     private static int StopFrequncy=60;
     private static int NumberOfBroadCastTries=10;
-    
+    private static int k=10;
     private static final Map<Integer,Integer> Frequencies=new HashMap<Integer,Integer>(){{
         put(40,622);
         put(41,630);

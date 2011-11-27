@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.sql.rowset.CachedRowSet;
+import routing.Enumerators.ReplyCommands;
 import routing.Enumerators.ReturnType;
 import routing.Msg.RREQ;
 import routing.Msg.RREP;
@@ -31,18 +31,17 @@ import routing.conf.*;
 //TODO CREATE METRICS !!!!!!!!!!!
 public class StartCommunication {
     
-//   List SourcesList=new ArrayList<Integer>();
-//   List DestinationList=new ArrayList<Integer>();
+
     private CachedRowSetImpl Nodes;
     private CachedRowSetImpl NodesWeight;
-    private CachedRowSetImpl MessageExchange;
     private CachedRowSetImpl GeolocationDb;
+    private int RedirectNodeID=-1;
+    private int ReplayNodeID=-1;
    List Flows=new ArrayList<FlowStruct.Flow>();
    private Map<Integer,Integer> SourceDestinationMap=new HashMap();
    
    public StartCommunication(Map SourceDestinationMap){
-        //this.SourcesList=SourcesList;
-        //this.DestinationList=DestinationList;
+       
         this.SourceDestinationMap=SourceDestinationMap;
         GetRowSets();
         Start();
@@ -53,12 +52,11 @@ public class StartCommunication {
        DbConnection db=new DbConnection(ReturnType.CachedRowSet);
         try {
             Nodes=(CachedRowSetImpl)db.SelectFromDb(TableNames.Node, null, null, ReturnType.CachedRowSet);
-            while(Nodes.next()){
-                System.out.println(Nodes.getInt("ID"));
-            }
-           
+            NodesWeight=(CachedRowSetImpl)db.SelectFromDb(TableNames.NodesWeight, null, null, ReturnType.CachedRowSet);
+            //MessageExchange=(CachedRowSetImpl)db.SelectFromDb(TableNames.MessageExchange, null, null, ReturnType.CachedRowSet);
+            GeolocationDb=(CachedRowSetImpl)db.SelectFromDb(TableNames.GeolocationDb, null, null, ReturnType.CachedRowSet);
         } catch (SQLException ex) {
-            Logger.getLogger(StartCommunication.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
        
    }
@@ -66,72 +64,111 @@ public class StartCommunication {
    
     
    public final void Start(){
-       int ReplayNodeID=0;
        for (Map.Entry<Integer,Integer> entry:SourceDestinationMap.entrySet()){
            for (int j=0;j<RoutingCnf.getNumberOfBroadCastTries();j++){
-               //HERE I AM
-               ReplayNodeID=BroadCastMessage(entry.getKey());
-               
-               if (ReplayNodeID>0){
-                   //SendRREP TO CORRECT
-                   //SendRREP(ReplayNodeID,(Integer)SourcesList.get(i));
-                   //MakeNodeConnected
+               switch (BroadCastMessage(entry.getKey())){
+                   case AddToFlow:
+                       //MakeNodeConnected
                    MakeNodeConnected(ReplayNodeID);
                    //InitializeFlow
                    InitializeFlow(ReplayNodeID);
                    break;
-               }else{
-                   IterateChannels.ChangeFrequencies(); 
-                   continue;
+                   case Redirect:
+                       //RedirectFlow
+                   case Unavailable:
+                       IterateChannels.ChangeFrequencies(Nodes); 
+                       break;
                }
+               //ReplayNodeID=BroadCastMessage(entry.getKey());
+               
+              
            }
        }
     }
     
     
     
-   public int BroadCastMessage(int NodeID){
-        DbConnection db=new DbConnection();
-        Connection conn=db.Connect(); 
-        RREQ broadcast=new RREQ(true,conn,NodeID,255);
-        int Destination=GetReplyFromBroadCast(broadcast,db,conn);
-        return Destination;              
+   public ReplyCommands BroadCastMessage(int NodeID){
+        RREQ broadcast=new RREQ(true,NodeID,255);
+        switch (GetReplyFromBroadCast(broadcast)){
+            case AddToFlow:return ReplyCommands.AddToFlow;
+            case Redirect:return ReplyCommands.Redirect;
+            case Unavailable:return ReplyCommands.Unavailable;
+            default: return ReplyCommands.Unavailable;
+        }
+            
+        //int Destination=GetReplyFromBroadCast(broadcast);
+        
         }
     
-
-
-   public int GetReplyFromBroadCast(RREQ Broadcast,DbConnection db,Connection conn){
-        try{
-        ResultSet NeighBoursRs=(ResultSet)db.SelectFromDb(TableNames.GeolocationDb, "WHERE NeighbourID=" + Broadcast.SourceID, conn,ReturnType.ResultSet);
-        while (NeighBoursRs.next()){
-            ResultSet IntermediateRs=(ResultSet)db.SelectFromDb(TableNames.Node, "WHERE ID=" + NeighBoursRs.getInt("NodeID"), conn, ReturnType.ResultSet);
-            ResultSet SourceRs=(ResultSet)db.SelectFromDb(TableNames.Node, "WHERE ID=" + NeighBoursRs.getInt("NeighbourID"), conn,ReturnType.ResultSet);
-            IntermediateRs.next();
-            SourceRs.next();
-            if (IntermediateRs.getInt("Frequency")==SourceRs.getInt("Frequency")){
-               if (CheckIfConnected(IntermediateRs.getInt("ID"))){
-                 //REDIRECT  
-                   int NonConnectedNode=GetNonConnectedNeighbourNodes(Broadcast.SourceID);
-                  if (NonConnectedNode>0){
+   public ReplyCommands GetReplyFromBroadCast(RREQ Broadcast){
+      
+       DbConnection db=new DbConnection(ReturnType.CachedRowSet);
+        try {
+            CachedRowSetImpl NeighboursRs=(CachedRowSetImpl)db.SelectFromDb(TableNames.GeolocationDb, "WHERE NeighbourID=" + Broadcast.SourceID,null,ReturnType.CachedRowSet);
+            while (NeighboursRs.next()){
+                CachedRowSetImpl IntermediateRs=(CachedRowSetImpl)db.SelectFromDb(TableNames.Node, "WHERE ID=" + NeighboursRs.getInt("NodeID"), null, ReturnType.CachedRowSet);
+                CachedRowSetImpl SourceRs=(CachedRowSetImpl)db.SelectFromDb(TableNames.Node, "WHERE ID=" + NeighboursRs.getInt("NeighbourID"), null, ReturnType.CachedRowSet);
+                IntermediateRs.next();
+                SourceRs.next();
+                if (IntermediateRs.getInt("Frequency")==SourceRs.getInt("Frequency")){
+                    if(CheckIfConnected(IntermediateRs.getInt("Frequency"))){
+                        int NonConnectedNode=GetNonConnectedNeighbourNodes(Broadcast.SourceID);
+                         if (NonConnectedNode>0){
                       //SEND REPLY COMMAND FROM SPECIFIED NODE
-                      SendRREP(Broadcast.DestID, Broadcast.SourceID, true, conn);
-                      Redirect(Broadcast.SourceID, NonConnectedNode);
+                      //SendRREP(Broadcast.DestID, Broadcast.SourceID, true);
+                      //Redirect(Broadcast.SourceID, NonConnectedNode);
+                             RedirectNodeID=NonConnectedNode;
+                             return ReplyCommands.Redirect;
                   }else{
                       //NO AVAILABLE NODE TO PASS FLOW
-                      System.out.println("No available node to pass flow from channel " + Broadcast.SourceID +" try again later/n");
+                      //System.out.println("No available node to pass flow from channel " + Broadcast.SourceID +" try again later/n");
+                             RedirectNodeID=-1;
+                             return ReplyCommands.Redirect;
                   }
-                }    
-                return IntermediateRs.getInt("ID");
-            }else {
-                return -1;
+                    }
+                }
             }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(StartCommunication.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return ReplyCommands.Unavailable;
+     
+    }
 
-        }catch(SQLException ex){
-            ex.printStackTrace();
-        }
-        return 0;
-   }
+//   public int GetReplyFromBroadCast(RREQ Broadcast,DbConnection db,Connection conn){
+//        try{
+//        ResultSet NeighBoursRs=(ResultSet)db.SelectFromDb(TableNames.GeolocationDb, "WHERE NeighbourID=" + Broadcast.SourceID, conn,ReturnType.ResultSet);
+//        while (NeighBoursRs.next()){
+//            ResultSet IntermediateRs=(ResultSet)db.SelectFromDb(TableNames.Node, "WHERE ID=" + NeighBoursRs.getInt("NodeID"), conn, ReturnType.ResultSet);
+//            ResultSet SourceRs=(ResultSet)db.SelectFromDb(TableNames.Node, "WHERE ID=" + NeighBoursRs.getInt("NeighbourID"), conn,ReturnType.ResultSet);
+//            IntermediateRs.next();
+//            SourceRs.next();
+//            if (IntermediateRs.getInt("Frequency")==SourceRs.getInt("Frequency")){
+//               if (CheckIfConnected(IntermediateRs.getInt("ID"))){
+//                 //REDIRECT  
+//                   int NonConnectedNode=GetNonConnectedNeighbourNodes(Broadcast.SourceID);
+//                  if (NonConnectedNode>0){
+//                      //SEND REPLY COMMAND FROM SPECIFIED NODE
+//                      SendRREP(Broadcast.DestID, Broadcast.SourceID, true, conn);
+//                      Redirect(Broadcast.SourceID, NonConnectedNode);
+//                  }else{
+//                      //NO AVAILABLE NODE TO PASS FLOW
+//                      System.out.println("No available node to pass flow from channel " + Broadcast.SourceID +" try again later/n");
+//                  }
+//                }    
+//                return IntermediateRs.getInt("ID");
+//            }else {
+//                return -1;
+//            }
+//        }
+//
+//        }catch(SQLException ex){
+//            ex.printStackTrace();
+//        }
+//        return 0;
+//   }
    
    public void MakeNodeConnected(int NodeID){
        
@@ -172,8 +209,8 @@ public class StartCommunication {
        
    }
    
-   public void SendRREP(int SourceNodeID,int DestNodeID,boolean Redirect,Connection conn){
-       RREP Reply=new RREP(SourceNodeID,DestNodeID,Redirect,conn);
+   public void SendRREP(int SourceNodeID,int DestNodeID,boolean Redirect){
+       RREP Reply=new RREP(SourceNodeID,DestNodeID,Redirect);
    }
    
    
