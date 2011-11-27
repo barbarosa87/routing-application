@@ -4,6 +4,7 @@
  */
 package routing;
 
+import com.sun.rowset.CachedRowSetImpl;
 import routing.Enumerators.TableNames;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -17,7 +18,7 @@ import routing.Enumerators.ReturnType;
 public class IterateChannels {
          
     
-    public static void ChangeFrequencies(){
+    public static void ChangeFrequencies(CachedRowSetImpl Nodes){
 //       DbConnection db=new DbConnection(ReturnType.ResultSet);
 //       Connection conn=db.ReturnConnectionObject();
 //       try{
