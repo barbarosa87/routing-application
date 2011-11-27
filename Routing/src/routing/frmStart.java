@@ -10,15 +10,15 @@
  */
 package routing;
 
+import routing.Enumerators.TableNames;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
+import routing.Enumerators.ReturnType;
 
 /**
  *
@@ -43,10 +43,10 @@ private Map<Integer,Integer> SourceDestinationMap=new HashMap();
     
     private void LoadCombo(JComboBox Box){
         Box.removeAllItems();
-        DbConnection db=new DbConnection();
+        DbConnection db=new DbConnection(ReturnType.ResultSet);
     try {
     Connection conn=db.Connect();
-    ResultSet rs=db.SelectFromDbWithClause(EnumeRators.Node, "WHERE Area_flag=1", conn);
+    ResultSet rs=(ResultSet)db.SelectFromDb(TableNames.Node, "WHERE Area_flag=1", conn, ReturnType.ResultSet);
     while (rs.next()){
         Box.addItem(rs.getInt("ID"));
     }

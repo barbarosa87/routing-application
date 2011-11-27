@@ -6,7 +6,8 @@ package routing.Msg;
 
 import java.sql.Connection;
 import routing.DbConnection;
-import routing.EnumeRators;
+import routing.Enumerators.ReturnType;
+import routing.Enumerators.TableNames;
 
 /**
  *
@@ -25,7 +26,7 @@ public class RREP {
     
     public void SendRREP(int SourceID,int DestinationID){
             DbConnection db=new DbConnection();
-            int Key=db.ReturnUniqueKey(EnumeRators.MessageExchange, conn);
+            int Key=db.ReturnUniqueKey(TableNames.MessageExchange, conn);
             if (Redirect){
                 db.AddToDb("INSERT INTO MessageExchange(ID,SourceNode,DestinationNode,MessageName) VALUES("+(Key+1)+","+SourceID+","+DestinationID+",'RREQ')", conn);
             }else{

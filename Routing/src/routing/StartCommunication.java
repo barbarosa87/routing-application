@@ -5,6 +5,10 @@
 package routing;
 
 
+import com.sun.rowset.CachedRowSetImpl;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import routing.Enumerators.TableNames;
 import routing.Structs.FlowStruct;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,6 +17,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.sql.rowset.CachedRowSet;
+import routing.Enumerators.ReturnType;
 import routing.Msg.RREQ;
 import routing.Msg.RREP;
 import routing.conf.*;
@@ -27,6 +33,10 @@ public class StartCommunication {
     
 //   List SourcesList=new ArrayList<Integer>();
 //   List DestinationList=new ArrayList<Integer>();
+    private CachedRowSetImpl Nodes;
+    private CachedRowSetImpl NodesWeight;
+    private CachedRowSetImpl MessageExchange;
+    private CachedRowSetImpl GeolocationDb;
    List Flows=new ArrayList<FlowStruct.Flow>();
    private Map<Integer,Integer> SourceDestinationMap=new HashMap();
    
@@ -34,11 +44,24 @@ public class StartCommunication {
         //this.SourcesList=SourcesList;
         //this.DestinationList=DestinationList;
         this.SourceDestinationMap=SourceDestinationMap;
+        GetRowSets();
         Start();
     }
     
    
-   
+   public final void GetRowSets(){
+       DbConnection db=new DbConnection(ReturnType.CachedRowSet);
+        try {
+            Nodes=(CachedRowSetImpl)db.SelectFromDb(TableNames.Node, null, null, ReturnType.CachedRowSet);
+            while(Nodes.next()){
+                System.out.println(Nodes.getInt("ID"));
+            }
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(StartCommunication.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+   }
    
    
     
@@ -79,10 +102,10 @@ public class StartCommunication {
 
    public int GetReplyFromBroadCast(RREQ Broadcast,DbConnection db,Connection conn){
         try{
-        ResultSet NeighBoursRs=db.SelectFromDbWithClause(EnumeRators.GeolocationDb, "WHERE NeighbourID=" + Broadcast.SourceID, conn);
+        ResultSet NeighBoursRs=(ResultSet)db.SelectFromDb(TableNames.GeolocationDb, "WHERE NeighbourID=" + Broadcast.SourceID, conn,ReturnType.ResultSet);
         while (NeighBoursRs.next()){
-            ResultSet IntermediateRs=db.SelectFromDbWithClause(EnumeRators.Node, "WHERE ID=" + NeighBoursRs.getInt("NodeID"), conn);
-            ResultSet SourceRs=db.SelectFromDbWithClause(EnumeRators.Node, "WHERE ID=" + NeighBoursRs.getInt("NeighbourID"), conn);
+            ResultSet IntermediateRs=(ResultSet)db.SelectFromDb(TableNames.Node, "WHERE ID=" + NeighBoursRs.getInt("NodeID"), conn, ReturnType.ResultSet);
+            ResultSet SourceRs=(ResultSet)db.SelectFromDb(TableNames.Node, "WHERE ID=" + NeighBoursRs.getInt("NeighbourID"), conn,ReturnType.ResultSet);
             IntermediateRs.next();
             SourceRs.next();
             if (IntermediateRs.getInt("Frequency")==SourceRs.getInt("Frequency")){
@@ -118,9 +141,9 @@ public class StartCommunication {
        DbConnection db=new DbConnection();
        Connection conn=db.Connect();
         try {
-            ResultSet NeighBoursRs=db.SelectFromDbWithClause(EnumeRators.GeolocationDb, "WHERE NeighbourID=" + SourceID, conn);
+            ResultSet NeighBoursRs=(ResultSet)db.SelectFromDb(TableNames.GeolocationDb, "WHERE NeighbourID=" + SourceID, conn, ReturnType.ResultSet);
             while (NeighBoursRs.next()){
-                ResultSet WeightRS=db.SelectFromDbWithClause(EnumeRators.NodesWeight, "WHERE NodeID=" + NeighBoursRs.getInt("NodeID"), conn);
+                ResultSet WeightRS=(ResultSet)db.SelectFromDb(TableNames.NodesWeight, "WHERE NodeID=" + NeighBoursRs.getInt("NodeID"), conn, ReturnType.ResultSet);
                 WeightRS.next();
                 if (WeightRS.getInt("Connected")==0){
                     return WeightRS.getInt("NodeID");
@@ -138,7 +161,7 @@ public class StartCommunication {
        try {
            DbConnection db=new DbConnection();
            Connection conn=db.Connect();
-           ResultSet rs=db.SelectFromDbWithClause(EnumeRators.NodesWeight, "WHERE NodeID=" + NodeID +" AND Connected=1", conn);
+           ResultSet rs=(ResultSet)db.SelectFromDb(TableNames.NodesWeight, "WHERE NodeID=" + NodeID +" AND Connected=1", conn, ReturnType.ResultSet);
            while(rs.next()){
                return true;
            }

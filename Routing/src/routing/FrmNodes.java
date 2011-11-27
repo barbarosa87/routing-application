@@ -10,6 +10,7 @@
  */
 package routing;
 
+import routing.Enumerators.TableNames;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.Toolkit;
@@ -26,6 +27,7 @@ import javax.swing.JTable;
 import javax.swing.UIManager.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
+import routing.Enumerators.ReturnType;
 
 /**
  *
@@ -49,13 +51,13 @@ public class FrmNodes extends javax.swing.JFrame {
     
     
     public final void LoadNodesTable(){
-   NodesTm = new TableModel(EnumeRators.Node);
+   NodesTm = new TableModel(TableNames.Node);
    NodesTable = new JTable(NodesTm);
    NodesTable.getModel().addTableModelListener(new TableModelListener() {
 
             @Override
             public void tableChanged(TableModelEvent e) {
-                NodesTable.setModel(new TableModel(EnumeRators.Node));
+                NodesTable.setModel(new TableModel(TableNames.Node));
             }
         });
    NodesTableScrollPanel=new JScrollPane(NodesTable);
@@ -159,7 +161,7 @@ private void btnDeleteRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     try {
     Connection conn=db.Connect();
     if(NodesTable.getSelectedRow()>=0){
-    db.RemoveFromDb(EnumeRators.Node, conn,String.valueOf(NodesTable.getValueAt(NodesTable.getSelectedRow(), 0)));
+    db.RemoveFromDb(TableNames.Node, conn,String.valueOf(NodesTable.getValueAt(NodesTable.getSelectedRow(), 0)));
     NodesTm.fireTableDataChanged();
     }
     if(!conn.isClosed()){
@@ -189,11 +191,12 @@ private void btnDeleteRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         DbConnection db=new DbConnection();
         Connection conn=db.Connect();
         try {
-            ResultSet rs=db.SelectFromDbWithClause(EnumeRators.Node, "Where Area_flag=0", conn);
+            ResultSet rs=(ResultSet)db.SelectFromDb(TableNames.Node, "Where Area_flag=0", conn,ReturnType.ResultSet);
             while (rs.next()){
-                int key=db.ReturnUniqueKey(EnumeRators.NodesWeight, conn);
-                db.AddToDb("INSERT INTO NodesWeight(ID,NodeID,Connected) Values(" +(key+1)+","+rs.getInt("ID")+",0", conn);
+                int key=db.ReturnUniqueKey(TableNames.NodesWeight, conn);
+                db.AddToDb("INSERT INTO NodesWeight(ID,NodeID,Connected) Values(" +(key+1)+","+rs.getInt("ID")+",0)", conn);
             }
+            conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(FrmNodes.class.getName()).log(Level.SEVERE, null, ex);
         }

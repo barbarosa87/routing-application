@@ -10,6 +10,7 @@
  */
 package routing;
 
+import routing.Enumerators.TableNames;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.sql.Connection;
@@ -18,6 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
+import routing.Enumerators.ReturnType;
 
 /**
  *
@@ -35,13 +37,13 @@ public class frmAreas extends javax.swing.JFrame {
        CreateAreasTable();
     }
    public final void CreateAreasTable(){
-      AreasTm=new TableModel(EnumeRators.Area);
+      AreasTm=new TableModel(TableNames.Area);
       AreasTable=new JTable(AreasTm);
       AreasTable.getModel().addTableModelListener(new TableModelListener() {
 
             @Override
             public void tableChanged(TableModelEvent e) {
-           AreasTable.setModel(new TableModel(EnumeRators.Area));
+           AreasTable.setModel(new TableModel(TableNames.Area));
             }
         });
       AreasTablePanel.setLayout(new FlowLayout());
@@ -152,12 +154,12 @@ private void btnNewRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 }//GEN-LAST:event_btnNewRowActionPerformed
 
 private void btnDeleteRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteRowActionPerformed
- DbConnection db=new DbConnection();
+ DbConnection db=new DbConnection(ReturnType.ResultSet);
    
  try {
     Connection conn=db.Connect();
     if(AreasTable.getSelectedRow()>=0){
-    db.RemoveFromDb(EnumeRators.Area, conn,String.valueOf(AreasTable.getValueAt(AreasTable.getSelectedRow(), 0)));
+    db.RemoveFromDb(TableNames.Area, conn,String.valueOf(AreasTable.getValueAt(AreasTable.getSelectedRow(), 0)));
     AreasTm.fireTableDataChanged();
     }
     if(!conn.isClosed()){
