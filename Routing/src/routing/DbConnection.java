@@ -4,34 +4,49 @@
  */
 package routing;
 
+import com.sun.rowset.CachedRowSetImpl;
+import routing.Enumerators.TableNames;
 import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import routing.Enumerators.GetDataFromEnumerators;
+import routing.Enumerators.ReturnType;
+
+
+public  class DbConnection extends GetDataFromEnumerators {
 
 //<editor-fold defaultstate="collapsed" desc="Variable Declaration">
-public  class DbConnection {
-    private Connection conn;
-    //private String ConnectionString;
-    //private String ClassString;
+    private String ConnectionUrl="jdbc:sqlite:db.sqlite";
+    private CachedRowSetImpl cac;
 //</editor-fold>
 
-
-//<editor-fold defaultstate="collapsed" desc="ReturnConnectionObject">
-public Connection ReturnConnectionObject(){
-    return this.conn;
-}
-//</editor-fold>
+//<editor-fold defaultstate="collapsed" desc="Constructors">
+    public DbConnection(ReturnType returnType){
+        try{
+                    org.sqlite.JDBC jd=new org.sqlite.JDBC();
+                    cac = new CachedRowSetImpl();
+                    cac.setUrl(ConnectionUrl);
+                    
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+    }
     
-//<editor-fold defaultstate="collapsed" desc="ReturnConnection">
+    public DbConnection(){
+        
+    }
+    
+    //</editor-fold>
+        
+//<editor-fold defaultstate="collapsed" desc="ConnectAndReturnConnection">
     public Connection Connect() {
+
         try{
             Class.forName("org.sqlite.JDBC");
-            conn =DriverManager.getConnection("jdbc:sqlite:db.sqlite");
-            //Statement stat = conn.createStatement();
+            Connection conn =DriverManager.getConnection(ConnectionUrl);
             return conn;
-            
         }catch(SQLException ex){
             ex.printStackTrace();
         }catch(ClassNotFoundException e){
@@ -42,32 +57,44 @@ public Connection ReturnConnectionObject(){
     }
     //</editor-fold>
 
-//<editor-fold defaultstate="collapsed" desc="SelectFromDbWithClause">
-  public ResultSet SelectFromDbWithClause(EnumeRators TableType,String Clause,Connection conn)throws SQLException{
-          String Type=CheckEnumeration(TableType);
+//<editor-fold defaultstate="collapsed" desc="SelectFromDb">
+  public Object SelectFromDb(TableNames TableType,String Clause,Connection conn,ReturnType returntype)throws SQLException{
+ String Type=GetTableName(TableType);
+      switch (returntype){
+          case CachedRowSet:
+              cac.setCommand("SELECT * from "+Type);
+              cac.execute();
+              return cac;
+          case ResultSet:
           Statement stat=conn.createStatement();
           ResultSet rs=stat.executeQuery("SELECT * FROM "+Type +" "+Clause);
           return rs;
-     
-     
+      }
+      return null;
   }
   //</editor-fold>
   
   
 //<editor-fold defaultstate="collapsed" desc="SelectFromDb">
-  public ResultSet SelectFromDb(EnumeRators TableType,Connection conn) throws SQLException{
-      String Type=CheckEnumeration(TableType);
-      
-          Statement stat=conn.createStatement();
-          ResultSet rs=stat.executeQuery("SELECT * FROM "+Type);
-          return rs;
-     
-  }
+//  public Object SelectFromDb(TableNames TableType,Connection conn ,ReturnType returnType) throws SQLException{
+//      String Type=CheckEnumeration(TableType);
+//      switch(returnType){
+//          case CachedRowSet:
+//                cac.setCommand("SELECT * from "+Type);
+//                cac.execute();
+//                return cac;
+//          case ResultSet:
+//                Statement stat=conn.createStatement();
+//                ResultSet rs=stat.executeQuery("SELECT * FROM "+Type);
+//                return rs; 
+//      }
+//     return null;
+//  }
   //</editor-fold>
 
 //<editor-fold defaultstate="collapsed" desc="ReturnUniqueKey">  
-  public int ReturnUniqueKey(EnumeRators TableType,Connection conn){
-          String Type=CheckEnumeration(TableType);
+public int ReturnUniqueKey(TableNames TableType,Connection conn){
+          String Type=GetTableName(TableType);
           int i=0;
           try{
           Statement stat=conn.createStatement();
@@ -93,21 +120,9 @@ public Connection ReturnConnectionObject(){
   }
   //</editor-fold>
  
-//<editor-fold defaultstate="collapsed" desc="GetRowCount">
-  public ResultSet getRowCount(EnumeRators TableType,Connection conn) throws SQLException{
-      String Type=CheckEnumeration(TableType);
-     
-          Statement stat=conn.createStatement();
-          ResultSet rs=stat.executeQuery("SELECT COUNT(*) as 'RowCount' FROM "+Type);
-          return rs;
-   
-  }
-  //</editor-fold>
- 
 //<editor-fold defaultstate="collapsed" desc="RemoveFromDbWithClause">
-  public void RemoveFromDb(EnumeRators TableType,Connection conn,String id) throws SQLException{
-      String Type=CheckEnumeration(TableType);
-     
+  public void RemoveFromDb(TableNames TableType,Connection conn,String id) throws SQLException{
+          String Type=GetTableName(TableType);
           Statement stat=conn.createStatement();
           stat.executeUpdate("DELETE FROM "+Type+" WHERE ID= "+id);
           stat.close();
@@ -115,39 +130,22 @@ public Connection ReturnConnectionObject(){
   }
   //</editor-fold>
   
-//<editor-fold defaultstate="collapsed" desc="GettingTableType">
- private String CheckEnumeration(EnumeRators TableType){
-     String Type="";
-     switch (TableType){
-         case Area:Type="Areas";break;
-         case Node:Type="Nodes";break;
-         case NodesNeighbours:Type="NodesNeighbours";break;
-         case AreasNeighbours:Type="AreasNeighbours";break;
-         case GeolocationDb:Type="GeolocationDb";break;
-         case MessageExchange:Type="MessageExchange";break;
-         case NodesWeight:Type="NodesWeight";break;
-         default:Type="Error";break;
-     }
-     return Type;
- }
- //</editor-fold>
-
  
 //<editor-fold defaultstate="collapsed" desc="TruncateTables">
- public void TruncateTables(EnumeRators TableType,Connection conn,boolean all){
+ public void TruncateTables(TableNames TableType,Connection conn,boolean all){
      try{
      if(all){
          
              Statement stat=conn.createStatement();
-             //stat.executeUpdate("DELETE FROM "+CheckEnumeration(EnumeRators.Area));
-             //stat.executeUpdate("DELETE FROM "+CheckEnumeration(EnumeRators.Node));
-             //stat.executeUpdate("DELETE FROM "+CheckEnumeration(EnumeRators.AreasNeighbours));
-             //stat.executeUpdate("DELETE FROM "+CheckEnumeration(EnumeRators.NodesNeighbours));
-             stat.executeUpdate("DELETE FROM "+CheckEnumeration(EnumeRators.MessageExchange));
-             stat.executeUpdate("DELETE FROM "+CheckEnumeration(EnumeRators.NodesWeight));
+             //stat.executeUpdate("DELETE FROM "+CheckEnumeration(TableNames.Area));
+             //stat.executeUpdate("DELETE FROM "+CheckEnumeration(TableNames.Node));
+             //stat.executeUpdate("DELETE FROM "+CheckEnumeration(TableNames.AreasNeighbours));
+             //stat.executeUpdate("DELETE FROM "+CheckEnumeration(TableNames.NodesNeighbours));
+             stat.executeUpdate("DELETE FROM "+GetTableName(TableNames.MessageExchange));
+             stat.executeUpdate("DELETE FROM "+GetTableName(TableNames.NodesWeight));
          
      }else{
-         String Type=CheckEnumeration(TableType);
+         String Type=GetTableName(TableType);
      
              Statement stat=conn.createStatement();
              stat.executeUpdate("DELETE FROM "+Type);
@@ -163,9 +161,9 @@ public Connection ReturnConnectionObject(){
  //</editor-fold>
 
 //<editor-fold defaultstate="collapsed" desc="UpdateTableColumnValue">
- public void UpdateTableColumnValue(EnumeRators TableType,String ColumnName,int ColumnValue,String Clause,Connection conn) throws SQLException{
+ public void UpdateTableColumnValue(TableNames TableType,String ColumnName,int ColumnValue,String Clause,Connection conn) throws SQLException{
     
-         String Type=CheckEnumeration(TableType);
+         String Type=GetTableName(TableType);
          Statement stat=conn.createStatement();
          stat.executeUpdate("UPDATE "+Type+" SET Frequency=" +ColumnValue+" "+Clause);
     

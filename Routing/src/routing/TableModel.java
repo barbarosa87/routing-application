@@ -4,6 +4,7 @@
  */
 package routing;
 
+import routing.Enumerators.TableNames;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
@@ -11,6 +12,7 @@ import java.sql.ResultSetMetaData;
 import java.util.Vector;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
+import routing.Enumerators.ReturnType;
 
 
 public class TableModel extends AbstractTableModel {
@@ -44,7 +46,7 @@ public class TableModel extends AbstractTableModel {
     
     
     
-    public TableModel(EnumeRators TableType) {
+    public TableModel(TableNames TableType) {
     cache = new Vector();
     DbConnection db=new DbConnection();
     Connection conn=db.Connect();

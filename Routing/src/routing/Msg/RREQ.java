@@ -6,7 +6,8 @@ package routing.Msg;
 
 import java.sql.Connection;
 import routing.DbConnection;
-import routing.EnumeRators;
+import routing.Enumerators.ReturnType;
+import routing.Enumerators.TableNames;
 
 
 /**
@@ -30,7 +31,7 @@ public class RREQ {
     
     public final void Transmit(int SourceID,int DestID){
             DbConnection db=new DbConnection();
-            int Key=db.ReturnUniqueKey(EnumeRators.MessageExchange, conn);
+            int Key=db.ReturnUniqueKey(TableNames.MessageExchange, conn);
             this.ID=Key+1;
             if (BroadCast){
                 db.AddToDb("INSERT INTO MessageExchange(ID,SourceNode,DestinationNode,MessageName) VALUES("+(Key+1)+","+SourceID+","+DestID+",'RREQ')", conn);

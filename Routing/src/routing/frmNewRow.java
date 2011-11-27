@@ -10,6 +10,7 @@
  */
 package routing;
 
+import routing.Enumerators.TableNames;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -17,6 +18,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import routing.Enumerators.ReturnType;
 
 /**
  *
@@ -46,7 +48,7 @@ public class frmNewRow extends javax.swing.JFrame {
          DbConnection db=new DbConnection();
             Connection conn=db.Connect();
    try{
-         ResultSet rs=db.SelectFromDb(EnumeRators.Area, conn);
+         ResultSet rs=(ResultSet)db.SelectFromDb(TableNames.Area,"", conn , ReturnType.ResultSet);
    if (rs!=null){
       while(rs.next()){
          SlArea.addItem(rs.getString("ID"));
@@ -221,7 +223,7 @@ public class frmNewRow extends javax.swing.JFrame {
         Connection conn=db.Connect();
         try{
         
-        ResultSet  rs=db.SelectFromDb(EnumeRators.Node, conn);
+        ResultSet  rs=(ResultSet)db.SelectFromDb(TableNames.Node,"", conn, ReturnType.ResultSet);
                 while(rs.next()){
                         ComboPlusNodes.addItem(rs.getString("ID"));                  
                 }
@@ -238,7 +240,7 @@ if(SelectionTabPanel.getSelectedIndex()==SelectionTabPanel.indexOfTab("Nodes")){
    DbConnection db=new DbConnection();
    Connection conn=db.Connect(); 
    try{
-   int KeyNodesCount=db.ReturnUniqueKey(EnumeRators.Node, conn);
+   int KeyNodesCount=db.ReturnUniqueKey(TableNames.Node, conn);
     if (bxArea.isSelected()){
        if(SlArea.getItemCount()>0){
        db.AddToDb( "INSERT INTO Nodes (ID,Area_flag,Area_ID,Frequency) VALUES (" + (KeyNodesCount+1)+"," + "1," + SlArea.getSelectedItem()+ "," + Integer.parseInt(Txt_Freq.getText()) +")", conn);
@@ -254,7 +256,7 @@ if(SelectionTabPanel.getSelectedIndex()==SelectionTabPanel.indexOfTab("Nodes")){
     }
     //CreaTingGeolocationDB
     for (int i=0;i<NodesID.size();i++){
-        int GeoDBCount=db.ReturnUniqueKey(EnumeRators.GeolocationDb, conn);
+        int GeoDBCount=db.ReturnUniqueKey(TableNames.GeolocationDb, conn);
         db.AddToDb( "INSERT INTO GeolocationDB (ID,NodeID,NeighbourID) VALUES ("+(GeoDBCount+1)+","+ (KeyNodesCount+1)+","+NodesID.get(i)+")", conn);
     }
     NodesID.clear();
@@ -271,7 +273,7 @@ if(SelectionTabPanel.getSelectedIndex()==SelectionTabPanel.indexOfTab("Nodes")){
     }else {
     DbConnection db=new DbConnection();
     Connection conn=db.Connect();
-    int AreasCount=db.ReturnUniqueKey(EnumeRators.Area, conn);
+    int AreasCount=db.ReturnUniqueKey(TableNames.Area, conn);
     db.AddToDb("INSERT INTO Areas(ID,Start_frq,Stop_frq) VALUES("+(AreasCount+1)+","+TextStartFreq.getText()+","+TextStopFreq.getText()+")", conn);
     frmAreas.AreasTm.fireTableDataChanged();
     this.dispose();
