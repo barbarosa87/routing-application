@@ -18,14 +18,14 @@ public class Calculations {
         return (2*RoutingCnf.getLoadOfFlow()*NodesCount)/RoutingCnf.getSystemCapacity()*(1-2*RoutingCnf.getLoadOfFlow())*(1-RoutingCnf.getLoadOfFlow());
     }
     
-    public double GetDRoute(){
-        return GetPathDelay()+GetNodeDelay();
-    }
-    
-    
-    public double GetPathDelay(){
-        
-    }
+//    public double GetDRoute(){
+//        return GetPathDelay()+GetNodeDelay();
+//    }
+//    
+//    
+//    public double GetPathDelay(){
+//        
+//    }
     
     public double GetPathSwitchingDelay(int ActiveFrequency,int MoveFrequency){
         return RoutingCnf.getK()*Math.abs(ActiveFrequency-MoveFrequency);
