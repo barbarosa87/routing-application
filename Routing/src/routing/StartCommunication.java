@@ -31,20 +31,23 @@ import routing.conf.*;
 //TODO CREATE METRICS !!!!!!!!!!!
 public class StartCommunication {
     
-
+    
     private CachedRowSetImpl Nodes;
     private CachedRowSetImpl NodesWeight;
     private CachedRowSetImpl GeolocationDb;
     private int RedirectNodeID=-1;
     private int ReplayNodeID=-1;
-   List Flows=new ArrayList<FlowStruct.Flow>();
-   private Map<Integer,Integer> SourceDestinationMap=new HashMap();
+    private List Flows=new ArrayList<FlowStruct.Flow>();
+    private Map<Integer,Integer> SourceDestinationMap=new HashMap();
    
-   public StartCommunication(Map SourceDestinationMap){
+   
+    
+    public StartCommunication(Map SourceDestinationMap){
        
         this.SourceDestinationMap=SourceDestinationMap;
         GetRowSets();
         Start();
+       
     }
     
    
@@ -54,15 +57,13 @@ public class StartCommunication {
             Nodes=(CachedRowSetImpl)db.SelectFromDb(TableNames.Node, null, null, ReturnType.CachedRowSet);
             NodesWeight=(CachedRowSetImpl)db.SelectFromDb(TableNames.NodesWeight, null, null, ReturnType.CachedRowSet);
             //MessageExchange=(CachedRowSetImpl)db.SelectFromDb(TableNames.MessageExchange, null, null, ReturnType.CachedRowSet);
-            GeolocationDb=(CachedRowSetImpl)db.SelectFromDb(TableNames.GeolocationDb, null, null, ReturnType.CachedRowSet);
+            GeolocationDb=(CachedRowSetImpl)db.SelectFromDb(TableNames.GeolocationDb, null, null, ReturnType.ResultSet);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
        
    }
    
-   
-    
    public final void Start(){
        for (Map.Entry<Integer,Integer> entry:SourceDestinationMap.entrySet()){
            for (int j=0;j<RoutingCnf.getNumberOfBroadCastTries();j++){
