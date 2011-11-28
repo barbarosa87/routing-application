@@ -18,7 +18,7 @@ public final class RoutingCnf {
     private static int StartFrequncy=40;
     private static int StopFrequncy=60;
     private static int NumberOfBroadCastTries=10;
-    private static int k=10;
+    
     private static final Map<Integer,Integer> Frequencies=new HashMap<Integer,Integer>(){{
         put(40,622);
         put(41,630);
@@ -42,9 +42,48 @@ public final class RoutingCnf {
         put(59,774);
         put(60,782);
     }};
-//</editor-fold>
-
+    //Load of the flow
+    private static double p=0.45;
+    //System capacity
+    private static double C=1;
     
+    private static double k=1000;
+    private static double Pc=0.2;
+    private static double Wo=3;
+    private static double Hx=1;
+    private static double PCPath=0.9;
+    private static double QCPath=0.9;
+    private static double PoPath=0.9;    
+//</editor-fold>
+    public static double getPCPath(){
+        return PCPath;
+    }
+    public static double getQCPath(){
+        return QCPath;
+    }
+    public static double getPoPath(){
+        return PoPath;
+    }
+    public static double getHx(){
+        return Hx;
+    }
+    public static double getPc(){
+        return Pc;
+    }
+    public static double getWo(){
+        return Wo;
+    }
+public static double getLoadOfFlow(){
+    return p;
+}
+public static double getK(){
+    return k;
+}
+    public static double getSystemCapacity(){
+        return C;
+    }
+    
+        
 public static int getStartFrequency(){
     return StartFrequncy;
 }
