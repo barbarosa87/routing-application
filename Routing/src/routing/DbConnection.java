@@ -77,20 +77,14 @@ public  class DbConnection extends GetDataFromEnumerators {
   
   
 //<editor-fold defaultstate="collapsed" desc="SelectFromDb">
-//  public Object SelectFromDb(TableNames TableType,Connection conn ,ReturnType returnType) throws SQLException{
-//      String Type=CheckEnumeration(TableType);
-//      switch(returnType){
-//          case CachedRowSet:
-//                cac.setCommand("SELECT * from "+Type);
-//                cac.execute();
-//                return cac;
-//          case ResultSet:
-//                Statement stat=conn.createStatement();
-//                ResultSet rs=stat.executeQuery("SELECT * FROM "+Type);
-//                return rs; 
-//      }
-//     return null;
-//  }
+  public Object GetCountFromDB(TableNames TableType,String Clause,Connection conn ) throws SQLException{
+      String Type=GetTableName(TableType);
+      
+                Statement stat=conn.createStatement();
+                ResultSet rs=stat.executeQuery("SELECT Count(*) FROM "+Type+" "+Clause);
+                return rs; 
+     
+  }
   //</editor-fold>
 
 //<editor-fold defaultstate="collapsed" desc="ReturnUniqueKey">  
