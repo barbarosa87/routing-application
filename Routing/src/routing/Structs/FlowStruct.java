@@ -26,7 +26,9 @@ public static class Flow{
        this.Name=Name;
    }
    
-   
+   public List<Integer> GetAddedNodesList(){
+       return AddedNodes;
+   }
    public void addNodeToFlow(int NodeID){
        AddedNodes.add(NodeID);
    }
