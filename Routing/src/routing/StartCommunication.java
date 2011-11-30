@@ -57,7 +57,7 @@ public class StartCommunication {
             Nodes=(CachedRowSetImpl)db.SelectFromDb(TableNames.Node, null, null, ReturnType.CachedRowSet);
             NodesWeight=(CachedRowSetImpl)db.SelectFromDb(TableNames.NodesWeight, null, null, ReturnType.CachedRowSet);
             //MessageExchange=(CachedRowSetImpl)db.SelectFromDb(TableNames.MessageExchange, null, null, ReturnType.CachedRowSet);
-            GeolocationDb=(CachedRowSetImpl)db.SelectFromDb(TableNames.GeolocationDb, null, null, ReturnType.ResultSet);
+            GeolocationDb=(CachedRowSetImpl)db.SelectFromDb(TableNames.GeolocationDb, null, null, ReturnType.CachedRowSet);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -66,6 +66,7 @@ public class StartCommunication {
    
    public final void Start(){
        for (Map.Entry<Integer,Integer> entry:SourceDestinationMap.entrySet()){
+           InitializeFlow(entry.getKey());
            for (int j=0;j<RoutingCnf.getNumberOfBroadCastTries();j++){
                switch (BroadCastMessage(entry.getKey())){
                    case AddToFlow:
@@ -89,8 +90,8 @@ public class StartCommunication {
     
     
     
-   public ReplyCommands BroadCastMessage(int NodeID){
-        RREQ broadcast=new RREQ(true,NodeID,255);
+   public ReplyCommands BroadCastMessage(int SourceNodeID){
+        RREQ broadcast=new RREQ(true,SourceNodeID,255);
         switch (GetReplyFromBroadCast(broadcast)){
             case AddToFlow:return ReplyCommands.AddToFlow;
             case Redirect:return ReplyCommands.Redirect;
@@ -103,7 +104,6 @@ public class StartCommunication {
         }
     
    public ReplyCommands GetReplyFromBroadCast(RREQ Broadcast){
-      
        DbConnection db=new DbConnection(ReturnType.CachedRowSet);
         try {
             CachedRowSetImpl NeighboursRs=(CachedRowSetImpl)db.SelectFromDb(TableNames.GeolocationDb, "WHERE NeighbourID=" + Broadcast.SourceID,null,ReturnType.CachedRowSet);
@@ -217,7 +217,8 @@ public class StartCommunication {
    
    
    public void InitializeFlow(int SourceID){
-       Flows.add(new FlowStruct.Flow("Flow"+SourceID));
+       Flows.add(new FlowStruct.Flow("Flow"+SourceID,SourceID));
+       
    }
    
    
