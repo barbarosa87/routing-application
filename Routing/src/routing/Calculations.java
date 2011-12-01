@@ -14,7 +14,7 @@ public class Calculations {
     
 
     
-    public double GetDQueuing(int NodesCount){
+    public static double GetDQueuing(int NodesCount){
         return (2*RoutingCnf.getLoadOfFlow()*NodesCount)/RoutingCnf.getSystemCapacity()*(1-2*RoutingCnf.getLoadOfFlow())*(1-RoutingCnf.getLoadOfFlow());
     }
     
@@ -27,10 +27,10 @@ public class Calculations {
 //        
 //    }
     
-    public double GetPathSwitchingDelay(int ActiveFrequency,int MoveFrequency){
+    public static double GetPathSwitchingDelay(int ActiveFrequency,int MoveFrequency){
         return RoutingCnf.getK()*Math.abs(ActiveFrequency-MoveFrequency);
     }
-    public double GetPathBackOffDelay(){
+    public static double GetPathBackOffDelay(){
         if (RoutingCnf.getHx()%2==0){
             return ((1-RoutingCnf.getPoPath())*RoutingCnf.getQCPath())*((1-RoutingCnf.getPCPath())/(1-Math.pow(RoutingCnf.getPCPath(),2.0)));
         }else {
@@ -39,16 +39,16 @@ public class Calculations {
     }
     
     
-    public double GetNodeDelay(int ActiveFrequenciesCount,int ActiveFrequency,int NodeNumber){
+    public static double GetNodeDelay(int ActiveFrequenciesCount,int ActiveFrequency,int NodeNumber){
         return GetNodeSwitchingDelay(ActiveFrequenciesCount,ActiveFrequency)+GetNodeBackOffDelay(NodeNumber);
     }
     
     
-    public double GetNodeSwitchingDelay(int ActiveFrequenciesCount,int ActiveFrequency){
+    public static double GetNodeSwitchingDelay(int ActiveFrequenciesCount,int ActiveFrequency){
         return 2*RoutingCnf.getK()*Math.abs(ActiveFrequenciesCount-ActiveFrequency);
     }
     
-    public double GetNodeBackOffDelay(int NodeNumber){
+    public static double GetNodeBackOffDelay(int NodeNumber){
         return (1/(1-RoutingCnf.getPc())*(1-Math.pow((1-RoutingCnf.getPc()),(1/NodeNumber-1))))*RoutingCnf.getWo();
     }
     

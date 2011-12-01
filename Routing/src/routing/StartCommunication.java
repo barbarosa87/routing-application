@@ -38,17 +38,17 @@ public class StartCommunication {
     private int RedirectNodeID=-1;
     private int FlowNode=-1;
     private int ReplayNodeID=-1;
+    private int DestinationNode=-1;
     private List Flows=new ArrayList<FlowStruct.Flow>();
+    private List StaticFlow=new ArrayList<Integer>();
     private Map<Integer,Integer> SourceDestinationMap=new HashMap();
-   
+   private List<Integer> CalculationNodeDelay=new ArrayList<Integer>();
    
     
     public StartCommunication(Map SourceDestinationMap){
-       
         this.SourceDestinationMap=SourceDestinationMap;
         GetRowSets();
         Start();
-       
     }
     
    
@@ -68,29 +68,48 @@ public class StartCommunication {
    public final void Start(){
        for (Map.Entry<Integer,Integer> entry:SourceDestinationMap.entrySet()){
            FlowStruct.Flow fl=InitializeFlow(entry.getKey());
+           MakeNodeConnected(entry.getKey());
+           StaticFlow.add(entry.getKey());
+           int SourceID=entry.getKey();
+           DestinationNode=entry.getValue();
+           boolean added=false;
            for (int j=0;j<RoutingCnf.getNumberOfBroadCastTries();j++){
-               switch (BroadCastMessage(entry.getKey())){
+               switch (BroadCastMessage(SourceID)){
                    case AddToFlow:
-                   MakeNodeConnected(ReplayNodeID);
-                   fl.addNodeToFlow(ReplayNodeID);
+                   StaticFlow.add(FlowNode);
+                   MakeNodeConnected(FlowNode);
+                   fl.addNodeToFlow(FlowNode);
+                   added=true;
+                  System.out.println("Node "+ String.valueOf(FlowNode)+Calculations.GetNodeBackOffDelay(fl.GetAddedNodesList().size())+"   "+Calculations.GetNodeSwitchingDelay(20, 5));
                    break;
                    case Redirect:
                        //RedirectFlow
                        MakeNodeConnected(RedirectNodeID);
                        fl.addNodeToFlow(RedirectNodeID);
+                       StaticFlow.add(FlowNode);
+                       added=true;
                        break;
                    case Unavailable:
                        IterateChannels.ChangeFrequencies(Nodes); 
                        break;
                }
-               if (fl.GetAddedNodesList().get(fl.GetAddedNodesList().size()-1)==entry.getValue()){
+               if(added){
+                   if (fl.GetAddedNodesList().get(fl.GetAddedNodesList().size()-1)==entry.getValue()){
                 for(Integer i:fl.GetAddedNodesList()){
                 System.out.println(i);
-                }   
-               }else{
+                }
+                   break;}
+                   else{
+                       SourceID=FlowNode;
                    j=0;
+                   added=false;
+                   continue;
+                   }
+                   
+               }else{
                    continue;
                }
+               
            }
            
        }
@@ -106,9 +125,7 @@ public class StartCommunication {
             case Unavailable:return ReplyCommands.Unavailable;
             default: return ReplyCommands.Unavailable;
         }
-            
-        //int Destination=GetReplyFromBroadCast(broadcast);
-        
+    
         }
     
    public ReplyCommands GetReplyFromBroadCast(RREQ Broadcast){
@@ -121,11 +138,20 @@ public class StartCommunication {
                 ResultSet SourceRs=(ResultSet)db.SelectFromDb(TableNames.Node, "WHERE ID=" + NeighboursRs.getInt("NeighbourID"),conn, ReturnType.ResultSet);
                 IntermediateRs.next();
                 SourceRs.next();
-                if (IntermediateRs.getInt("Frequency")==SourceRs.getInt("Frequency")){
+                if (StaticFlow.contains(IntermediateRs.getInt("ID"))){
+                    continue;
+                }
+                if(IntermediateRs.getInt("ID")==DestinationNode){
+                    FlowNode=IntermediateRs.getInt("ID");
+                    conn.close();
+                    return ReplyCommands.AddToFlow;
+                }
+                //TODO Check for added node
+                if ((IntermediateRs.getInt("Frequency")==SourceRs.getInt("Frequency"))){
                     ResultSet CheckIfConnectedCount =(ResultSet)db.GetCountFromDB(TableNames.NodesWeight, "WHERE NodeID=" + IntermediateRs.getInt("ID") +" AND Connected=1", conn);
                     CheckIfConnectedCount.next();
                     if(CheckIfConnectedCount.getInt("Count(*)")>0){
-                        int NonConnectedNode=GetNonConnectedNeighbourNodes(Broadcast.SourceID);
+                        int NonConnectedNode=GetNonConnectedNeighbourNodes(Broadcast.SourceID,conn);
                          if (NonConnectedNode>0){
                              RedirectNodeID=NonConnectedNode;
                              conn.close();
@@ -142,6 +168,7 @@ public class StartCommunication {
                     }
                 }
             }
+            conn.close();
             
         } catch (SQLException ex) {
             Logger.getLogger(StartCommunication.class.getName()).log(Level.SEVERE, null, ex);
@@ -152,12 +179,19 @@ public class StartCommunication {
 
    
    public void MakeNodeConnected(int NodeID){
-       
+     DbConnection db=new DbConnection();
+     Connection conn=db.Connect();
+        try {
+            db.UpdateTableColumnValue(TableNames.NodesWeight, "Connected", 1, "WHERE NodeID=" + NodeID, conn);
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(StartCommunication.class.getName()).log(Level.SEVERE, null, ex);
+        }
    }
    
-   public int GetNonConnectedNeighbourNodes(int SourceID){
+   public int GetNonConnectedNeighbourNodes(int SourceID,Connection conn){
        DbConnection db=new DbConnection();
-       Connection conn=db.Connect();
+//       Connection conn=db.Connect();
         try {
             ResultSet NeighBoursRs=(ResultSet)db.SelectFromDb(TableNames.GeolocationDb, "WHERE NeighbourID=" + SourceID, conn, ReturnType.ResultSet);
             while (NeighBoursRs.next()){

@@ -160,7 +160,7 @@ public int ReturnUniqueKey(TableNames TableType,Connection conn){
     
          String Type=GetTableName(TableType);
          Statement stat=conn.createStatement();
-         stat.executeUpdate("UPDATE "+Type+" SET Frequency=" +ColumnValue+" "+Clause);
+         stat.executeUpdate("UPDATE "+Type+" SET "+ColumnName+" =" +ColumnValue+" "+Clause);
     
  }
  //</editor-fold>

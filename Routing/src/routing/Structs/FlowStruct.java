@@ -24,6 +24,7 @@ public static class Flow{
    //Node with index 1 in AddedNodes is the sourceNode
    public Flow(String Name,int SourceNode){
        this.Name=Name;
+       addNodeToFlow(SourceNode);
    }
    
    public List<Integer> GetAddedNodesList(){
