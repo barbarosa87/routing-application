@@ -15,6 +15,7 @@ import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.SQLException;
+import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
@@ -34,6 +35,8 @@ public class frmAreas extends javax.swing.JFrame {
     /** Creates new form frmAreas */
     public frmAreas() {
        initComponents();
+       btnNext.setIcon(new ImageIcon("./Resources/next-icon.png"));
+       btnBack.setIcon(new ImageIcon("./Resources/back-icon.png"));
        CreateAreasTable();
     }
    public final void CreateAreasTable(){
@@ -64,6 +67,8 @@ public class frmAreas extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btnNewRow = new javax.swing.JButton();
         btnDeleteRow = new javax.swing.JButton();
+        btnNext = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -87,7 +92,7 @@ public class frmAreas extends javax.swing.JFrame {
         );
         AreasTablePanelLayout.setVerticalGroup(
             AreasTablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 493, Short.MAX_VALUE)
+            .addGap(0, 417, Short.MAX_VALUE)
         );
 
         btnNewRow.setText("New Row");
@@ -125,10 +130,17 @@ public class frmAreas extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(AreasTablePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(AreasTablePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(127, 127, 127)
+                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -136,9 +148,13 @@ public class frmAreas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(AreasTablePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(AreasTablePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnNext, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBack, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -177,8 +193,10 @@ private void btnDeleteRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
      
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel AreasTablePanel;
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDeleteRow;
     private javax.swing.JButton btnNewRow;
+    private javax.swing.JButton btnNext;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
