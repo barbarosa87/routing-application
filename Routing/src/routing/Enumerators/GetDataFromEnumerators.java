@@ -19,6 +19,7 @@ public class GetDataFromEnumerators {
          case GeolocationDb:Type="GeolocationDb";break;
          case MessageExchange:Type="MessageExchange";break;
          case NodesWeight:Type="NodesWeight";break;
+         case AreaFrequencies:Type="AreaFrequencies";break;
          default:Type="Error";break;
      }
      return Type;

@@ -10,17 +10,18 @@
  */
 package routing;
 
+import java.awt.Component;
 import routing.Enumerators.TableNames;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JToggleButton;
 import routing.Enumerators.ReturnType;
-import sun.util.calendar.JulianCalendar;
 
 /**
  *
@@ -88,11 +89,29 @@ public class frmNewRow extends javax.swing.JFrame {
         Txt_Freq = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        TextStartFreq = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        TextStopFreq = new javax.swing.JTextField();
+        TogglePanel = new javax.swing.JPanel();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        jToggleButton2 = new javax.swing.JToggleButton();
+        jToggleButton3 = new javax.swing.JToggleButton();
+        jToggleButton4 = new javax.swing.JToggleButton();
+        jToggleButton5 = new javax.swing.JToggleButton();
+        jToggleButton6 = new javax.swing.JToggleButton();
+        jToggleButton7 = new javax.swing.JToggleButton();
+        jToggleButton8 = new javax.swing.JToggleButton();
+        jToggleButton9 = new javax.swing.JToggleButton();
+        jToggleButton10 = new javax.swing.JToggleButton();
+        jToggleButton11 = new javax.swing.JToggleButton();
+        jToggleButton12 = new javax.swing.JToggleButton();
+        jToggleButton13 = new javax.swing.JToggleButton();
+        jToggleButton14 = new javax.swing.JToggleButton();
+        jToggleButton15 = new javax.swing.JToggleButton();
+        jToggleButton16 = new javax.swing.JToggleButton();
+        jToggleButton17 = new javax.swing.JToggleButton();
+        jToggleButton18 = new javax.swing.JToggleButton();
+        jToggleButton19 = new javax.swing.JToggleButton();
+        jToggleButton20 = new javax.swing.JToggleButton();
+        jToggleButton21 = new javax.swing.JToggleButton();
         btnAddNode = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -143,45 +162,188 @@ public class frmNewRow extends javax.swing.JFrame {
 
         SelectionTabPanel.addTab("Nodes", jPanel1);
 
-        jPanel3.setLayout(new java.awt.GridLayout(2, 2));
+        jLabel1.setText("                            Pick Frequencies");
 
-        jLabel1.setText("Start Frequency");
-        jPanel3.add(jLabel1);
+        jToggleButton1.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton1.setText("40");
 
-        TextStartFreq.setFont(new java.awt.Font("Arial", 0, 8));
-        TextStartFreq.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                TextStartFreqKeyTyped(evt);
+        jToggleButton2.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton2.setText("42");
+
+        jToggleButton3.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton3.setText("43");
+
+        jToggleButton4.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton4.setText("41");
+
+        jToggleButton5.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton5.setText("46");
+
+        jToggleButton6.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton6.setText("45");
+        jToggleButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton6ActionPerformed(evt);
             }
         });
-        jPanel3.add(TextStartFreq);
 
-        jLabel2.setText("Stop Frequency");
-        jPanel3.add(jLabel2);
+        jToggleButton7.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton7.setText("44");
 
-        TextStopFreq.setFont(new java.awt.Font("Arial", 0, 8));
-        TextStopFreq.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                TextStopFreqKeyTyped(evt);
+        jToggleButton8.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton8.setText("53");
+
+        jToggleButton9.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton9.setText("52");
+        jToggleButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton9ActionPerformed(evt);
             }
         });
-        jPanel3.add(TextStopFreq);
+
+        jToggleButton10.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton10.setText("51");
+
+        jToggleButton11.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton11.setText("50");
+
+        jToggleButton12.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton12.setText("49");
+
+        jToggleButton13.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton13.setText("48");
+
+        jToggleButton14.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton14.setText("47");
+
+        jToggleButton15.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton15.setText("60");
+
+        jToggleButton16.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton16.setText("59");
+        jToggleButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton16ActionPerformed(evt);
+            }
+        });
+
+        jToggleButton17.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton17.setText("58");
+
+        jToggleButton18.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton18.setText("57");
+
+        jToggleButton19.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton19.setText("56");
+
+        jToggleButton20.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton20.setText("55");
+
+        jToggleButton21.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton21.setText("54");
+
+        javax.swing.GroupLayout TogglePanelLayout = new javax.swing.GroupLayout(TogglePanel);
+        TogglePanel.setLayout(TogglePanelLayout);
+        TogglePanelLayout.setHorizontalGroup(
+            TogglePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TogglePanelLayout.createSequentialGroup()
+                .addGroup(TogglePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(TogglePanelLayout.createSequentialGroup()
+                        .addComponent(jToggleButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addComponent(jToggleButton7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButton6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButton5))
+                    .addGroup(TogglePanelLayout.createSequentialGroup()
+                        .addComponent(jToggleButton14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButton13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButton12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButton11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addComponent(jToggleButton10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButton9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButton8))
+                    .addGroup(TogglePanelLayout.createSequentialGroup()
+                        .addComponent(jToggleButton21)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButton20)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButton19)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButton18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addComponent(jToggleButton17)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButton16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButton15)))
+                .addContainerGap())
+        );
+        TogglePanelLayout.setVerticalGroup(
+            TogglePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TogglePanelLayout.createSequentialGroup()
+                .addGroup(TogglePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(TogglePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jToggleButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(TogglePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jToggleButton21, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton20, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(95, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TogglePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(94, 94, 94)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(249, Short.MAX_VALUE))
+                .addGap(108, 108, 108)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TogglePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         SelectionTabPanel.addTab("Areas", jPanel2);
@@ -243,6 +405,7 @@ if(SelectionTabPanel.getSelectedIndex()==SelectionTabPanel.indexOfTab("Nodes")){
    Connection conn=db.Connect(); 
    try{
    int KeyNodesCount=db.ReturnUniqueKey(TableNames.Node, conn);
+   //NODES TAB
     if (bxArea.isSelected()){
        if(SlArea.getItemCount()>0){
        db.AddToDb( "INSERT INTO Nodes (ID,Area_flag,Area_ID,Frequency) VALUES (" + (KeyNodesCount+1)+"," + "1," + SlArea.getSelectedItem()+ "," + Integer.parseInt(Txt_Freq.getText()) +")", conn);
@@ -269,17 +432,25 @@ if(SelectionTabPanel.getSelectedIndex()==SelectionTabPanel.indexOfTab("Nodes")){
        e.printStackTrace();
    }
    this.dispose();
+   //AREAS TAB 
 }else if(SelectionTabPanel.getSelectedIndex()==SelectionTabPanel.indexOfTab("Areas")){
-    if((TextStartFreq.getText().isEmpty()) || (TextStopFreq.getText().isEmpty())){
-        
-    }else {
+    List<Integer> Frequencies=new ArrayList<Integer>(); 
+    for(Component comp:TogglePanel.getComponents()){
+        JToggleButton togg=(JToggleButton)comp;
+        if(togg.isSelected()){
+            Frequencies.add(Integer.parseInt(togg.getText()));
+        }
+    }
     DbConnection db=new DbConnection();
     Connection conn=db.Connect();
     int AreasCount=db.ReturnUniqueKey(TableNames.Area, conn);
-    db.AddToDb("INSERT INTO Areas(ID,Start_frq,Stop_frq) VALUES("+(AreasCount+1)+","+TextStartFreq.getText()+","+TextStopFreq.getText()+")", conn);
+    db.AddToDb("INSERT INTO Areas(ID) VALUES("+(AreasCount+1)+")", conn);
+    for(Integer i:Frequencies){
+            db.AddToDb("INSERT INTO AreaFrequencies(ID,Frequency) VALUES("+(AreasCount+1)+","+i+")", conn);
+    }
     frmAreas.AreasTm.fireTableDataChanged();
     this.dispose();
-    }
+
 }
 
 
@@ -292,25 +463,6 @@ private void btnPlusNodesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     }
 }//GEN-LAST:event_btnPlusNodesActionPerformed
 
-private void TextStartFreqKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TextStartFreqKeyTyped
-char c=evt.getKeyChar();
-if ((Character.isDigit(c)) || (c==KeyEvent.VK_BACK_SPACE) || (c==KeyEvent.VK_DELETE)){
-    
-}else{
-    evt.consume();
-}
-
-}//GEN-LAST:event_TextStartFreqKeyTyped
-
-private void TextStopFreqKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TextStopFreqKeyTyped
-char c=evt.getKeyChar();
-if ((Character.isDigit(c)) || (c==KeyEvent.VK_BACK_SPACE) || (c==KeyEvent.VK_DELETE)){
-    
-}else{
-    evt.consume();
-}
-}//GEN-LAST:event_TextStopFreqKeyTyped
-
 private void Txt_FreqKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Txt_FreqKeyTyped
 char c=evt.getKeyChar();
 if ((Character.isDigit(c)) || (c==KeyEvent.VK_BACK_SPACE) || (c==KeyEvent.VK_DELETE)){
@@ -319,6 +471,18 @@ if ((Character.isDigit(c)) || (c==KeyEvent.VK_BACK_SPACE) || (c==KeyEvent.VK_DEL
     evt.consume();
 }
 }//GEN-LAST:event_Txt_FreqKeyTyped
+
+    private void jToggleButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jToggleButton6ActionPerformed
+
+    private void jToggleButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jToggleButton9ActionPerformed
+
+    private void jToggleButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton16ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jToggleButton16ActionPerformed
 
 
 
@@ -337,14 +501,12 @@ private boolean ValidateInput(String Tab){
     private javax.swing.JPanel NeighbourPanel;
     private javax.swing.JTabbedPane SelectionTabPanel;
     private javax.swing.JComboBox SlArea;
-    private javax.swing.JTextField TextStartFreq;
-    private javax.swing.JTextField TextStopFreq;
+    private javax.swing.JPanel TogglePanel;
     private javax.swing.JTextField Txt_Freq;
     private javax.swing.JButton btnAddNode;
     private javax.swing.JButton btnPlusNodes;
     private javax.swing.JCheckBox bxArea;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -352,6 +514,26 @@ private boolean ValidateInput(String Tab){
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JToggleButton jToggleButton10;
+    private javax.swing.JToggleButton jToggleButton11;
+    private javax.swing.JToggleButton jToggleButton12;
+    private javax.swing.JToggleButton jToggleButton13;
+    private javax.swing.JToggleButton jToggleButton14;
+    private javax.swing.JToggleButton jToggleButton15;
+    private javax.swing.JToggleButton jToggleButton16;
+    private javax.swing.JToggleButton jToggleButton17;
+    private javax.swing.JToggleButton jToggleButton18;
+    private javax.swing.JToggleButton jToggleButton19;
+    private javax.swing.JToggleButton jToggleButton2;
+    private javax.swing.JToggleButton jToggleButton20;
+    private javax.swing.JToggleButton jToggleButton21;
+    private javax.swing.JToggleButton jToggleButton3;
+    private javax.swing.JToggleButton jToggleButton4;
+    private javax.swing.JToggleButton jToggleButton5;
+    private javax.swing.JToggleButton jToggleButton6;
+    private javax.swing.JToggleButton jToggleButton7;
+    private javax.swing.JToggleButton jToggleButton8;
+    private javax.swing.JToggleButton jToggleButton9;
     // End of variables declaration//GEN-END:variables
 }
