@@ -42,7 +42,8 @@ public class FrmNodes extends javax.swing.JFrame {
     /** Creates new form FrmNodes */
     public FrmNodes() {
         initComponents();
-        btnStart.setIcon(new ImageIcon("./Resources/play_icon200.png"));
+        btnStart.setIcon(new ImageIcon("./Resources/next-icon.png"));
+        btnBack.setIcon(new ImageIcon("./Resources/back-icon.png"));
         LoadNodesTable();
     }
   
@@ -79,15 +80,15 @@ public class FrmNodes extends javax.swing.JFrame {
         btnNewRow = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
-        btnAreasTable = new javax.swing.JButton();
         btnStart = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         NodesTablePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(NodesTablePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 480, 440));
+        getContentPane().add(NodesTablePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 480, 440));
 
         NodesTableButtons.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -107,21 +108,12 @@ public class FrmNodes extends javax.swing.JFrame {
         });
         NodesTableButtons.add(btnNewRow, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, -1));
 
-        getContentPane().add(NodesTableButtons, new org.netbeans.lib.awtextra.AbsoluteConstraints(508, 80, -1, 270));
+        getContentPane().add(NodesTableButtons, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 10, -1, 270));
 
         jPanel2.setForeground(new java.awt.Color(240, 240, 240));
         jPanel2.setLayout(null);
         jPanel2.add(filler1);
         filler1.setBounds(0, 0, 608, 0);
-
-        btnAreasTable.setText("Areas Table");
-        btnAreasTable.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAreasTableActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnAreasTable);
-        btnAreasTable.setBounds(0, 0, 120, 70);
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 608, 74));
 
@@ -130,7 +122,14 @@ public class FrmNodes extends javax.swing.JFrame {
                 btnStartActionPerformed(evt);
             }
         });
-        getContentPane().add(btnStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(508, 414, 100, 89));
+        getContentPane().add(btnStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 480, 60, 40));
+
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 480, 60, 40));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -144,15 +143,6 @@ public class FrmNodes extends javax.swing.JFrame {
         NewRow.setLocation(this.getLocation().x+400,this.getLocation().y);
         NewRow.setVisible(true);
     }//GEN-LAST:event_btnNewRowActionPerformed
-
-private void btnAreasTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAreasTableActionPerformed
-// TODO add your handling code here:
-    frmAreas frmareas=new frmAreas();
-    frmareas.setTitle("Areas Table");
-    frmareas.setIconImage(Toolkit.getDefaultToolkit().getImage("./Resources/globe.png"));
-    frmareas.setLocationRelativeTo(this);
-    frmareas.setVisible(true);
-}//GEN-LAST:event_btnAreasTableActionPerformed
 
 private void btnDeleteRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteRowActionPerformed
     DbConnection db=new DbConnection();
@@ -184,6 +174,15 @@ private void btnDeleteRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         Start.setVisible(true);
     }//GEN-LAST:event_btnStartActionPerformed
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+         this.dispose();
+         frmAreas Areas = new frmAreas();
+         Areas.setIconImage(Toolkit.getDefaultToolkit().getImage("./Resources/globe.png"));
+         Areas.setTitle("Areas Table");
+         Areas.setLocationRelativeTo(null);
+         Areas.setVisible(true);
+    }//GEN-LAST:event_btnBackActionPerformed
+
     
     public void CreateNodesWeight(){
         DbConnection db=new DbConnection();
@@ -210,7 +209,7 @@ private void btnDeleteRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel NodesTableButtons;
     private javax.swing.JPanel NodesTablePanel;
-    private javax.swing.JButton btnAreasTable;
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDeleteRow;
     private javax.swing.JButton btnNewRow;
     private javax.swing.JButton btnStart;

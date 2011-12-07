@@ -10,7 +10,7 @@ package routing.Enumerators;
  */
 
 public enum TableNames {
-    Node,Area,NodesNeighbours,AreasNeighbours,GeolocationDb,MessageExchange,NodesWeight
+    Node,Area,NodesNeighbours,AreasNeighbours,GeolocationDb,MessageExchange,NodesWeight,AreaFrequencies
 }
     
 
