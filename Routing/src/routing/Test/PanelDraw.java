@@ -53,10 +53,12 @@ public class PanelDraw extends javax.swing.JPanel {
             Ellipse2D.Double Area=new Ellipse2D.Double(point.x,point.y,50,50);
             g2.draw(Area);
             List<Integer> NodesIDs=GetContainingNodes(AreaID);
+            Double FirstXNodePoint=Area.getCenterX()-10;
+            Double FirstYNodePoint=Area.getCenterY()-10;
             for(Integer NodeID:NodesIDs){
-            g2.draw(new Ellipse2D.Double(Area.getCenterX(),Area.getCenterY(),5,5));    
-            point.x=point.x+7;
-            point.y=point.y+7;
+            g2.draw(new Ellipse2D.Double(FirstXNodePoint,FirstYNodePoint,5,5));    
+            FirstXNodePoint=FirstXNodePoint+5;
+            FirstYNodePoint=FirstYNodePoint+5;
             }
             point.x=point.x+100;
             point.y=point.y+100;

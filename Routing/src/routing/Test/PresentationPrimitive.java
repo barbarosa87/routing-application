@@ -28,8 +28,7 @@ public class PresentationPrimitive extends javax.swing.JFrame {
         p2.add(new JButton());
         p2.setVisible(true);
         this.add(p2);
-        pack();
-        
+        pack();        
         
     }
 
