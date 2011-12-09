@@ -5,11 +5,11 @@
 package routing;
 
 import com.sun.rowset.CachedRowSetImpl;
-import routing.Enumerators.TableNames;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import routing.Enumerators.ReturnType;
+import routing.Enumerators.TableNames;
 
 /**
  *
@@ -19,30 +19,31 @@ public class IterateChannels {
          
     
     public static void ChangeFrequencies(CachedRowSetImpl Nodes){
-//       DbConnection db=new DbConnection(ReturnType.ResultSet);
-//       Connection conn=db.ReturnConnectionObject();
-//       try{
-//           if (conn==null){
-//               conn=db.Connect();
-//           }
-//           if (conn.isClosed()){
-//               conn=db.Connect();
-//           }
-//           
-//           ResultSet NotConnectedNodesRs=db.SelectFromDbWithClause(TableNames.NodesWeight, "WHERE Connected=0", conn);
-//           while (NotConnectedNodesRs.next()){
-//               ResultSet NodesRS=db.SelectFromDbWithClause(TableNames.Node,"WHERE ID=" + NotConnectedNodesRs.getInt("NodeID"), conn);
-//               //To Anevazw kata 1 mexri ta oria mporei na to kanw kai random na ginetai i epilogi sixnotitas 
-//               db.UpdateTableColumnValue(TableNames.Node, "Frequency", NodesRS.getInt("Frequency")+1, "WHERE ID=" +NodesRS.getInt("ID"), conn);
-//               
-//           }
-//           
-//           if (!conn.isClosed()){
-//               conn.close();
-//           }
-//       } catch(SQLException ex){
-//          System.out.println("Database is locked");
-//          
-//       }
+        
+        
+       DbConnection db=new DbConnection(ReturnType.ResultSet);
+       Connection conn=db.Connect();
+       try{
+           if (conn==null){
+               conn=db.Connect();
+           }
+           if (conn.isClosed()){
+               conn=db.Connect();
+           }
+           
+           ResultSet NotConnectedNodesRs=(ResultSet)db.SelectFromDb(TableNames.NodesWeight, "WHERE Connected=0", conn, ReturnType.ResultSet);
+           while (NotConnectedNodesRs.next()){
+               ResultSet NodesRS=(ResultSet)db.SelectFromDb(TableNames.Node,"WHERE ID=" + NotConnectedNodesRs.getInt("NodeID"), conn, ReturnType.ResultSet);
+               //To Anevazw kata 1 mexri ta oria mporei na to kanw kai random na ginetai i epilogi sixnotitas 
+               db.UpdateTableColumnValue(TableNames.Node, "Frequency", NodesRS.getInt("Frequency")+1, "WHERE ID=" +NodesRS.getInt("ID"), conn);
+           }
+           
+           if (!conn.isClosed()){
+               conn.close();
+           }
+       } catch(SQLException ex){
+          System.out.println("Database is locked");
+          
+       }
     }
 }

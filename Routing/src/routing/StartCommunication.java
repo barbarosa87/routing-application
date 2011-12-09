@@ -42,8 +42,13 @@ public class StartCommunication {
     private List Flows=new ArrayList<FlowStruct.Flow>();
     private List StaticFlow=new ArrayList<Integer>();
     private Map<Integer,Integer> SourceDestinationMap=new HashMap();
-   private List<Integer> CalculationNodeDelay=new ArrayList<Integer>();
-   
+    private List<Integer> CalculationNodeDelay=new ArrayList<Integer>();
+    private List<Integer> NodeSwitchingDelay=new ArrayList<Integer>();
+    private List<Integer> NodeBackOffDelay=new ArrayList<Integer>();
+    private List<Integer> PathBackOffDelay=new ArrayList<Integer>();
+    private List<Integer> PathSwitchingDelay=new ArrayList<Integer>();
+    
+    
     
     public StartCommunication(Map SourceDestinationMap){
         this.SourceDestinationMap=SourceDestinationMap;
@@ -80,13 +85,13 @@ public class StartCommunication {
                    MakeNodeConnected(FlowNode);
                    fl.addNodeToFlow(FlowNode);
                    added=true;
-                  System.out.println("Node "+ String.valueOf(FlowNode)+Calculations.GetNodeBackOffDelay(fl.GetAddedNodesList().size())+"   "+Calculations.GetNodeSwitchingDelay(20, 5));
+                   System.out.println("Node "+ String.valueOf(FlowNode)+"Node BackoffDelay: "+Calculations.GetNodeBackOffDelay(fl.GetAddedNodesList().size())+" Node SwitchingDelay:0");
                    break;
                    case Redirect:
                        //RedirectFlow
+                       StaticFlow.add(RedirectNodeID);
                        MakeNodeConnected(RedirectNodeID);
                        fl.addNodeToFlow(RedirectNodeID);
-                       StaticFlow.add(FlowNode);
                        added=true;
                        break;
                    case Unavailable:
@@ -166,6 +171,9 @@ public class StartCommunication {
                         conn.close();
                         return ReplyCommands.AddToFlow;
                     }
+                }else {
+                  conn.close();
+                  return ReplyCommands.Unavailable;
                 }
             }
             conn.close();
