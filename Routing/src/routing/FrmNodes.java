@@ -98,7 +98,7 @@ public class FrmNodes extends javax.swing.JFrame {
                 btnDeleteRowActionPerformed(evt);
             }
         });
-        NodesTableButtons.add(btnDeleteRow, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 100, -1));
+        NodesTableButtons.add(btnDeleteRow, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, -1));
 
         btnNewRow.setText("New Row");
         btnNewRow.addActionListener(new java.awt.event.ActionListener() {
@@ -106,9 +106,9 @@ public class FrmNodes extends javax.swing.JFrame {
                 btnNewRowActionPerformed(evt);
             }
         });
-        NodesTableButtons.add(btnNewRow, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, -1));
+        NodesTableButtons.add(btnNewRow, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 110, -1));
 
-        getContentPane().add(NodesTableButtons, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 10, -1, 270));
+        getContentPane().add(NodesTableButtons, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, 110, 270));
 
         jPanel2.setForeground(new java.awt.Color(240, 240, 240));
         jPanel2.setLayout(null);

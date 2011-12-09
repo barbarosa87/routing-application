@@ -21,6 +21,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
 import routing.Enumerators.ReturnType;
+import routing.Test.PresentationPrimitive;
 
 /**
  *
@@ -73,6 +74,7 @@ private Map<Integer,Integer> SourceDestinationMap=new HashMap();
         jScrollPane1 = new javax.swing.JScrollPane();
         CommunicationTable = new javax.swing.JTable();
         btnBack = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("Start"); // NOI18N
@@ -122,6 +124,13 @@ private Map<Integer,Integer> SourceDestinationMap=new HashMap();
             }
         });
 
+        jButton1.setText("Test");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -146,11 +155,15 @@ private Map<Integer,Integer> SourceDestinationMap=new HashMap();
                 .addComponent(btnAdd)
                 .addGap(6, 6, 6)
                 .addComponent(btnExecute))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(268, Short.MAX_VALUE)
+                .addComponent(jButton1))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addComponent(jButton1)
+                .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
@@ -198,6 +211,12 @@ private Map<Integer,Integer> SourceDestinationMap=new HashMap();
          Nodes.setVisible(true);
     }//GEN-LAST:event_btnBackActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        PresentationPrimitive pr=new PresentationPrimitive();
+        pr.setLocationRelativeTo(this);
+        pr.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
   
  
      
@@ -209,6 +228,7 @@ private Map<Integer,Integer> SourceDestinationMap=new HashMap();
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnExecute;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
