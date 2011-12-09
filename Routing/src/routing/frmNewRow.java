@@ -114,7 +114,7 @@ public class frmNewRow extends javax.swing.JFrame {
         jToggleButton21 = new javax.swing.JToggleButton();
         btnAddNode = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -162,189 +162,113 @@ public class frmNewRow extends javax.swing.JFrame {
 
         SelectionTabPanel.addTab("Nodes", jPanel1);
 
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jLabel1.setText("                            Pick Frequencies");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 108, 246, 19));
 
-        jToggleButton1.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        TogglePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jToggleButton1.setFont(new java.awt.Font("Tahoma", 0, 8));
         jToggleButton1.setText("40");
+        TogglePanel.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 29));
 
-        jToggleButton2.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton2.setFont(new java.awt.Font("Tahoma", 0, 8));
         jToggleButton2.setText("42");
+        TogglePanel.add(jToggleButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 0, -1, 29));
 
-        jToggleButton3.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton3.setFont(new java.awt.Font("Tahoma", 0, 8));
         jToggleButton3.setText("43");
+        TogglePanel.add(jToggleButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(141, 0, -1, 29));
 
-        jToggleButton4.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton4.setFont(new java.awt.Font("Tahoma", 0, 8));
         jToggleButton4.setText("41");
+        TogglePanel.add(jToggleButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 0, -1, 29));
 
-        jToggleButton5.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton5.setFont(new java.awt.Font("Tahoma", 0, 8));
         jToggleButton5.setText("46");
+        TogglePanel.add(jToggleButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 0, -1, 29));
 
-        jToggleButton6.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton6.setFont(new java.awt.Font("Tahoma", 0, 8));
         jToggleButton6.setText("45");
         jToggleButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton6ActionPerformed(evt);
             }
         });
+        TogglePanel.add(jToggleButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(235, 0, -1, 29));
 
-        jToggleButton7.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton7.setFont(new java.awt.Font("Tahoma", 0, 8));
         jToggleButton7.setText("44");
+        TogglePanel.add(jToggleButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(188, 0, -1, 29));
 
-        jToggleButton8.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton8.setFont(new java.awt.Font("Tahoma", 0, 8));
         jToggleButton8.setText("53");
+        TogglePanel.add(jToggleButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 35, -1, 29));
 
-        jToggleButton9.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton9.setFont(new java.awt.Font("Tahoma", 0, 8));
         jToggleButton9.setText("52");
         jToggleButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton9ActionPerformed(evt);
             }
         });
+        TogglePanel.add(jToggleButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(235, 35, -1, 29));
 
-        jToggleButton10.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton10.setFont(new java.awt.Font("Tahoma", 0, 8));
         jToggleButton10.setText("51");
+        TogglePanel.add(jToggleButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(188, 35, -1, 29));
 
-        jToggleButton11.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton11.setFont(new java.awt.Font("Tahoma", 0, 8));
         jToggleButton11.setText("50");
+        TogglePanel.add(jToggleButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(141, 35, -1, 29));
 
-        jToggleButton12.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton12.setFont(new java.awt.Font("Tahoma", 0, 8));
         jToggleButton12.setText("49");
+        TogglePanel.add(jToggleButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 35, -1, 29));
 
-        jToggleButton13.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton13.setFont(new java.awt.Font("Tahoma", 0, 8));
         jToggleButton13.setText("48");
+        TogglePanel.add(jToggleButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 35, -1, 29));
 
-        jToggleButton14.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton14.setFont(new java.awt.Font("Tahoma", 0, 8));
         jToggleButton14.setText("47");
+        TogglePanel.add(jToggleButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 35, -1, 29));
 
-        jToggleButton15.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton15.setFont(new java.awt.Font("Tahoma", 0, 8));
         jToggleButton15.setText("60");
+        TogglePanel.add(jToggleButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 70, -1, 29));
 
-        jToggleButton16.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton16.setFont(new java.awt.Font("Tahoma", 0, 8));
         jToggleButton16.setText("59");
         jToggleButton16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton16ActionPerformed(evt);
             }
         });
+        TogglePanel.add(jToggleButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(235, 70, -1, 29));
 
-        jToggleButton17.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton17.setFont(new java.awt.Font("Tahoma", 0, 8));
         jToggleButton17.setText("58");
+        TogglePanel.add(jToggleButton17, new org.netbeans.lib.awtextra.AbsoluteConstraints(188, 70, -1, 29));
 
-        jToggleButton18.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton18.setFont(new java.awt.Font("Tahoma", 0, 8));
         jToggleButton18.setText("57");
+        TogglePanel.add(jToggleButton18, new org.netbeans.lib.awtextra.AbsoluteConstraints(141, 70, -1, 29));
 
-        jToggleButton19.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton19.setFont(new java.awt.Font("Tahoma", 0, 8));
         jToggleButton19.setText("56");
+        TogglePanel.add(jToggleButton19, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 70, -1, 29));
 
-        jToggleButton20.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton20.setFont(new java.awt.Font("Tahoma", 0, 8));
         jToggleButton20.setText("55");
+        TogglePanel.add(jToggleButton20, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 70, -1, 29));
 
-        jToggleButton21.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jToggleButton21.setFont(new java.awt.Font("Tahoma", 0, 8));
         jToggleButton21.setText("54");
+        TogglePanel.add(jToggleButton21, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, -1, 29));
 
-        javax.swing.GroupLayout TogglePanelLayout = new javax.swing.GroupLayout(TogglePanel);
-        TogglePanel.setLayout(TogglePanelLayout);
-        TogglePanelLayout.setHorizontalGroup(
-            TogglePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TogglePanelLayout.createSequentialGroup()
-                .addGroup(TogglePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(TogglePanelLayout.createSequentialGroup()
-                        .addComponent(jToggleButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                        .addComponent(jToggleButton7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton5))
-                    .addGroup(TogglePanelLayout.createSequentialGroup()
-                        .addComponent(jToggleButton14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                        .addComponent(jToggleButton10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton8))
-                    .addGroup(TogglePanelLayout.createSequentialGroup()
-                        .addComponent(jToggleButton21)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton20)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton19)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton18)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                        .addComponent(jToggleButton17)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton16)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton15)))
-                .addContainerGap())
-        );
-        TogglePanelLayout.setVerticalGroup(
-            TogglePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TogglePanelLayout.createSequentialGroup()
-                .addGroup(TogglePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(TogglePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jToggleButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(TogglePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jToggleButton21, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton20, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(95, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(TogglePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(108, 108, 108)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TogglePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
-        );
+        jPanel2.add(TogglePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 133, 322, 100));
 
         SelectionTabPanel.addTab("Areas", jPanel2);
 
@@ -367,7 +291,7 @@ public class frmNewRow extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(153, 153, 153)
                         .addComponent(btnAddNode)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

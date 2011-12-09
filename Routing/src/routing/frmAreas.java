@@ -36,7 +36,7 @@ public class frmAreas extends javax.swing.JFrame {
     public frmAreas() {
        initComponents();
        btnNext.setIcon(new ImageIcon("./Resources/next-icon.png"));
-       btnBack.setIcon(new ImageIcon("./Resources/cancel-icone-4261-32.png"));
+       btnBack.setIcon(new ImageIcon("./Resources/cancel.png"));
        CreateAreasTable();
     }
    public final void CreateAreasTable(){
