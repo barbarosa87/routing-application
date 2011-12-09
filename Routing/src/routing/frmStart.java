@@ -195,9 +195,7 @@ private Map<Integer,Integer> SourceDestinationMap=new HashMap();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnExecuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecuteActionPerformed
-    //Timer timer = new Timer (  );
-    //timer.schedule ( new ChangeNodesFrequenciesThread() , 5*1000 );
-        
+      
     StartCommunication Communication=new StartCommunication(SourceDestinationMap);
     Communication.Start();
     }//GEN-LAST:event_btnExecuteActionPerformed
