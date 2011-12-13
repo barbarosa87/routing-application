@@ -47,6 +47,7 @@ public class StartCommunication {
     private List<Integer> NodeBackOffDelay=new ArrayList<Integer>();
     private List<Integer> PathBackOffDelay=new ArrayList<Integer>();
     private List<Integer> PathSwitchingDelay=new ArrayList<Integer>();
+    private int NumberOfContendingNodes=1;
     
     
     
@@ -77,6 +78,9 @@ public class StartCommunication {
            StaticFlow.add(entry.getKey());
            int SourceID=entry.getKey();
            DestinationNode=entry.getValue();
+           //Node Delay
+           Map<Integer, List> NodeDelay=new HashMap<Integer, List>();
+           //Path Delay
            boolean added=false;
            for (int j=0;j<RoutingCnf.getNumberOfBroadCastTries();j++){
                switch (BroadCastMessage(SourceID)){
@@ -85,13 +89,19 @@ public class StartCommunication {
                    MakeNodeConnected(FlowNode);
                    fl.addNodeToFlow(FlowNode);
                    added=true;
-                   System.out.println("Node "+ String.valueOf(FlowNode)+"Node BackoffDelay: "+Calculations.GetNodeBackOffDelay(fl.GetAddedNodesList().size())+" Node SwitchingDelay:0");
+                   List<Double> Delays=new ArrayList<Double>();
+                   Delays.add(0.0);
+                   Delays.add(Calculations.GetNodeBackOffDelay(NumberOfContendingNodes));
+                   NodeDelay.put(FlowNode,Delays);
+                   //System.out.println("Node "+ String.valueOf(FlowNode)+"Node BackoffDelay: "+Calculations.GetNodeBackOffDelay(fl.GetAddedNodesList().size())+" Node SwitchingDelay:0");
                    break;
                    case Redirect:
-                       //RedirectFlow
-                       StaticFlow.add(RedirectNodeID);
+                       //TODO REDIRECTION
+                       //TODO METRICS
+                       StaticFlow.add(RedirectNodeID);                       
                        MakeNodeConnected(RedirectNodeID);
                        fl.addNodeToFlow(RedirectNodeID);
+                       
                        added=true;
                        break;
                    case Unavailable:
@@ -103,9 +113,10 @@ public class StartCommunication {
                 for(Integer i:fl.GetAddedNodesList()){
                 System.out.println(i);
                 }
-                   break;}
+                   break;
+                   }
                    else{
-                       SourceID=FlowNode;
+                   SourceID=FlowNode;
                    j=0;
                    added=false;
                    continue;
@@ -121,6 +132,15 @@ public class StartCommunication {
     }
     
     
+   private void ChangeFrequency(int NodeID,int Frequency){
+       DbConnection db=new DbConnection();
+       Connection conn=db.Connect();
+        try {
+            db.UpdateTableColumnValue(TableNames.Node,"Frequency", Frequency,  "Where ID="+NodeID, conn);
+        } catch (SQLException ex) {
+            Logger.getLogger(StartCommunication.class.getName()).log(Level.SEVERE, null, ex);
+        }
+   }
     
    public ReplyCommands BroadCastMessage(int SourceNodeID){
         RREQ broadcast=new RREQ(true,SourceNodeID,255);
@@ -138,6 +158,10 @@ public class StartCommunication {
         try {
             Connection conn=db.Connect();
             ResultSet NeighboursRs=(ResultSet)db.SelectFromDb(TableNames.GeolocationDb, "WHERE NeighbourID=" + Broadcast.SourceID,conn,ReturnType.ResultSet);
+                     //Get ContendingNeighbourNodes
+                    ResultSet ContendingNodes =(ResultSet)db.GetCountFromDB(TableNames.GeolocationDb, "WHERE NeighbourID=" + + Broadcast.SourceID, conn);
+                    ContendingNodes.next();
+                    NumberOfContendingNodes=ContendingNodes.getInt("Count(*)");
             while (NeighboursRs.next()){
                 ResultSet IntermediateRs=(ResultSet)db.SelectFromDb(TableNames.Node, "WHERE ID=" + NeighboursRs.getInt("NodeID"),conn, ReturnType.ResultSet);
                 ResultSet SourceRs=(ResultSet)db.SelectFromDb(TableNames.Node, "WHERE ID=" + NeighboursRs.getInt("NeighbourID"),conn, ReturnType.ResultSet);
@@ -151,6 +175,7 @@ public class StartCommunication {
                     conn.close();
                     return ReplyCommands.AddToFlow;
                 }
+                  
                 //TODO Check for added node
                 if ((IntermediateRs.getInt("Frequency")==SourceRs.getInt("Frequency"))){
                     ResultSet CheckIfConnectedCount =(ResultSet)db.GetCountFromDB(TableNames.NodesWeight, "WHERE NodeID=" + IntermediateRs.getInt("ID") +" AND Connected=1", conn);
