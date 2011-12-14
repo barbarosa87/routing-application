@@ -25,7 +25,6 @@ import javax.swing.JTable;
 import javax.swing.UIManager.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
-import routing.Enumerators.ReturnType;
 
 /**
  *
@@ -188,7 +187,7 @@ private void btnDeleteRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         DbConnection db=new DbConnection();
         Connection conn=db.Connect();
         try {
-            ResultSet rs=(ResultSet)db.SelectFromDb(TableNames.Node, "Where Area_flag=0", conn,ReturnType.ResultSet);
+            ResultSet rs=db.SelectFromDb(TableNames.Node, "Where Area_flag=0", conn);
             while (rs.next()){
                 int key=db.ReturnUniqueKey(TableNames.NodesWeight, conn);
                 db.AddToDb("INSERT INTO NodesWeight(ID,NodeID,Connected) Values(" +(key+1)+","+rs.getInt("ID")+",0)", conn);

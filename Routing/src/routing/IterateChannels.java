@@ -8,7 +8,6 @@ import com.sun.rowset.CachedRowSetImpl;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import routing.Enumerators.ReturnType;
 import routing.Enumerators.TableNames;
 
 /**
@@ -21,7 +20,7 @@ public class IterateChannels {
     public static void ChangeFrequencies(CachedRowSetImpl Nodes){
         
         
-       DbConnection db=new DbConnection(ReturnType.ResultSet);
+       DbConnection db=new DbConnection();
        Connection conn=db.Connect();
        try{
            if (conn==null){
@@ -31,9 +30,9 @@ public class IterateChannels {
                conn=db.Connect();
            }
            
-           ResultSet NotConnectedNodesRs=(ResultSet)db.SelectFromDb(TableNames.NodesWeight, "WHERE Connected=0", conn, ReturnType.ResultSet);
+           ResultSet NotConnectedNodesRs=db.SelectFromDb(TableNames.NodesWeight, "WHERE Connected=0", conn);
            while (NotConnectedNodesRs.next()){
-               ResultSet NodesRS=(ResultSet)db.SelectFromDb(TableNames.Node,"WHERE ID=" + NotConnectedNodesRs.getInt("NodeID"), conn, ReturnType.ResultSet);
+               ResultSet NodesRS=db.SelectFromDb(TableNames.Node,"WHERE ID=" + NotConnectedNodesRs.getInt("NodeID"), conn);
                //To Anevazw kata 1 mexri ta oria mporei na to kanw kai random na ginetai i epilogi sixnotitas 
                db.UpdateTableColumnValue(TableNames.Node, "Frequency", NodesRS.getInt("Frequency")+1, "WHERE ID=" +NodesRS.getInt("ID"), conn);
            }

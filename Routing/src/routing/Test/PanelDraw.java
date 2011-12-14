@@ -14,16 +14,13 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import routing.DbConnection;
-import routing.Enumerators.ReturnType;
 import routing.Enumerators.TableNames;
 
 /**
@@ -73,7 +70,7 @@ public class PanelDraw extends javax.swing.JPanel {
     Connection conn=db.Connect();
     List<Integer> NodesIDs=new ArrayList<Integer>();   
     try{
-    ResultSet rs=(ResultSet)db.SelectFromDb(TableNames.Node,"WHERE Area_ID="+AreaID, conn, ReturnType.ResultSet);
+    ResultSet rs=db.SelectFromDb(TableNames.Node,"WHERE Area_ID="+AreaID, conn);
     while(rs.next()){
         NodesIDs.add(rs.getInt("ID"));
     }
@@ -90,7 +87,7 @@ public class PanelDraw extends javax.swing.JPanel {
     Connection conn=db.Connect();
     List<Integer> AreasIDs=new ArrayList<Integer>();
     try{
-    ResultSet rs=(ResultSet)db.SelectFromDb(TableNames.Area,"", conn, ReturnType.ResultSet);
+    ResultSet rs=db.SelectFromDb(TableNames.Area,"", conn);
     while(rs.next()){
         AreasIDs.add(rs.getInt("ID"));
     }
