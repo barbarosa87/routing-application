@@ -18,10 +18,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
-import routing.Enumerators.ReturnType;
 
 /**
  *
@@ -51,7 +49,7 @@ public class frmNewRow extends javax.swing.JFrame {
          DbConnection db=new DbConnection();
             Connection conn=db.Connect();
    try{
-         ResultSet rs=(ResultSet)db.SelectFromDb(TableNames.Area,"", conn , ReturnType.ResultSet);
+         ResultSet rs=db.SelectFromDb(TableNames.Area,"", conn );
    if (rs!=null){
       while(rs.next()){
          SlArea.addItem(rs.getString("ID"));
@@ -88,6 +86,7 @@ public class frmNewRow extends javax.swing.JFrame {
         AddedComboNeigh = new javax.swing.JComboBox();
         Txt_Freq = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         TogglePanel = new javax.swing.JPanel();
@@ -160,6 +159,14 @@ public class frmNewRow extends javax.swing.JFrame {
         jLabel8.setText("Frequency");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(56, 75, -1, -1));
 
+        jButton1.setText("...");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 30, -1));
+
         SelectionTabPanel.addTab("Nodes", jPanel1);
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -177,61 +184,51 @@ public class frmNewRow extends javax.swing.JFrame {
         jToggleButton2.setText("42");
         TogglePanel.add(jToggleButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 0, -1, 29));
 
-        jToggleButton3.setFont(new java.awt.Font("Tahoma", 0, 8));
+        jToggleButton3.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
         jToggleButton3.setText("43");
         TogglePanel.add(jToggleButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(141, 0, -1, 29));
 
-        jToggleButton4.setFont(new java.awt.Font("Tahoma", 0, 8));
+        jToggleButton4.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
         jToggleButton4.setText("41");
         TogglePanel.add(jToggleButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 0, -1, 29));
 
-        jToggleButton5.setFont(new java.awt.Font("Tahoma", 0, 8));
+        jToggleButton5.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
         jToggleButton5.setText("46");
         TogglePanel.add(jToggleButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 0, -1, 29));
 
-        jToggleButton6.setFont(new java.awt.Font("Tahoma", 0, 8));
+        jToggleButton6.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
         jToggleButton6.setText("45");
-        jToggleButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton6ActionPerformed(evt);
-            }
-        });
         TogglePanel.add(jToggleButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(235, 0, -1, 29));
 
-        jToggleButton7.setFont(new java.awt.Font("Tahoma", 0, 8));
+        jToggleButton7.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
         jToggleButton7.setText("44");
         TogglePanel.add(jToggleButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(188, 0, -1, 29));
 
-        jToggleButton8.setFont(new java.awt.Font("Tahoma", 0, 8));
+        jToggleButton8.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
         jToggleButton8.setText("53");
         TogglePanel.add(jToggleButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 35, -1, 29));
 
-        jToggleButton9.setFont(new java.awt.Font("Tahoma", 0, 8));
+        jToggleButton9.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
         jToggleButton9.setText("52");
-        jToggleButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton9ActionPerformed(evt);
-            }
-        });
         TogglePanel.add(jToggleButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(235, 35, -1, 29));
 
-        jToggleButton10.setFont(new java.awt.Font("Tahoma", 0, 8));
+        jToggleButton10.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
         jToggleButton10.setText("51");
         TogglePanel.add(jToggleButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(188, 35, -1, 29));
 
-        jToggleButton11.setFont(new java.awt.Font("Tahoma", 0, 8));
+        jToggleButton11.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
         jToggleButton11.setText("50");
         TogglePanel.add(jToggleButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(141, 35, -1, 29));
 
-        jToggleButton12.setFont(new java.awt.Font("Tahoma", 0, 8));
+        jToggleButton12.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
         jToggleButton12.setText("49");
         TogglePanel.add(jToggleButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 35, -1, 29));
 
-        jToggleButton13.setFont(new java.awt.Font("Tahoma", 0, 8));
+        jToggleButton13.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
         jToggleButton13.setText("48");
         TogglePanel.add(jToggleButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 35, -1, 29));
 
-        jToggleButton14.setFont(new java.awt.Font("Tahoma", 0, 8));
+        jToggleButton14.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
         jToggleButton14.setText("47");
         TogglePanel.add(jToggleButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 35, -1, 29));
 
@@ -239,13 +236,8 @@ public class frmNewRow extends javax.swing.JFrame {
         jToggleButton15.setText("60");
         TogglePanel.add(jToggleButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 70, -1, 29));
 
-        jToggleButton16.setFont(new java.awt.Font("Tahoma", 0, 8));
+        jToggleButton16.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
         jToggleButton16.setText("59");
-        jToggleButton16.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton16ActionPerformed(evt);
-            }
-        });
         TogglePanel.add(jToggleButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(235, 70, -1, 29));
 
         jToggleButton17.setFont(new java.awt.Font("Tahoma", 0, 8));
@@ -311,7 +303,7 @@ public class frmNewRow extends javax.swing.JFrame {
         Connection conn=db.Connect();
         try{
         
-        ResultSet  rs=(ResultSet)db.SelectFromDb(TableNames.Node,"", conn, ReturnType.ResultSet);
+        ResultSet  rs=db.SelectFromDb(TableNames.Node,"", conn);
                 while(rs.next()){
                         ComboPlusNodes.addItem(rs.getString("ID"));                  
                 }
@@ -396,17 +388,20 @@ if ((Character.isDigit(c)) || (c==KeyEvent.VK_BACK_SPACE) || (c==KeyEvent.VK_DEL
 }
 }//GEN-LAST:event_Txt_FreqKeyTyped
 
-    private void jToggleButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton6ActionPerformed
-
-    private void jToggleButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton9ActionPerformed
-
-    private void jToggleButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton16ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton16ActionPerformed
+private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+if (bxArea.isSelected()){
+frmFreq frq=new frmFreq(Integer.parseInt((String)SlArea.getSelectedItem()));
+frq.setLocationRelativeTo(jButton1);
+frq.setTitle("Pick Frequency");
+frq.setVisible(true);    
+}else{
+frmFreq frq=new frmFreq(0);
+frq.setLocationRelativeTo(jButton1);
+frq.setTitle("Pick Frequency");
+frq.setVisible(true);
+}
+    
+}//GEN-LAST:event_jButton1ActionPerformed
 
 
 
@@ -430,6 +425,7 @@ private boolean ValidateInput(String Tab){
     private javax.swing.JButton btnAddNode;
     private javax.swing.JButton btnPlusNodes;
     private javax.swing.JCheckBox bxArea;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

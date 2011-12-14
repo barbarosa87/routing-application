@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.Vector;
 import javax.swing.table.AbstractTableModel;
-import routing.Enumerators.ReturnType;
 
 
 public class TableModel extends AbstractTableModel {
@@ -59,14 +58,14 @@ public class TableModel extends AbstractTableModel {
           case Area:
               //Type="Areas";
               //statement = conn.createStatement(); 
-              rs = (ResultSet)db.SelectFromDb(TableType, "", conn, ReturnType.ResultSet);
+              rs = db.SelectFromDb(TableType, "", conn);
               colCount=2;
               headers = new String[colCount];
               headers[0]="ID";
               headers[1]="Frequencies";
               while(rs.next()){
                   String[] record = new String[colCount];
-                  ResultSet rs2=(ResultSet)db.SelectFromDb(TableNames.AreaFrequencies, "WHERE ID= "+rs.getInt("ID") , conn, ReturnType.ResultSet);
+                  ResultSet rs2=db.SelectFromDb(TableNames.AreaFrequencies, "WHERE ID= "+rs.getInt("ID") , conn);
                   record[0]=rs.getString("ID");
                   while (rs2.next()){
                       if (record[1]==null){
@@ -84,7 +83,7 @@ public class TableModel extends AbstractTableModel {
               //Type="Nodes";
               //statement = conn.createStatement(); 
               //rs = statement.executeQuery("Select * from "+Type);
-              rs=(ResultSet)db.SelectFromDb(TableType, "", conn, ReturnType.ResultSet);
+              rs=db.SelectFromDb(TableType, "", conn);
               ResultSetMetaData meta = rs.getMetaData();
               colCount = meta.getColumnCount();
               // Now we must rebuild the headers array with the new column names

@@ -12,7 +12,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import routing.Enumerators.GetDataFromEnumerators;
-import routing.Enumerators.ReturnType;
 
 
 public  class DbConnection extends GetDataFromEnumerators {
@@ -23,17 +22,17 @@ public  class DbConnection extends GetDataFromEnumerators {
 //</editor-fold>
 
 //<editor-fold defaultstate="collapsed" desc="Constructors">
-    public DbConnection(ReturnType returnType){
-        try{
-                    org.sqlite.JDBC jd=new org.sqlite.JDBC();
-                    cac = new CachedRowSetImpl();
-                    cac.setUrl(ConnectionUrl);
-                    
-        }catch(SQLException ex){
-            ex.printStackTrace();
-        }
-    }
-    
+//    public DbConnection(ReturnType returnType){
+//        try{
+//                    org.sqlite.JDBC jd=new org.sqlite.JDBC();
+//                    cac = new CachedRowSetImpl();
+//                    cac.setUrl(ConnectionUrl);
+//                    
+//        }catch(SQLException ex){
+//            ex.printStackTrace();
+//        }
+//    }
+//    
     public DbConnection(){
         
     }
@@ -58,26 +57,18 @@ public  class DbConnection extends GetDataFromEnumerators {
     //</editor-fold>
 
 //<editor-fold defaultstate="collapsed" desc="SelectFromDb">
-  public Object SelectFromDb(TableNames TableType,String Clause,Connection conn,ReturnType returntype)throws SQLException{
- String Type=GetTableName(TableType);
-      switch (returntype){
-          case CachedRowSet:
-              cac.setCommand("SELECT * from "+Type);
-              cac.execute();
-              return cac;
-          case ResultSet:
+  public ResultSet SelectFromDb(TableNames TableType,String Clause,Connection conn)throws SQLException{
+          String Type=GetTableName(TableType);
           Statement stat=conn.createStatement();
           ResultSet rs=stat.executeQuery("SELECT * FROM "+Type +" "+Clause);
           return rs;
-      }
-      return null;
       
   }
   //</editor-fold>
   
   
 //<editor-fold defaultstate="collapsed" desc="SelectFromDb">
-  public Object GetCountFromDB(TableNames TableType,String Clause,Connection conn ) throws SQLException{
+  public ResultSet GetCountFromDB(TableNames TableType,String Clause,Connection conn ) throws SQLException{
       String Type=GetTableName(TableType);
       
                 Statement stat=conn.createStatement();
@@ -132,16 +123,14 @@ public int ReturnUniqueKey(TableNames TableType,Connection conn){
      if(all){
          
              Statement stat=conn.createStatement();
-             //stat.executeUpdate("DELETE FROM "+CheckEnumeration(TableNames.Area));
-             //stat.executeUpdate("DELETE FROM "+CheckEnumeration(TableNames.Node));
-             //stat.executeUpdate("DELETE FROM "+CheckEnumeration(TableNames.AreasNeighbours));
-             //stat.executeUpdate("DELETE FROM "+CheckEnumeration(TableNames.NodesNeighbours));
+             //stat.executeUpdate("DELETE FROM "+GetTableName(TableNames.Area));
+             stat.executeUpdate("DELETE FROM "+GetTableName(TableNames.Node));
              stat.executeUpdate("DELETE FROM "+GetTableName(TableNames.MessageExchange));
              stat.executeUpdate("DELETE FROM "+GetTableName(TableNames.NodesWeight));
-         
+             stat.executeUpdate("DELETE FROM "+GetTableName(TableNames.GeolocationDb));
+             //stat.executeUpdate("DELETE FROM "+GetTableName(TableNames.AreaFrequencies));
      }else{
-         String Type=GetTableName(TableType);
-     
+             String Type=GetTableName(TableType);
              Statement stat=conn.createStatement();
              stat.executeUpdate("DELETE FROM "+Type);
         

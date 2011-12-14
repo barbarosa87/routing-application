@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import routing.Enumerators.ReplyCommands;
-import routing.Enumerators.ReturnType;
 import routing.Msg.RREQ;
 import routing.Msg.RREP;
 import routing.conf.*;
@@ -53,23 +52,23 @@ public class StartCommunication {
     
     public StartCommunication(Map SourceDestinationMap){
         this.SourceDestinationMap=SourceDestinationMap;
-        GetRowSets();
+        //GetRowSets();
         Start();
     }
     
    
-   public final void GetRowSets(){
-       DbConnection db=new DbConnection(ReturnType.CachedRowSet);
-        try {
-            Nodes=(CachedRowSetImpl)db.SelectFromDb(TableNames.Node, null, null, ReturnType.CachedRowSet);
-            NodesWeight=(CachedRowSetImpl)db.SelectFromDb(TableNames.NodesWeight, null, null, ReturnType.CachedRowSet);
-            //MessageExchange=(CachedRowSetImpl)db.SelectFromDb(TableNames.MessageExchange, null, null, ReturnType.CachedRowSet);
-            GeolocationDb=(CachedRowSetImpl)db.SelectFromDb(TableNames.GeolocationDb, null, null, ReturnType.CachedRowSet);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-       
-   }
+//   public final void GetRowSets(){
+//       DbConnection db=new DbConnection();
+//        try {
+//            Nodes=(CachedRowSetImpl)db.SelectFromDb(TableNames.Node, null, null, ReturnType.CachedRowSet);
+//            NodesWeight=(CachedRowSetImpl)db.SelectFromDb(TableNames.NodesWeight, null, null, ReturnType.CachedRowSet);
+//            //MessageExchange=(CachedRowSetImpl)db.SelectFromDb(TableNames.MessageExchange, null, null, ReturnType.CachedRowSet);
+//            GeolocationDb=(CachedRowSetImpl)db.SelectFromDb(TableNames.GeolocationDb, null, null, ReturnType.CachedRowSet);
+//        } catch (SQLException ex) {
+//            ex.printStackTrace();
+//        }
+//       
+//   }
    
    public final void Start(){
        for (Map.Entry<Integer,Integer> entry:SourceDestinationMap.entrySet()){
@@ -98,10 +97,10 @@ public class StartCommunication {
                    case Redirect:
                        //TODO REDIRECTION
                        //TODO METRICS
+                       ChangeFrequency(SourceID,RedirectNodeID);
                        StaticFlow.add(RedirectNodeID);                       
                        MakeNodeConnected(RedirectNodeID);
                        fl.addNodeToFlow(RedirectNodeID);
-                       
                        added=true;
                        break;
                    case Unavailable:
@@ -132,11 +131,14 @@ public class StartCommunication {
     }
     
     
-   private void ChangeFrequency(int NodeID,int Frequency){
+   private void ChangeFrequency(int SourceNodeID,int DestinationNodeID){
        DbConnection db=new DbConnection();
        Connection conn=db.Connect();
-        try {
-            db.UpdateTableColumnValue(TableNames.Node,"Frequency", Frequency,  "Where ID="+NodeID, conn);
+       try {
+            ResultSet SourceRs=db.SelectFromDb(TableNames.Node, "WHERE ID="+SourceNodeID, conn);
+            SourceRs.next();
+            db.UpdateTableColumnValue(TableNames.Node,"Frequency", SourceRs.getInt("Frequency"),  "Where ID="+DestinationNodeID, conn);
+            conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(StartCommunication.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -154,17 +156,17 @@ public class StartCommunication {
         }
     
    public ReplyCommands GetReplyFromBroadCast(RREQ Broadcast){
-       DbConnection db=new DbConnection(ReturnType.CachedRowSet);
+       DbConnection db=new DbConnection();
         try {
             Connection conn=db.Connect();
-            ResultSet NeighboursRs=(ResultSet)db.SelectFromDb(TableNames.GeolocationDb, "WHERE NeighbourID=" + Broadcast.SourceID,conn,ReturnType.ResultSet);
+            ResultSet NeighboursRs=db.SelectFromDb(TableNames.GeolocationDb, "WHERE NeighbourID=" + Broadcast.SourceID,conn);
                      //Get ContendingNeighbourNodes
                     ResultSet ContendingNodes =(ResultSet)db.GetCountFromDB(TableNames.GeolocationDb, "WHERE NeighbourID=" + + Broadcast.SourceID, conn);
                     ContendingNodes.next();
                     NumberOfContendingNodes=ContendingNodes.getInt("Count(*)");
             while (NeighboursRs.next()){
-                ResultSet IntermediateRs=(ResultSet)db.SelectFromDb(TableNames.Node, "WHERE ID=" + NeighboursRs.getInt("NodeID"),conn, ReturnType.ResultSet);
-                ResultSet SourceRs=(ResultSet)db.SelectFromDb(TableNames.Node, "WHERE ID=" + NeighboursRs.getInt("NeighbourID"),conn, ReturnType.ResultSet);
+                ResultSet IntermediateRs=db.SelectFromDb(TableNames.Node, "WHERE ID=" + NeighboursRs.getInt("NodeID"),conn);
+                ResultSet SourceRs=db.SelectFromDb(TableNames.Node, "WHERE ID=" + NeighboursRs.getInt("NeighbourID"),conn);
                 IntermediateRs.next();
                 SourceRs.next();
                 if (StaticFlow.contains(IntermediateRs.getInt("ID"))){
@@ -226,9 +228,9 @@ public class StartCommunication {
        DbConnection db=new DbConnection();
 //       Connection conn=db.Connect();
         try {
-            ResultSet NeighBoursRs=(ResultSet)db.SelectFromDb(TableNames.GeolocationDb, "WHERE NeighbourID=" + SourceID, conn, ReturnType.ResultSet);
+            ResultSet NeighBoursRs=db.SelectFromDb(TableNames.GeolocationDb, "WHERE NeighbourID=" + SourceID, conn);
             while (NeighBoursRs.next()){
-                ResultSet WeightRS=(ResultSet)db.SelectFromDb(TableNames.NodesWeight, "WHERE NodeID=" + NeighBoursRs.getInt("NodeID"), conn, ReturnType.ResultSet);
+                ResultSet WeightRS=db.SelectFromDb(TableNames.NodesWeight, "WHERE NodeID=" + NeighBoursRs.getInt("NodeID"), conn);
                 WeightRS.next();
                 if (WeightRS.getInt("Connected")==0){
                     return WeightRS.getInt("NodeID");

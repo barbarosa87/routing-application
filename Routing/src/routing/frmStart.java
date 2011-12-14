@@ -20,7 +20,6 @@ import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
-import routing.Enumerators.ReturnType;
 import routing.Test.PresentationPrimitive;
 
 /**
@@ -47,10 +46,10 @@ private Map<Integer,Integer> SourceDestinationMap=new HashMap();
     
     private void LoadCombo(JComboBox Box){
         Box.removeAllItems();
-        DbConnection db=new DbConnection(ReturnType.ResultSet);
+        DbConnection db=new DbConnection();
     try {
     Connection conn=db.Connect();
-    ResultSet rs=(ResultSet)db.SelectFromDb(TableNames.Node, "WHERE Area_flag=1", conn, ReturnType.ResultSet);
+    ResultSet rs=db.SelectFromDb(TableNames.Node, "WHERE Area_flag=1", conn);
     while (rs.next()){
         Box.addItem(rs.getInt("ID"));
     }
