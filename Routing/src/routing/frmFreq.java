@@ -13,6 +13,8 @@ package routing;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import routing.Enumerators.TableNames;
@@ -24,34 +26,49 @@ import routing.Enumerators.TableNames;
 public class frmFreq extends javax.swing.JFrame {
 
     /** Creates new form frmFreq */
-    public frmFreq(int AreaID) {
+    public frmFreq(int AreaID,frmNewRow Row) {
         initComponents();
+        FreqTable.setColumnSelectionAllowed(true);
+        FreqTable.setCellSelectionEnabled(true);
         FixTable(AreaID);
+        SelectionListener listener = new SelectionListener(FreqTable,this,Row);
+        FreqTable.getSelectionModel().addListSelectionListener(listener);
+        FreqTable.getColumnModel().getSelectionModel().addListSelectionListener(listener);
         //FreqTable.setTableHeader(null);
     }
     
     
     
-    private void FixTable(int AreaID){
+    
+    private int FixTable(int AreaID){
+        if (AreaID==0){return 0;}
         DbConnection db=new DbConnection();
         Connection conn=db.Connect();
         int Rows=FreqTable.getModel().getRowCount();
         int Columns=FreqTable.getModel().getColumnCount();
+        List<Integer> UnColumns=new ArrayList<Integer>();
         try {
-            ResultSet AreaFreqRs=db.SelectFromDb(TableNames.AreaFrequencies, "WHERE ID="+AreaID, conn);
-            while(AreaFreqRs.next()){
-                for (int i=0;i<Columns-1;i++){
-                 for (int j=0;j<Rows-1;j++){
-                  if((Integer)FreqTable.getValueAt(j, i)==AreaFreqRs.getInt("Frequency")) {
-                      FreqTable.setValueAt(0, j, i);
-                  } 
+             ResultSet AreaFreqRs=db.SelectFromDb(TableNames.AreaFrequencies, "WHERE ID="+AreaID, conn);
+             while(AreaFreqRs.next()){
+                 UnColumns.add(AreaFreqRs.getInt("Frequency"));
+//                if(!FreqTable.getValueAt( j, i).equals(AreaFreqRs.getString("Frequency"))) {
+//                      FreqTable.setValueAt("", j, i);
+//                  } 
                    }
+           for (int i=0;i<Columns-1;i++){
+                 for (int j=0;j<Rows-1;j++){
+                if(UnColumns.contains(Integer.parseInt((String)FreqTable.getValueAt( j, i)))) {
+                    continue;  
+                  }else{
+                    FreqTable.setValueAt("", j, i);
+                }                     
                 }
             }
+           conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(frmFreq.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        return 1;
     }
 
     /** This method is called from within the constructor to
@@ -70,18 +87,18 @@ public class frmFreq extends javax.swing.JFrame {
 
         FreqTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {new Integer(40), new Integer(41), new Integer(42), new Integer(43), new Integer(44)},
-                {new Integer(45), new Integer(46), new Integer(47), new Integer(48), new Integer(49)},
-                {new Integer(50), new Integer(51), new Integer(52), new Integer(53), new Integer(54)},
-                {new Integer(55), new Integer(56), new Integer(57), new Integer(58), new Integer(59)},
-                {new Integer(60), new Integer(0), new Integer(0), new Integer(0), null}
+                {"40", "41", "42", "43", "44"},
+                {"45", "46", "47", "48", "49"},
+                {"50", "51", "52", "53", "54"},
+                {"55", "56", "57", "58", "59"},
+                {"60", null, null, null, null}
             },
             new String [] {
                 "", "", "", "", ""
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -100,11 +117,13 @@ public class frmFreq extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -115,7 +134,7 @@ public class frmFreq extends javax.swing.JFrame {
      */
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable FreqTable;
+    public javax.swing.JTable FreqTable;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

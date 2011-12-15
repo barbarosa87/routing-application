@@ -4,7 +4,7 @@
  */
 package routing;
 
-import com.sun.rowset.CachedRowSetImpl;
+
 import routing.Enumerators.TableNames;
 import java.sql.Statement;
 import java.sql.Connection;
@@ -18,7 +18,6 @@ public  class DbConnection extends GetDataFromEnumerators {
 
 //<editor-fold defaultstate="collapsed" desc="Variable Declaration">
     private String ConnectionUrl="jdbc:sqlite:db.sqlite";
-    private CachedRowSetImpl cac;
 //</editor-fold>
 
 //<editor-fold defaultstate="collapsed" desc="Constructors">

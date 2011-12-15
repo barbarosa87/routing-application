@@ -5,7 +5,6 @@
 package routing;
 
 
-import com.sun.rowset.CachedRowSetImpl;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import routing.Enumerators.TableNames;
@@ -31,9 +30,6 @@ import routing.conf.*;
 public class StartCommunication {
     
     
-    private CachedRowSetImpl Nodes;
-    private CachedRowSetImpl NodesWeight;
-    private CachedRowSetImpl GeolocationDb;
     private int RedirectNodeID=-1;
     private int FlowNode=-1;
     private int ReplayNodeID=-1;
@@ -104,7 +100,7 @@ public class StartCommunication {
                        added=true;
                        break;
                    case Unavailable:
-                       IterateChannels.ChangeFrequencies(Nodes); 
+                       IterateChannels.ChangeFrequencies(); 
                        break;
                }
                if(added){
