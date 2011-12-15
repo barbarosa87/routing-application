@@ -342,6 +342,8 @@ if(SelectionTabPanel.getSelectedIndex()==SelectionTabPanel.indexOfTab("Nodes")){
     for (int i=0;i<NodesID.size();i++){
         int GeoDBCount=db.ReturnUniqueKey(TableNames.GeolocationDb, conn);
         db.AddToDb( "INSERT INTO GeolocationDB (ID,NodeID,NeighbourID) VALUES ("+(GeoDBCount+1)+","+ (KeyNodesCount+1)+","+NodesID.get(i)+")", conn);
+        //REVERT
+        db.AddToDb( "INSERT INTO GeolocationDB (ID,NodeID,NeighbourID) VALUES ("+(GeoDBCount+2)+","+ NodesID.get(i)+","+(KeyNodesCount+1)+")", conn);
     }
     NodesID.clear();
    if(!conn.isClosed()){

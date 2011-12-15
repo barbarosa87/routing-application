@@ -34,7 +34,11 @@ public class IterateChannels {
            while (NotConnectedNodesRs.next()){
                ResultSet NodesRS=db.SelectFromDb(TableNames.Node,"WHERE ID=" + NotConnectedNodesRs.getInt("NodeID"), conn);
                //To Anevazw kata 1 mexri ta oria mporei na to kanw kai random na ginetai i epilogi sixnotitas 
-               db.UpdateTableColumnValue(TableNames.Node, "Frequency", NodesRS.getInt("Frequency")+1, "WHERE ID=" +NodesRS.getInt("ID"), conn);
+               if( NodesRS.getInt("Frequency")+1>60){
+                   db.UpdateTableColumnValue(TableNames.Node, "Frequency",40, "WHERE ID=" +NodesRS.getInt("ID"), conn);
+               }else{
+               db.UpdateTableColumnValue(TableNames.Node, "Frequency", NodesRS.getInt("Frequency")+1, "WHERE ID=" +NodesRS.getInt("ID"), conn);    
+               }
            }
            
            if (!conn.isClosed()){

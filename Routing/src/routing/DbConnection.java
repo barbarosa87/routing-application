@@ -123,10 +123,10 @@ public int ReturnUniqueKey(TableNames TableType,Connection conn){
          
              Statement stat=conn.createStatement();
              //stat.executeUpdate("DELETE FROM "+GetTableName(TableNames.Area));
-             stat.executeUpdate("DELETE FROM "+GetTableName(TableNames.Node));
+             //stat.executeUpdate("DELETE FROM "+GetTableName(TableNames.Node));
              stat.executeUpdate("DELETE FROM "+GetTableName(TableNames.MessageExchange));
              stat.executeUpdate("DELETE FROM "+GetTableName(TableNames.NodesWeight));
-             stat.executeUpdate("DELETE FROM "+GetTableName(TableNames.GeolocationDb));
+             //stat.executeUpdate("DELETE FROM "+GetTableName(TableNames.GeolocationDb));
              //stat.executeUpdate("DELETE FROM "+GetTableName(TableNames.AreaFrequencies));
      }else{
              String Type=GetTableName(TableType);
