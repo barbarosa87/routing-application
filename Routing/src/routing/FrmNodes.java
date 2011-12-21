@@ -89,15 +89,12 @@ public class FrmNodes extends javax.swing.JFrame {
         NodesTablePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(NodesTablePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 480, 440));
 
-        NodesTableButtons.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
         btnDeleteRow.setText("Delete Row");
         btnDeleteRow.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteRowActionPerformed(evt);
             }
         });
-        NodesTableButtons.add(btnDeleteRow, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, -1));
 
         btnNewRow.setText("New Row");
         btnNewRow.addActionListener(new java.awt.event.ActionListener() {
@@ -105,9 +102,28 @@ public class FrmNodes extends javax.swing.JFrame {
                 btnNewRowActionPerformed(evt);
             }
         });
-        NodesTableButtons.add(btnNewRow, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 110, -1));
 
-        getContentPane().add(NodesTableButtons, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, 110, 270));
+        javax.swing.GroupLayout NodesTableButtonsLayout = new javax.swing.GroupLayout(NodesTableButtons);
+        NodesTableButtons.setLayout(NodesTableButtonsLayout);
+        NodesTableButtonsLayout.setHorizontalGroup(
+            NodesTableButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnDeleteRow, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnNewRow, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        NodesTableButtonsLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnDeleteRow, btnNewRow});
+
+        NodesTableButtonsLayout.setVerticalGroup(
+            NodesTableButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(NodesTableButtonsLayout.createSequentialGroup()
+                .addComponent(btnDeleteRow)
+                .addGap(7, 7, 7)
+                .addComponent(btnNewRow))
+        );
+
+        NodesTableButtonsLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnDeleteRow, btnNewRow});
+
+        getContentPane().add(NodesTableButtons, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 20, 110, 70));
 
         jPanel2.setForeground(new java.awt.Color(240, 240, 240));
         jPanel2.setLayout(null);
@@ -121,14 +137,14 @@ public class FrmNodes extends javax.swing.JFrame {
                 btnStartActionPerformed(evt);
             }
         });
-        getContentPane().add(btnStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 480, 60, 40));
+        getContentPane().add(btnStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 450, 60, 40));
 
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);
             }
         });
-        getContentPane().add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 480, 60, 40));
+        getContentPane().add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 450, 60, 40));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

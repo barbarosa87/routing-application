@@ -37,11 +37,6 @@ public class StartCommunication {
     private List Flows=new ArrayList<FlowStruct.Flow>();
     private List StaticFlow=new ArrayList<Integer>();
     private Map<Integer,Integer> SourceDestinationMap=new HashMap();
-    private List<Integer> CalculationNodeDelay=new ArrayList<Integer>();
-    private List<Integer> NodeSwitchingDelay=new ArrayList<Integer>();
-    private List<Integer> NodeBackOffDelay=new ArrayList<Integer>();
-    private List<Integer> PathBackOffDelay=new ArrayList<Integer>();
-    private List<Integer> PathSwitchingDelay=new ArrayList<Integer>();
     private int NumberOfContendingNodes=1;
     
     
@@ -73,9 +68,6 @@ public class StartCommunication {
            StaticFlow.add(entry.getKey());
            int SourceID=entry.getKey();
            DestinationNode=entry.getValue();
-           //Node Delay
-           Map<Integer, List> NodeDelay=new HashMap<Integer, List>();
-           //Path Delay
            boolean added=false;
            for (int j=0;j<RoutingCnf.getNumberOfBroadCastTries();j++){
                switch (BroadCastMessage(SourceID)){
@@ -84,11 +76,7 @@ public class StartCommunication {
                    MakeNodeConnected(FlowNode);
                    fl.addNodeToFlow(FlowNode);
                    added=true;
-                   List<Double> Delays=new ArrayList<Double>();
-                   Delays.add(0.0);
-                   Delays.add(Calculations.GetNodeBackOffDelay(NumberOfContendingNodes));
-                   NodeDelay.put(FlowNode,Delays);
-                   //System.out.println("Node "+ String.valueOf(FlowNode)+"Node BackoffDelay: "+Calculations.GetNodeBackOffDelay(fl.GetAddedNodesList().size())+" Node SwitchingDelay:0");
+                  
                    break;
                    case Redirect:
                        //TODO REDIRECTION
@@ -165,19 +153,28 @@ public class StartCommunication {
                 ResultSet SourceRs=db.SelectFromDb(TableNames.Node, "WHERE ID=" + NeighboursRs.getInt("NeighbourID"),conn);
                 IntermediateRs.next();
                 SourceRs.next();
+                ResultSet CheckIfConnectedCount =(ResultSet)db.GetCountFromDB(TableNames.NodesWeight, "WHERE NodeID=" + IntermediateRs.getInt("ID") +" AND Connected=1", conn);
+                CheckIfConnectedCount.next();
                 if (StaticFlow.contains(IntermediateRs.getInt("ID"))){
                     continue;
                 }
-                if(IntermediateRs.getInt("ID")==DestinationNode){
+                
+                if (IntermediateRs.getInt("Area_flag")>0){
+                    //if(IntermediateRs.getInt("ID")==DestinationNode){
                     FlowNode=IntermediateRs.getInt("ID");
                     conn.close();
                     return ReplyCommands.AddToFlow;
+                //}else{
+                    
+                //}
+                    
                 }
-                  
+                
+                
                 //TODO Check for added node
                 if ((IntermediateRs.getInt("Frequency")==SourceRs.getInt("Frequency"))){
-                    ResultSet CheckIfConnectedCount =(ResultSet)db.GetCountFromDB(TableNames.NodesWeight, "WHERE NodeID=" + IntermediateRs.getInt("ID") +" AND Connected=1", conn);
-                    CheckIfConnectedCount.next();
+                    //ResultSet CheckIfConnectedCount =(ResultSet)db.GetCountFromDB(TableNames.NodesWeight, "WHERE NodeID=" + IntermediateRs.getInt("ID") +" AND Connected=1", conn);
+                    //CheckIfConnectedCount.next();
                     if(CheckIfConnectedCount.getInt("Count(*)")>0){
                         int NonConnectedNode=GetNonConnectedNeighbourNodes(Broadcast.SourceID,conn);
                          if (NonConnectedNode>0){

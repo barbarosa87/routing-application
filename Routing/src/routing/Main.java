@@ -35,11 +35,6 @@ public class Main {
    Splash.setTitle("CR Routing Simulator");
    Splash.setLocationRelativeTo(null);
    Splash.setVisible(true);
-   
-//   FrmNodes frmnodes = new FrmNodes();
-//   frmnodes.setIconImage(Toolkit.getDefaultToolkit().getImage("./Resources/globe.png"));
-//   frmnodes.setTitle("Nodes Table");
-//   frmnodes.setLocationRelativeTo(null);
-//   frmnodes.setVisible(true);
+ 
   }
 }
