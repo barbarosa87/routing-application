@@ -42,48 +42,27 @@ public final class RoutingCnf {
         put(59,774);
         put(60,782);
     }};
-    //Load of the flow
-    private static double p=0.45;
-    //System capacity
-    private static double C=1;
-    
-    private static double k=1000;
-    private static double Pc=0.2;
-    private static double Wo=3;
-    private static double Hx=1;
-    private static double PCPath=0.9;
-    private static double QCPath=0.9;
-    private static double PoPath=0.9;    
+   private static double p=0.5;
+   private static double l=1;
+   private static double m=0.4;
+   private static double k=1;
 //</editor-fold>
-    public static double getPCPath(){
-        return PCPath;
-    }
-    public static double getQCPath(){
-        return QCPath;
-    }
-    public static double getPoPath(){
-        return PoPath;
-    }
-    public static double getHx(){
-        return Hx;
-    }
-    public static double getPc(){
-        return Pc;
-    }
-    public static double getWo(){
-        return Wo;
-    }
-public static double getLoadOfFlow(){
-    return p;
-}
-public static double getK(){
-    return k;
-}
-    public static double getSystemCapacity(){
-        return C;
-    }
     
-        
+    
+ public static double getp(){
+     return p;
+ }
+ public static double getl(){
+     return l;
+ }
+ public static double getm(){
+     return m;
+ }
+ public static double getk(){
+     return k;
+ }
+         
+    
 public static int getStartFrequency(){
     return StartFrequncy;
 }
@@ -102,7 +81,7 @@ public static int getNumberOfBroadCastTries(){
 
 
 
-public int getFrequencyFromChannel(int TVWS){
+public static int getFrequencyFromChannel(int TVWS){
 return Frequencies.get(TVWS);
 }
 

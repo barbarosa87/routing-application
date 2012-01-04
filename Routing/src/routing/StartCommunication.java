@@ -27,40 +27,28 @@ import routing.conf.*;
 
 
 //TODO CREATE METRICS !!!!!!!!!!!
-public class StartCommunication {
+public class StartCommunication extends Calculate{
     
     
-    private int RedirectNodeID=-1;
+    
     private int FlowNode=-1;
-    private int ReplayNodeID=-1;
     private int DestinationNode=-1;
     private List Flows=new ArrayList<FlowStruct.Flow>();
     private List StaticFlow=new ArrayList<Integer>();
     private Map<Integer,Integer> SourceDestinationMap=new HashMap();
     private int NumberOfContendingNodes=1;
+    private int StartBand;
+    private int DestBand;
+    
+    
     
     
     
     public StartCommunication(Map SourceDestinationMap){
         this.SourceDestinationMap=SourceDestinationMap;
-        //GetRowSets();
-        Start();
+        //Start();
     }
     
-   
-//   public final void GetRowSets(){
-//       DbConnection db=new DbConnection();
-//        try {
-//            Nodes=(CachedRowSetImpl)db.SelectFromDb(TableNames.Node, null, null, ReturnType.CachedRowSet);
-//            NodesWeight=(CachedRowSetImpl)db.SelectFromDb(TableNames.NodesWeight, null, null, ReturnType.CachedRowSet);
-//            //MessageExchange=(CachedRowSetImpl)db.SelectFromDb(TableNames.MessageExchange, null, null, ReturnType.CachedRowSet);
-//            GeolocationDb=(CachedRowSetImpl)db.SelectFromDb(TableNames.GeolocationDb, null, null, ReturnType.CachedRowSet);
-//        } catch (SQLException ex) {
-//            ex.printStackTrace();
-//        }
-//       
-//   }
-   
    public final void Start(){
        for (Map.Entry<Integer,Integer> entry:SourceDestinationMap.entrySet()){
            FlowStruct.Flow fl=InitializeFlow(entry.getKey());
@@ -70,21 +58,28 @@ public class StartCommunication {
            DestinationNode=entry.getValue();
            boolean added=false;
            for (int j=0;j<RoutingCnf.getNumberOfBroadCastTries();j++){
+               if(FlowNode==DestinationNode){break;}
                switch (BroadCastMessage(SourceID)){
                    case AddToFlow:
                    StaticFlow.add(FlowNode);
                    MakeNodeConnected(FlowNode);
                    fl.addNodeToFlow(FlowNode);
                    added=true;
-                  
                    break;
                    case Redirect:
                        //TODO REDIRECTION
                        //TODO METRICS
-                       ChangeFrequency(SourceID,RedirectNodeID);
-                       StaticFlow.add(RedirectNodeID);                       
-                       MakeNodeConnected(RedirectNodeID);
-                       fl.addNodeToFlow(RedirectNodeID);
+                       fl.CalculateND(super.getSwitchingDelay(GetNodeFrequency(FlowNode), GetNodeFrequency(SourceID)),super.getNodeBlock());
+                       
+//                       ChangeFrequency(SourceID,RedirectNodeID);
+//                       StaticFlow.add(RedirectNodeID);                       
+//                       MakeNodeConnected(RedirectNodeID);
+//                       fl.addNodeToFlow(RedirectNodeID);
+                      
+                       ChangeFrequency(SourceID,FlowNode);
+                       StaticFlow.add(FlowNode);                       
+                       MakeNodeConnected(FlowNode);
+                       fl.addNodeToFlow(FlowNode);
                        added=true;
                        break;
                    case Unavailable:
@@ -112,6 +107,7 @@ public class StartCommunication {
            }
            
        }
+       PrintResults pr=new PrintResults(Flows);
     }
     
     
@@ -164,9 +160,7 @@ public class StartCommunication {
                     FlowNode=IntermediateRs.getInt("ID");
                     conn.close();
                     return ReplyCommands.AddToFlow;
-                //}else{
-                    
-                //}
+            
                     
                 }
                 
@@ -178,11 +172,11 @@ public class StartCommunication {
                     if(CheckIfConnectedCount.getInt("Count(*)")>0){
                         int NonConnectedNode=GetNonConnectedNeighbourNodes(Broadcast.SourceID,conn);
                          if (NonConnectedNode>0){
-                             RedirectNodeID=NonConnectedNode;
+                             FlowNode=NonConnectedNode;
                              conn.close();
                              return ReplyCommands.Redirect;
                   }else{
-                             RedirectNodeID=-1;
+                             FlowNode=-1;
                              conn.close();
                              return ReplyCommands.Unavailable;
                   }
@@ -219,7 +213,7 @@ public class StartCommunication {
    
    public int GetNonConnectedNeighbourNodes(int SourceID,Connection conn){
        DbConnection db=new DbConnection();
-//       Connection conn=db.Connect();
+
         try {
             ResultSet NeighBoursRs=db.SelectFromDb(TableNames.GeolocationDb, "WHERE NeighbourID=" + SourceID, conn);
             while (NeighBoursRs.next()){
@@ -237,28 +231,22 @@ public class StartCommunication {
        
    }
    
-//   public boolean CheckIfConnected(int NodeID){
-////       try {
-//////           DbConnection db=new DbConnection(ReturnType.CachedRowSet);
-//////           //Connection conn=db.Connect();
-//////           CachedRowSetImpl rs=(CachedRowSetImpl)db.SelectFromDb(TableNames.NodesWeight, "WHERE NodeID=" + NodeID +" AND Connected=1", null, ReturnType.CachedRowSet);
-//////           while(rs.next()){
-//////               return true;
-////////           }
-//////           while(NodesWeight.next()){
-//////                  if (NodesWeight.getBoolean("Connected")&&NodesWeight.getInt("NodeID")==NodeID){
-//////                         return true;
-//////                      }
-//////           }
-//////           NodesWeight.first();
-////       }catch(SQLException ex){
-////           ex.printStackTrace();
-////       }
-//          return false;
-//       
-//       
-//       
-//   }
+
+   
+   public int GetNodeFrequency(int NodeID){
+      DbConnection db=new DbConnection();
+      Connection conn=db.Connect();     
+      try{
+             ResultSet rs=db.SelectFromDb(TableNames.Node, "WHERE ID="+NodeID, conn);
+             rs.next();
+             int Ch=rs.getInt("Frequency");
+             return RoutingCnf.getFrequencyFromChannel(Ch);
+         }catch(SQLException ex){
+             ex.printStackTrace();
+         }
+      return 0;
+        
+   }
    
    public void SendRREP(int SourceNodeID,int DestNodeID,boolean Redirect){
        RREP Reply=new RREP(SourceNodeID,DestNodeID,Redirect);
@@ -273,9 +261,7 @@ public class StartCommunication {
    }
    
    
-   public void Redirect(int NodeID,int ToNodeID){
-       //TODO START REDIRECT
-   }
+   
    
    
    
