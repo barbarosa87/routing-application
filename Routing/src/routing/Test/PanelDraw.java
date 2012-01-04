@@ -22,16 +22,20 @@ import java.util.ArrayList;
 import java.util.List;
 import routing.DbConnection;
 import routing.Enumerators.TableNames;
-
+import routing.Structs.FlowStruct.Flow;
+import routing.Structs.FlowStruct.DesignNode;
 /**
  *
  * @author barbarosa
  */
 public class PanelDraw extends javax.swing.JPanel {
-
+ private List<Flow> FLows=new ArrayList<Flow>();
+ private List<DesignNode> NodesPoints=new ArrayList<DesignNode>();
+ private List<Integer> PassedNodes=new ArrayList<Integer>();
     /** Creates new form PanelDraw */
-    public PanelDraw() {
+    public PanelDraw(List<Flow> Flows) {
         initComponents();
+        this.FLows=Flows;
     }
 
     /** This method is called from within the constructor to
@@ -43,7 +47,7 @@ public class PanelDraw extends javax.swing.JPanel {
     @Override
     public void paint(Graphics g){
         Graphics2D g2 = (Graphics2D) g;
-        g2.setColor(Color.WHITE);
+        g2.setColor(Color.BLACK);
         List<Integer> AreasIDs=GetAreas();
         Point2D.Double point = new Point2D.Double(0, 0);
         for(Integer AreaID:AreasIDs){
@@ -53,9 +57,17 @@ public class PanelDraw extends javax.swing.JPanel {
             Double FirstXNodePoint=Area.getCenterX()-10;
             Double FirstYNodePoint=Area.getCenterY()-10;
             for(Integer NodeID:NodesIDs){
-            g2.draw(new Ellipse2D.Double(FirstXNodePoint,FirstYNodePoint,5,5));    
+            g2.draw(new Ellipse2D.Double(FirstXNodePoint,FirstYNodePoint,5,5));
+            NodesPoints.add(new DesignNode(NodeID, FirstXNodePoint, FirstYNodePoint));
             FirstXNodePoint=FirstXNodePoint+5;
             FirstYNodePoint=FirstYNodePoint+5;
+            }
+            List<Integer> IndependentNodesIDs=GetIndependentNodes(AreaID);
+            double plus=point.x+50;
+            //if(IndependentNodesIDs.isEmpty()){continue;}
+            for(Integer IndNodeID:IndependentNodesIDs){
+                g2.draw(new Ellipse2D.Double(plus,point.y,5,5));
+                plus=plus+8;
             }
             point.x=point.x+100;
             point.y=point.y+100;
@@ -64,6 +76,30 @@ public class PanelDraw extends javax.swing.JPanel {
 
     }
     
+    
+    
+    public List<Integer> GetIndependentNodes(int AreaID){
+        DbConnection db=new DbConnection();
+        Connection conn=db.Connect();
+        List<Integer> IndependentNodesIDs=new ArrayList<Integer>();
+        try{
+            ResultSet rs=db.SelectFromDb(TableNames.GeolocationDb,"WHERE NeighbourID="+AreaID, conn);
+            while(rs.next()){
+                int NodeID=rs.getInt("NodeID");
+                if (PassedNodes.contains(NodeID)){
+                continue;
+                }else{
+                IndependentNodesIDs.add(NodeID);
+                PassedNodes.add(NodeID);
+                }
+            }
+            conn.close();
+            //return IndependentNodesIDs;
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return IndependentNodesIDs;
+    }
     
     public List<Integer> GetContainingNodes(int AreaID){
       DbConnection db=new DbConnection();
@@ -98,9 +134,7 @@ public class PanelDraw extends javax.swing.JPanel {
     return AreasIDs;
     }
     
-    public void GetNodes(){
-        
-    }
+    
     
     
     
