@@ -36,6 +36,7 @@ public class PanelDraw extends javax.swing.JPanel {
     public PanelDraw(List<Flow> Flows) {
         initComponents();
         this.FLows=Flows;
+        repaint();
     }
 
     /** This method is called from within the constructor to
@@ -50,6 +51,7 @@ public class PanelDraw extends javax.swing.JPanel {
         g2.setColor(Color.BLACK);
         List<Integer> AreasIDs=GetAreas();
         Point2D.Double point = new Point2D.Double(0, 0);
+        try{
         for(Integer AreaID:AreasIDs){
             Ellipse2D.Double Area=new Ellipse2D.Double(point.x,point.y,50,50);
             g2.draw(Area);
@@ -62,23 +64,26 @@ public class PanelDraw extends javax.swing.JPanel {
             FirstXNodePoint=FirstXNodePoint+5;
             FirstYNodePoint=FirstYNodePoint+5;
             }
-            List<Integer> IndependentNodesIDs=GetIndependentNodes(AreaID);
-            double plus=point.x+50;
-            //if(IndependentNodesIDs.isEmpty()){continue;}
-            for(Integer IndNodeID:IndependentNodesIDs){
-                g2.draw(new Ellipse2D.Double(plus,point.y,5,5));
+            int IndependentNodesIDs=GetIndependentNodes(AreaID);
+            double plus=point.x+60;
+            double plusy=point.y+60;
+            for(int i=0;i<IndependentNodesIDs;i++){
+                g2.draw(new Ellipse2D.Double(plus,plusy,5,5));
                 plus=plus+8;
+                plus=plusy+8;
             }
             point.x=point.x+100;
             point.y=point.y+100;
         }
-        
+        }catch(Throwable e){
+            e.printStackTrace();
+        }
 
     }
     
     
     
-    public List<Integer> GetIndependentNodes(int AreaID){
+    public int GetIndependentNodes(int AreaID){
         DbConnection db=new DbConnection();
         Connection conn=db.Connect();
         List<Integer> IndependentNodesIDs=new ArrayList<Integer>();
@@ -86,19 +91,17 @@ public class PanelDraw extends javax.swing.JPanel {
             ResultSet rs=db.SelectFromDb(TableNames.GeolocationDb,"WHERE NeighbourID="+AreaID, conn);
             while(rs.next()){
                 int NodeID=rs.getInt("NodeID");
-                if (PassedNodes.contains(NodeID)){
-                continue;
-                }else{
-                IndependentNodesIDs.add(NodeID);
-                PassedNodes.add(NodeID);
-                }
+               if (!PassedNodes.contains(NodeID)){
+                   PassedNodes.add(NodeID);
+                   IndependentNodesIDs.add(NodeID); 
+               }
             }
             conn.close();
             //return IndependentNodesIDs;
         }catch(SQLException ex){
             ex.printStackTrace();
         }
-        return IndependentNodesIDs;
+        return IndependentNodesIDs.size();
     }
     
     public List<Integer> GetContainingNodes(int AreaID){
