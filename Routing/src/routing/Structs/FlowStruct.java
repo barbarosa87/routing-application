@@ -35,6 +35,9 @@ public static class Flow{
    public void CalculateND(double SwitchingDelay,double BackOffDelay){
        ND=ND+(SwitchingDelay+BackOffDelay);
    }
+   public String GetFlowName(){
+       return this.Name;
+   }
    
    
 }
@@ -49,6 +52,16 @@ public static class DesignNode{
         this.XPoint=XPoint;
         this.YPoint=YPoint;
     }
+    public int GetDesignNodeID(){
+        return ID;
+    }
+    public double GetXpoint(){
+        return XPoint;
+    }
+    public double GetYpoint(){
+        return YPoint;
+    }
+    
 }
 
 

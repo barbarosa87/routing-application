@@ -7,7 +7,8 @@ package routing;
 import java.util.ArrayList;
 import java.util.List;
 import routing.Structs.FlowStruct;
-import routing.Test.PresentationPrimitive;
+import routing.Presentation.PresentationPrimitive;
+
 /**
  *
  * @author barbarosa
@@ -17,7 +18,9 @@ public class PrintResults {
     
     public PrintResults(List<FlowStruct.Flow> Flows){
         this.Flows=Flows;
-        new PresentationPrimitive(Flows).setVisible(true);
+        PresentationPrimitive pr=new PresentationPrimitive(Flows);
+        pr.setVisible(true);
+        
     }
     
 }
