@@ -39,6 +39,7 @@ public class StartCommunication extends Calculate{
     private int NumberOfContendingNodes=1;
     private int StartBand;
     private int DestBand;
+    private boolean FinalNode=false;
     
     
     
@@ -88,9 +89,9 @@ public class StartCommunication extends Calculate{
                }
                if(added){
                    if (fl.GetAddedNodesList().get(fl.GetAddedNodesList().size()-1)==entry.getValue()){
-                for(Integer i:fl.GetAddedNodesList()){
-                System.out.println(i);
-                }
+//                for(Integer i:fl.GetAddedNodesList()){
+//                System.out.println(i);
+//                }
                    break;
                    }
                    else{
@@ -154,17 +155,7 @@ public class StartCommunication extends Calculate{
                 if (StaticFlow.contains(IntermediateRs.getInt("ID"))){
                     continue;
                 }
-                
-                if (IntermediateRs.getInt("Area_flag")>0){
-                    //if(IntermediateRs.getInt("ID")==DestinationNode){
-                    FlowNode=IntermediateRs.getInt("ID");
-                    conn.close();
-                    return ReplyCommands.AddToFlow;
-            
-                    
-                }
-                
-                
+              
                 //TODO Check for added node
                 if ((IntermediateRs.getInt("Frequency")==SourceRs.getInt("Frequency"))){
                     //ResultSet CheckIfConnectedCount =(ResultSet)db.GetCountFromDB(TableNames.NodesWeight, "WHERE NodeID=" + IntermediateRs.getInt("ID") +" AND Connected=1", conn);
@@ -185,7 +176,12 @@ public class StartCommunication extends Calculate{
                         conn.close();
                         return ReplyCommands.AddToFlow;
                     }
-                }else {
+                }else  if (IntermediateRs.getInt("Area_flag")>0){
+                    //if(IntermediateRs.getInt("ID")==DestinationNode){
+                    FlowNode=IntermediateRs.getInt("ID");
+                    conn.close();
+                    return ReplyCommands.AddToFlow;
+                 }else{
                   conn.close();
                   return ReplyCommands.Unavailable;
                 }
