@@ -189,7 +189,7 @@ public class frmAreas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 private void btnNewRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewRowActionPerformed
-// TODO add your handling code here:
+
     frmNewRow ArFrm=new frmNewRow("Areas");
     ArFrm.setTitle("New Row");
     ArFrm.setIconImage(Toolkit.getDefaultToolkit().getImage("./Resources/globe.png"));
