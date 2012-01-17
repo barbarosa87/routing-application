@@ -11,10 +11,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import routing.Enumerators.GetDataFromEnumerators;
 
 
-public  class DbConnection extends GetDataFromEnumerators {
+public  class DbConnection  {
 
 //<editor-fold defaultstate="collapsed" desc="Variable Declaration">
     private String ConnectionUrl="jdbc:sqlite:db.sqlite";
@@ -57,21 +56,17 @@ public  class DbConnection extends GetDataFromEnumerators {
 
 //<editor-fold defaultstate="collapsed" desc="SelectFromDb">
   public ResultSet SelectFromDb(TableNames TableType,String Clause,Connection conn)throws SQLException{
-          String Type=GetTableName(TableType);
           Statement stat=conn.createStatement();
-          ResultSet rs=stat.executeQuery("SELECT * FROM "+Type +" "+Clause);
+          ResultSet rs=stat.executeQuery("SELECT * FROM "+TableType.toString()+" "+Clause);
           return rs;
-      
   }
   //</editor-fold>
   
   
 //<editor-fold defaultstate="collapsed" desc="SelectFromDb">
   public ResultSet GetCountFromDB(TableNames TableType,String Clause,Connection conn ) throws SQLException{
-      String Type=GetTableName(TableType);
-      
                 Statement stat=conn.createStatement();
-                ResultSet rs=stat.executeQuery("SELECT Count(*) FROM "+Type+" "+Clause);
+                ResultSet rs=stat.executeQuery("SELECT Count(*) FROM "+TableType.toString()+" "+Clause);
                 return rs; 
      
   }
@@ -79,11 +74,10 @@ public  class DbConnection extends GetDataFromEnumerators {
 
 //<editor-fold defaultstate="collapsed" desc="ReturnUniqueKey">  
 public int ReturnUniqueKey(TableNames TableType,Connection conn){
-          String Type=GetTableName(TableType);
           int i=0;
           try{
           Statement stat=conn.createStatement();
-          ResultSet rs=stat.executeQuery("Select * From "+Type);
+          ResultSet rs=stat.executeQuery("Select * From "+TableType.toString());
           while(rs.next()){
               i=rs.getInt("ID");
           }
@@ -107,9 +101,8 @@ public int ReturnUniqueKey(TableNames TableType,Connection conn){
  
 //<editor-fold defaultstate="collapsed" desc="RemoveFromDbWithClause">
   public void RemoveFromDb(TableNames TableType,Connection conn,String id) throws SQLException{
-          String Type=GetTableName(TableType);
           Statement stat=conn.createStatement();
-          stat.executeUpdate("DELETE FROM "+Type+" WHERE ID= "+id);
+          stat.executeUpdate("DELETE FROM "+TableType.toString()+" WHERE ID= "+id);
           stat.close();
      
   }
@@ -124,17 +117,13 @@ public int ReturnUniqueKey(TableNames TableType,Connection conn){
              Statement stat=conn.createStatement();
              //stat.executeUpdate("DELETE FROM "+GetTableName(TableNames.Area));
              //stat.executeUpdate("DELETE FROM "+GetTableName(TableNames.Node));
-             stat.executeUpdate("DELETE FROM "+GetTableName(TableNames.MessageExchange));
-             stat.executeUpdate("DELETE FROM "+GetTableName(TableNames.NodesWeight));
+             stat.executeUpdate("DELETE FROM "+TableNames.MessageExchange.toString());
+             stat.executeUpdate("DELETE FROM "+TableNames.NodesWeight.toString());
              //stat.executeUpdate("DELETE FROM "+GetTableName(TableNames.GeolocationDb));
              //stat.executeUpdate("DELETE FROM "+GetTableName(TableNames.AreaFrequencies));
      }else{
-             String Type=GetTableName(TableType);
              Statement stat=conn.createStatement();
-             stat.executeUpdate("DELETE FROM "+Type);
-        
-         
-         
+             stat.executeUpdate("DELETE FROM "+TableType.toString());
      }
      
      }catch(SQLException ex){
@@ -145,10 +134,8 @@ public int ReturnUniqueKey(TableNames TableType,Connection conn){
 
 //<editor-fold defaultstate="collapsed" desc="UpdateTableColumnValue">
  public void UpdateTableColumnValue(TableNames TableType,String ColumnName,int ColumnValue,String Clause,Connection conn) throws SQLException{
-    
-         String Type=GetTableName(TableType);
          Statement stat=conn.createStatement();
-         stat.executeUpdate("UPDATE "+Type+" SET "+ColumnName+" =" +ColumnValue+" "+Clause);
+         stat.executeUpdate("UPDATE "+TableType.toString()+" SET "+ColumnName+" =" +ColumnValue+" "+Clause);
     
  }
  //</editor-fold>

@@ -51,7 +51,7 @@ public class frmNewRow extends javax.swing.JFrame {
          DbConnection db=new DbConnection();
             Connection conn=db.Connect();
    try{
-         ResultSet rs=db.SelectFromDb(TableNames.Area,"", conn );
+         ResultSet rs=db.SelectFromDb(TableNames.Areas,"", conn );
    if (rs!=null){
       while(rs.next()){
          SlArea.addItem(rs.getString("ID"));
@@ -306,7 +306,7 @@ public class frmNewRow extends javax.swing.JFrame {
         Connection conn=db.Connect();
         try{
         
-        ResultSet  rs=db.SelectFromDb(TableNames.Node,"", conn);
+        ResultSet  rs=db.SelectFromDb(TableNames.Nodes,"", conn);
                 while(rs.next()){
                         ComboPlusNodes.addItem(rs.getString("ID"));                  
                 }
@@ -323,7 +323,7 @@ if(SelectionTabPanel.getSelectedIndex()==SelectionTabPanel.indexOfTab("Nodes")){
    DbConnection db=new DbConnection();
    Connection conn=db.Connect(); 
    try{
-   int KeyNodesCount=db.ReturnUniqueKey(TableNames.Node, conn);
+   int KeyNodesCount=db.ReturnUniqueKey(TableNames.Nodes, conn);
    //NODES TAB
     if (bxArea.isSelected()){
        if(SlArea.getItemCount()>0){
@@ -364,7 +364,7 @@ if(SelectionTabPanel.getSelectedIndex()==SelectionTabPanel.indexOfTab("Nodes")){
     }
     DbConnection db=new DbConnection();
     Connection conn=db.Connect();
-    int AreasCount=db.ReturnUniqueKey(TableNames.Area, conn);
+    int AreasCount=db.ReturnUniqueKey(TableNames.Areas, conn);
     db.AddToDb("INSERT INTO Areas(ID) VALUES("+(AreasCount+1)+")", conn);
     for(Integer i:Frequencies){
             db.AddToDb("INSERT INTO AreaFrequencies(ID,Frequency) VALUES("+(AreasCount+1)+","+i+")", conn);

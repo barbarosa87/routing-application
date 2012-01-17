@@ -116,9 +116,9 @@ public class StartCommunication extends Calculate{
        DbConnection db=new DbConnection();
        Connection conn=db.Connect();
        try {
-            ResultSet SourceRs=db.SelectFromDb(TableNames.Node, "WHERE ID="+SourceNodeID, conn);
+            ResultSet SourceRs=db.SelectFromDb(TableNames.Nodes, "WHERE ID="+SourceNodeID, conn);
             SourceRs.next();
-            db.UpdateTableColumnValue(TableNames.Node,"Frequency", SourceRs.getInt("Frequency"),  "Where ID="+DestinationNodeID, conn);
+            db.UpdateTableColumnValue(TableNames.Nodes,"Frequency", SourceRs.getInt("Frequency"),  "Where ID="+DestinationNodeID, conn);
             conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(StartCommunication.class.getName()).log(Level.SEVERE, null, ex);
@@ -146,8 +146,8 @@ public class StartCommunication extends Calculate{
                     ContendingNodes.next();
                     NumberOfContendingNodes=ContendingNodes.getInt("Count(*)");
             while (NeighboursRs.next()){
-                ResultSet IntermediateRs=db.SelectFromDb(TableNames.Node, "WHERE ID=" + NeighboursRs.getInt("NodeID"),conn);
-                ResultSet SourceRs=db.SelectFromDb(TableNames.Node, "WHERE ID=" + NeighboursRs.getInt("NeighbourID"),conn);
+                ResultSet IntermediateRs=db.SelectFromDb(TableNames.Nodes, "WHERE ID=" + NeighboursRs.getInt("NodeID"),conn);
+                ResultSet SourceRs=db.SelectFromDb(TableNames.Nodes, "WHERE ID=" + NeighboursRs.getInt("NeighbourID"),conn);
                 IntermediateRs.next();
                 SourceRs.next();
                 ResultSet CheckIfConnectedCount =(ResultSet)db.GetCountFromDB(TableNames.NodesWeight, "WHERE NodeID=" + IntermediateRs.getInt("ID") +" AND Connected=1", conn);
@@ -233,7 +233,7 @@ public class StartCommunication extends Calculate{
       DbConnection db=new DbConnection();
       Connection conn=db.Connect();     
       try{
-             ResultSet rs=db.SelectFromDb(TableNames.Node, "WHERE ID="+NodeID, conn);
+             ResultSet rs=db.SelectFromDb(TableNames.Nodes, "WHERE ID="+NodeID, conn);
              rs.next();
              int Ch=rs.getInt("Frequency");
              return RoutingCnf.getFrequencyFromChannel(Ch);

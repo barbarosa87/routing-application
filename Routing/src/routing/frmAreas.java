@@ -41,13 +41,13 @@ public class frmAreas extends javax.swing.JFrame {
        
     }
    public final void CreateAreasTable(){
-      AreasTm=new TableModel(TableNames.Area);
+      AreasTm=new TableModel(TableNames.Areas);
       AreasTable=new JTable(AreasTm);
       AreasTable.getModel().addTableModelListener(new TableModelListener() {
 
             @Override
             public void tableChanged(TableModelEvent e) {
-           AreasTable.setModel(new TableModel(TableNames.Area));
+           AreasTable.setModel(new TableModel(TableNames.Areas));
             }
         });
       AreasTablePanel.setLayout(new FlowLayout());
@@ -202,7 +202,7 @@ private void btnDeleteRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
  try {
     Connection conn=db.Connect();
     if(AreasTable.getSelectedRow()>=0){
-    db.RemoveFromDb(TableNames.Area, conn,String.valueOf(AreasTable.getValueAt(AreasTable.getSelectedRow(), 0)));
+    db.RemoveFromDb(TableNames.Areas, conn,String.valueOf(AreasTable.getValueAt(AreasTable.getSelectedRow(), 0)));
     db.RemoveFromDb(TableNames.AreaFrequencies, conn,String.valueOf(AreasTable.getValueAt(AreasTable.getSelectedRow(), 0)));
     AreasTm.fireTableDataChanged();
     }
