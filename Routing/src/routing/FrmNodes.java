@@ -49,13 +49,13 @@ public class FrmNodes extends javax.swing.JFrame {
     
     
     public final void LoadNodesTable(){
-   NodesTm = new TableModel(TableNames.Node);
+   NodesTm = new TableModel(TableNames.Nodes);
    NodesTable = new JTable(NodesTm);
    NodesTable.getModel().addTableModelListener(new TableModelListener() {
 
             @Override
             public void tableChanged(TableModelEvent e) {
-                NodesTable.setModel(new TableModel(TableNames.Node));
+                NodesTable.setModel(new TableModel(TableNames.Nodes));
             }
         });
    NodesTableScrollPanel=new JScrollPane(NodesTable);
@@ -164,7 +164,7 @@ private void btnDeleteRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     try {
     Connection conn=db.Connect();
     if(NodesTable.getSelectedRow()>=0){
-    db.RemoveFromDb(TableNames.Node, conn,String.valueOf(NodesTable.getValueAt(NodesTable.getSelectedRow(), 0)));
+    db.RemoveFromDb(TableNames.Nodes, conn,String.valueOf(NodesTable.getValueAt(NodesTable.getSelectedRow(), 0)));
     NodesTm.fireTableDataChanged();
     }
     if(!conn.isClosed()){
@@ -203,7 +203,7 @@ private void btnDeleteRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         DbConnection db=new DbConnection();
         Connection conn=db.Connect();
         try {
-            ResultSet rs=db.SelectFromDb(TableNames.Node, "Where Area_flag=0", conn);
+            ResultSet rs=db.SelectFromDb(TableNames.Nodes, "Where Area_flag=0", conn);
             while (rs.next()){
                 int key=db.ReturnUniqueKey(TableNames.NodesWeight, conn);
                 db.AddToDb("INSERT INTO NodesWeight(ID,NodeID,Connected) Values(" +(key+1)+","+rs.getInt("ID")+",0)", conn);

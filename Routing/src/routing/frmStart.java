@@ -48,7 +48,7 @@ private Map<Integer,Integer> SourceDestinationMap=new HashMap();
         DbConnection db=new DbConnection();
     try {
     Connection conn=db.Connect();
-    ResultSet rs=db.SelectFromDb(TableNames.Node, "WHERE Area_flag=1", conn);
+    ResultSet rs=db.SelectFromDb(TableNames.Nodes, "WHERE Area_flag=1", conn);
     while (rs.next()){
         Box.addItem(rs.getInt("ID"));
     }

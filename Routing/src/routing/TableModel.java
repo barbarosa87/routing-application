@@ -55,7 +55,7 @@ public class TableModel extends AbstractTableModel {
          ResultSet rs;
       // Execute the query and store the result set and its metadata
       switch (TableType){
-          case Area:
+          case Areas:
               //Type="Areas";
               //statement = conn.createStatement(); 
               rs = db.SelectFromDb(TableType, "", conn);
@@ -79,7 +79,7 @@ public class TableModel extends AbstractTableModel {
               conn.close();
               rs.close();
               break;
-          case Node:
+          case Nodes:
               //Type="Nodes";
               //statement = conn.createStatement(); 
               //rs = statement.executeQuery("Select * from "+Type);

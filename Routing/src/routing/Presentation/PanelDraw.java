@@ -151,7 +151,7 @@ public class PanelDraw extends javax.swing.JPanel {
     
     private boolean CheckIfNodeIntermediate(int NodeID,Connection conn,DbConnection db){
         try {
-            ResultSet rs=db.SelectFromDb(TableNames.Node, "Where ID="+NodeID, conn);
+            ResultSet rs=db.SelectFromDb(TableNames.Nodes, "Where ID="+NodeID, conn);
             while(rs.next()){
                 if(rs.getInt("Area_flag")>0){
                     return false;
@@ -171,7 +171,7 @@ public class PanelDraw extends javax.swing.JPanel {
     Connection conn=db.Connect();
     List<Integer> NodesIDs=new ArrayList<Integer>();   
     try{
-    ResultSet rs=db.SelectFromDb(TableNames.Node,"WHERE Area_ID="+AreaID, conn);
+    ResultSet rs=db.SelectFromDb(TableNames.Nodes,"WHERE Area_ID="+AreaID, conn);
     while(rs.next()){
         NodesIDs.add(rs.getInt("ID"));
     }
@@ -188,7 +188,7 @@ public class PanelDraw extends javax.swing.JPanel {
     Connection conn=db.Connect();
     List<Integer> AreasIDs=new ArrayList<Integer>();
     try{
-    ResultSet rs=db.SelectFromDb(TableNames.Area,"", conn);
+    ResultSet rs=db.SelectFromDb(TableNames.Areas,"", conn);
     while(rs.next()){
         AreasIDs.add(rs.getInt("ID"));
     }
