@@ -18,5 +18,6 @@ public class Calculate  {
   }
   public double getNodeBlock(){
       return ((1-RoutingCnf.getp())*Math.pow(RoutingCnf.getp(), RoutingCnf.getk()))/(1-Math.pow(RoutingCnf.getp(), (RoutingCnf.getk()-1)));
+     //return (1-RoutingCnf.getp())*Math.pow(RoutingCnf.getp(), RoutingCnf.getk())
   }
 }

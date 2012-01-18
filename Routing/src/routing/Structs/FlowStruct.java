@@ -18,7 +18,7 @@ public class FlowStruct {
 public static class Flow{
    private String Name;
    private List AddedNodes=new ArrayList<Integer>();
-   private double ND=0;
+   private double ND=0.0;
    
    //Node with index 1 in AddedNodes is the sourceNode
    public Flow(String Name,int SourceNode){
@@ -34,6 +34,10 @@ public static class Flow{
    }
    public void CalculateND(double SwitchingDelay,double BackOffDelay){
        ND=ND+(SwitchingDelay+BackOffDelay);
+   }
+   
+   public double GetND(){
+       return ND;
    }
    public String GetFlowName(){
        return this.Name;

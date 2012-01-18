@@ -42,10 +42,10 @@ public final class RoutingCnf {
         put(59,774);
         put(60,782);
     }};
-   private static double p=0.5;
+   private static double p=2;
    private static double l=1;
    private static double m=0.4;
-   private static double k=1;
+   private static double k=5;
 //</editor-fold>
     
     

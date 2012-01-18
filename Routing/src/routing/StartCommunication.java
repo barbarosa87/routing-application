@@ -40,7 +40,7 @@ public class StartCommunication extends Calculate{
     private int StartBand;
     private int DestBand;
     private boolean FinalNode=false;
-    
+    private boolean FinalNotSameFrequency=false;
     
     
     
@@ -66,17 +66,10 @@ public class StartCommunication extends Calculate{
                    MakeNodeConnected(FlowNode);
                    fl.addNodeToFlow(FlowNode);
                    added=true;
+                   fl.CalculateND(super.getSwitchingDelay(GetNodeFrequency(FlowNode), GetNodeFrequency(SourceID)),super.getNodeBlock());
                    break;
                    case Redirect:
-                       //TODO REDIRECTION
-                       //TODO METRICS
                        fl.CalculateND(super.getSwitchingDelay(GetNodeFrequency(FlowNode), GetNodeFrequency(SourceID)),super.getNodeBlock());
-                       
-//                       ChangeFrequency(SourceID,RedirectNodeID);
-//                       StaticFlow.add(RedirectNodeID);                       
-//                       MakeNodeConnected(RedirectNodeID);
-//                       fl.addNodeToFlow(RedirectNodeID);
-                      
                        ChangeFrequency(SourceID,FlowNode);
                        StaticFlow.add(FlowNode);                       
                        MakeNodeConnected(FlowNode);
@@ -177,7 +170,7 @@ public class StartCommunication extends Calculate{
                         return ReplyCommands.AddToFlow;
                     }
                 }else  if (IntermediateRs.getInt("Area_flag")>0){
-                    //if(IntermediateRs.getInt("ID")==DestinationNode){
+                    
                     FlowNode=IntermediateRs.getInt("ID");
                     conn.close();
                     return ReplyCommands.AddToFlow;
@@ -236,6 +229,7 @@ public class StartCommunication extends Calculate{
              ResultSet rs=db.SelectFromDb(TableNames.Nodes, "WHERE ID="+NodeID, conn);
              rs.next();
              int Ch=rs.getInt("Frequency");
+             conn.close();
              return RoutingCnf.getFrequencyFromChannel(Ch);
          }catch(SQLException ex){
              ex.printStackTrace();
