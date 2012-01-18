@@ -32,6 +32,7 @@ public class PresentFlows extends javax.swing.JPanel {
         for(Integer i:fl.GetAddedNodesList()){
             appendString(i.toString()+",");
         }
+        appendString(" kai to NodeDelay einai <b>"+fl.GetND()+"</b>");
         appendString("<br/>");
     }
         PrintString();
