@@ -1,0 +1,11 @@
+service, power, bandwidth, priority, start, end
+FDD, 4, 5, 2, 1,10
+FDD, 4, 5, 2, 2, 10
+FDD, 4, 5, 2, 3, 10
+FDD, 4, 5, 2, 4, 10
+FDD, 4, 5, 2, 5, 10
+FDD, 4, 5, 2, 6, 10
+FDD, 4, 5, 2, 7, 10
+FDD, 4, 5, 2, 8, 10
+FDD, 4, 5, 2, 9, 10
+FDD, 4, 5, 2, 10, 10
