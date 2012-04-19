@@ -82,7 +82,7 @@ public class MyProblem {
         for(Map.Entry <InitializeData.TVWS[], InitializeData.SecondarySystem> entry : Temp_Solution.entrySet() ){
             Solution.put(entry.getKey(), entry.getValue());
         }
-        result.append("<HTML><HEAD><TITLE>Spectrum Allocation Results</TITLE></HEAD><BODY>");
+        result.append("<HTML><HEAD><TITLE>Spectrum Allocation Results</TITLE></HEAD><link rel='stylesheet' type='text/css' href='Results.css' /><BODY>");
         if(removed){
             for(int l=0;l<System_ID.size();l++){
                 result.append("<p><b>System with ID ").append(System_ID.get(l)).append(" removed</b></p>");
