@@ -61,11 +61,13 @@ public class MyProblem {
         }
         }
         for(InitializeData.SecondarySystem Priority_One_System:Priority_One_Systems){
+            myfunc.Initialization();
             List<InitializeData.SecondarySystem> Temp_List=new ArrayList<InitializeData.SecondarySystem>();
             Temp_List.add(Priority_One_System);
             Temp_Solution.putAll(myfunc.anneal(Temp_List));
         }
         for(InitializeData.SecondarySystem Priority_Two_System:Priority_Two_Systems){
+            myfunc.Initialization();
               List<InitializeData.SecondarySystem> Temp_List=new ArrayList<InitializeData.SecondarySystem>();
             Temp_List.add(Priority_Two_System);
             Temp_Solution.putAll(myfunc.anneal(Temp_List));
