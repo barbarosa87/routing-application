@@ -46,7 +46,34 @@ public class MyProblem {
             }
         }
         Map<InitializeData.TVWS[], InitializeData.SecondarySystem> Temp_Solution = new HashMap<InitializeData.TVWS[],InitializeData.SecondarySystem>() {};
-        Temp_Solution=myfunc.anneal(RoundSystems);
+        //Creating Systems Considering Priority
+        List<InitializeData.SecondarySystem> Priority_Systems = new ArrayList<InitializeData.SecondarySystem>();
+        List<InitializeData.SecondarySystem> Priority_One_Systems =new ArrayList<InitializeData.SecondarySystem>();
+        List<InitializeData.SecondarySystem> Priority_Two_Systems = new ArrayList<InitializeData.SecondarySystem>();
+        //Prepei na ginei diaxwrismos me vasi priority diktyou
+        for(InitializeData.SecondarySystem RoundSystem:RoundSystems){
+        switch (RoundSystem.priority){
+            case 1:
+                Priority_One_Systems.add(RoundSystem);
+                break;
+            case 2:
+                Priority_Two_Systems.add(RoundSystem);
+        }
+        }
+        for(InitializeData.SecondarySystem Priority_One_System:Priority_One_Systems){
+            List<InitializeData.SecondarySystem> Temp_List=new ArrayList<InitializeData.SecondarySystem>();
+            Temp_List.add(Priority_One_System);
+            Temp_Solution.putAll(myfunc.anneal(Temp_List));
+        }
+        for(InitializeData.SecondarySystem Priority_Two_System:Priority_Two_Systems){
+              List<InitializeData.SecondarySystem> Temp_List=new ArrayList<InitializeData.SecondarySystem>();
+            Temp_List.add(Priority_Two_System);
+            Temp_Solution.putAll(myfunc.anneal(Temp_List));
+        }
+        
+        
+        //Temp_Solution=myfunc.anneal(RoundSystems);        
+        
         RoundTimeSolution.add(new RoundTimeSolutionClass.Solution(j,Annealing.return_fragmentation,Annealing.end_time-Annealing.start_time, new HashMap<InitializeData.TVWS[],InitializeData.SecondarySystem>(Temp_Solution)));
         //Populating Cost
         Cost.add(Annealing.return_cost);
