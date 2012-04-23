@@ -64,13 +64,27 @@ public class MyProblem {
             myfunc.Initialization();
             List<InitializeData.SecondarySystem> Temp_List=new ArrayList<InitializeData.SecondarySystem>();
             Temp_List.add(Priority_One_System);
+            Map<InitializeData.TVWS[], InitializeData.SecondarySystem> Temporary = new HashMap<InitializeData.TVWS[],InitializeData.SecondarySystem>() {};
+            Temporary.putAll(myfunc.anneal(Temp_List));
+            Temp_Solution.putAll(Temporary);
             Temp_Solution.putAll(myfunc.anneal(Temp_List));
+            if(Temporary.isEmpty()){
+            result.append("<b>System ").append(Priority_One_System.name).append(" with ID ").append(Priority_One_System.id).append(" cannot be inserted</b>");
+            }
+            Temporary.clear();
         }
         for(InitializeData.SecondarySystem Priority_Two_System:Priority_Two_Systems){
             myfunc.Initialization();
               List<InitializeData.SecondarySystem> Temp_List=new ArrayList<InitializeData.SecondarySystem>();
             Temp_List.add(Priority_Two_System);
+            Map<InitializeData.TVWS[], InitializeData.SecondarySystem> Temporary = new HashMap<InitializeData.TVWS[],InitializeData.SecondarySystem>() {};
+            Temporary.putAll(myfunc.anneal(Temp_List));
+            Temp_Solution.putAll(Temporary);
             Temp_Solution.putAll(myfunc.anneal(Temp_List));
+            if(Temporary.isEmpty()){
+            result.append("<b>System ").append(Priority_Two_System.name).append(" with ID ").append(Priority_Two_System.id).append(" cannot be inserted</b>");
+            }
+            Temporary.clear();
         }
         
         
