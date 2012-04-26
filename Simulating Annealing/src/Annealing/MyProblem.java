@@ -47,7 +47,6 @@ public class MyProblem {
         }
         Map<InitializeData.TVWS[], InitializeData.SecondarySystem> Temp_Solution = new HashMap<InitializeData.TVWS[],InitializeData.SecondarySystem>() {};
         //Creating Systems Considering Priority
-        List<InitializeData.SecondarySystem> Priority_Systems = new ArrayList<InitializeData.SecondarySystem>();
         List<InitializeData.SecondarySystem> Priority_One_Systems =new ArrayList<InitializeData.SecondarySystem>();
         List<InitializeData.SecondarySystem> Priority_Two_Systems = new ArrayList<InitializeData.SecondarySystem>();
         //Prepei na ginei diaxwrismos me vasi priority diktyou
